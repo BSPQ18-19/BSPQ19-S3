@@ -44,7 +44,10 @@ public class JMainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-		
+		//prueba registro
+		JRegistro r=new JRegistro();
+		contentPane.add(r);
+		//login
 		JLogin login = new JLogin();
 		contentPane.add(login, "name_7251737340411");
 	}

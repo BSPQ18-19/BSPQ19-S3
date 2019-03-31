@@ -27,9 +27,9 @@ public class JLogin extends JPanel {
 	public JLogin() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblIniciarSesin = new JLabel("Iniciar sesión");
@@ -98,10 +98,25 @@ public class JLogin extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnIniciarSesin = new GridBagConstraints();
+		gbc_btnIniciarSesin.insets = new Insets(0, 0, 5, 0);
 		gbc_btnIniciarSesin.gridwidth = 2;
-		gbc_btnIniciarSesin.gridx = 0;
+		gbc_btnIniciarSesin.gridx = 1;
 		gbc_btnIniciarSesin.gridy = 3;
 		add(btnIniciarSesin, gbc_btnIniciarSesin);
+		
+//		JButton btnRegistrarse = new JButton("Registrarse");
+//		btnRegistrarse.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				JRegistro j =new JRegistro();
+//				j.main();
+//			}
+//		});
+//		GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
+//		gbc_btnRegistrarse.insets = new Insets(0, 0, 5, 0);
+//		gbc_btnRegistrarse.gridx = 1;
+//		gbc_btnRegistrarse.gridy = 4;
+//		add(btnRegistrarse, gbc_btnRegistrarse);
 		
 	}
 	
