@@ -2,7 +2,9 @@ package es.deusto.data;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.*;
 
+@PersistenceCapable
 public class Usuario implements Serializable{
 
 	/**
@@ -10,6 +12,7 @@ public class Usuario implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@PrimaryKey
 	private int idUs;
 	private String nombre;
 	private String pass;
@@ -18,13 +21,13 @@ public class Usuario implements Serializable{
 	
 	
 	public Usuario(int idUs, String nombre, String pass, String nick, int edad) {
-		super();
 		this.idUs = idUs;
 		this.nombre = nombre;
 		this.pass = pass;
 		this.nick = nick;
 		this.edad = edad;
 	}
+	
 	public int getIdUs() {
 		return idUs;
 	}

@@ -1,5 +1,8 @@
 package es.deusto.data;
 
+import javax.jdo.annotations.PersistenceCapable;
+
+@PersistenceCapable
 public class UsuarioEstandar extends Usuario
 {
 
