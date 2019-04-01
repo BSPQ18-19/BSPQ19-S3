@@ -28,12 +28,14 @@ public class JLogin extends JPanel {
 	private static final long serialVersionUID = -3289809450257788720L;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private ServiceLocator serviceLocator;
 
 	/**
 	 * Create the panel.
 	 * @param cardLayout 
 	 */
-	public JLogin(CardLayout cardLayout) {
+	public JLogin(CardLayout cardLayout, ServiceLocator serviceLocator) {
+		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
@@ -105,6 +107,7 @@ public class JLogin extends JPanel {
 						if(ok) {
 							clear();
 							cardLayout.show(getParent(), JMainFrame.PRINCIPAL);
+							JMainFrame.usuario = usuario;
 						}else {
 							JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(JLogin.this),
 									"Usuario no válido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -142,13 +145,8 @@ public class JLogin extends JPanel {
 	}
 	
 	public boolean iniciarSesion(String usuario, String contrasenya) {
-		ServiceLocator serviceLocator = new ServiceLocator();
-		if (!serviceLocator.setService()) {
-			return false;
-		}
 		try {
 			boolean b = serviceLocator.getService().login(usuario, contrasenya);
-			System.out.println(b);
 			return b;
 		} catch (RemoteException e) {
 			return false;

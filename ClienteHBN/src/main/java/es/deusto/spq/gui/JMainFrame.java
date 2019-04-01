@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import es.deusto.spq.remote.ServiceLocator;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -37,6 +40,9 @@ public class JMainFrame extends JFrame {
 	public static final String LOGIN = "LOGIN";
 	public static final String REGISTRO = "REGISTRO";
 	public static final String PRINCIPAL = "PRINCIPAL";
+	
+	static String usuario;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -50,8 +56,11 @@ public class JMainFrame extends JFrame {
 		CardLayout cardLayout = new CardLayout(0, 0);
 		contentPane.setLayout(cardLayout);
 		
+		ServiceLocator serviceLocator = new ServiceLocator();
+		serviceLocator.setService();
+		
 		//login
-		JLogin login = new JLogin(cardLayout);
+		JLogin login = new JLogin(cardLayout, serviceLocator);
 		contentPane.add(login, LOGIN);
 		
 		// prueba registro
