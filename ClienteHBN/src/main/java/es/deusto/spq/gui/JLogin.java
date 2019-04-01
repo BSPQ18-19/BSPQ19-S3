@@ -6,9 +6,13 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+
+import es.deusto.spq.remote.ServiceLocator;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -120,9 +124,15 @@ public class JLogin extends JPanel {
 		
 	}
 	
-	public void iniciarSesion(String usuario, String contrasenya) {
+	public boolean iniciarSesion(String usuario, String contrasenya) {
 		//TODO:logica
-		
+		ServiceLocator serviceLocator = new ServiceLocator();
+		serviceLocator.setService();
+		try {
+			return serviceLocator.getService().login(usuario, contrasenya);
+		} catch (RemoteException e) {
+			return false;
+		}
 	}
 
 }
