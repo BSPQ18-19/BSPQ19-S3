@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class JMainFrame extends JFrame {
 
@@ -31,6 +34,9 @@ public class JMainFrame extends JFrame {
 		});
 	}
 
+	public static final String LOGIN = "LOGIN";
+	public static final String REGISTRO = "REGISTRO";
+	public static final String PRINCIPAL = "PRINCIPAL";
 	/**
 	 * Create the frame.
 	 */
@@ -41,15 +47,23 @@ public class JMainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
+		CardLayout cardLayout = new CardLayout(0, 0);
+		contentPane.setLayout(cardLayout);
 		
 		//login
-		JLogin login = new JLogin();
-		contentPane.add(login, "name_7251737340411");
+		JLogin login = new JLogin(cardLayout);
+		contentPane.add(login, LOGIN);
 		
 		// prueba registro
 		JRegistro r = new JRegistro();
-		contentPane.add(r);
+		contentPane.add(r, REGISTRO);
+		
+		JLabel lblPrincipal = new JLabel("Principal");
+		lblPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblPrincipal, PRINCIPAL);
+		
+		
 	}
 
 }
