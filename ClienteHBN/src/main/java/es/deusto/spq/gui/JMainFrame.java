@@ -9,10 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import es.deusto.spq.remote.ServiceLocator;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-
 public class JMainFrame extends JFrame {
 
 	/**
@@ -67,10 +63,8 @@ public class JMainFrame extends JFrame {
 		JRegistro r = new JRegistro();
 		contentPane.add(r, REGISTRO);
 		
-		JLabel lblPrincipal = new JLabel("Principal");
-		lblPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblPrincipal, PRINCIPAL);
+		JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
+		contentPane.add(selectorPerfil, PRINCIPAL);
 		
 		
 	}
