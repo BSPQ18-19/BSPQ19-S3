@@ -19,7 +19,7 @@
     <server.IP>127.0.0.1</server.IP>
 	<server.port>1099</server.port>
 	<server.Name>Servidor</server.Name>
-	<policy.file>${basedir}/security/java.policy</policy.file>
+	<policy.file>${basedir}/src/main/resources/security/java.policy</policy.file>
   </properties>
 
   <dependencies>
@@ -107,7 +107,7 @@
 						<artifactId>exec-maven-plugin</artifactId>
 						<version>1.2.1</version>
 						<configuration>
-							<mainClass>es.deusto.sqp.Main</mainClass>
+							<mainClass>es.deusto.spq.Main</mainClass>
 							<systemProperties>
 								<systemProperty>
 									<key>java.security.manager</key>
