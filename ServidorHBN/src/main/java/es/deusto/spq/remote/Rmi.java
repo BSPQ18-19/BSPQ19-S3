@@ -34,7 +34,11 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	public boolean login(String usuario, String contrasenya) {
 		// TODO Añadir lógica
 		System.out.println("login(String "+usuario+", String "+contrasenya+")");
-		return contrasenya.contentEquals(usuarios.get(usuario));
+		String u = usuarios.get(usuario);
+		if(u == null) return false;
+		boolean b = contrasenya.contentEquals(u);
+		System.out.println("\t"+b);
+		return b;
 	}
 
 	@Override

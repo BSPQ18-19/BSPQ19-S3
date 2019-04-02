@@ -10,6 +10,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 
 import javax.swing.JPasswordField;
@@ -146,7 +147,8 @@ public class JLogin extends JPanel {
 	
 	public boolean iniciarSesion(String usuario, String contrasenya) {
 		try {
-			boolean b = serviceLocator.getService().login(usuario, contrasenya);
+			IRmi s = serviceLocator.getService();
+			boolean b = s.login(usuario, contrasenya);
 			return b;
 		} catch (RemoteException e) {
 			return false;
