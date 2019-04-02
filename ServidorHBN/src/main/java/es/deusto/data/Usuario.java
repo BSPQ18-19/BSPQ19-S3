@@ -2,28 +2,37 @@ package es.deusto.data;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 
 public class Usuario implements Serializable{
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", pass=" + pass + ", nick=" + nick + ", fecha_nac=" + fecha_nac + "]";
+	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private int idUs;
 	private String nombre;
 	private String pass;
 	private String nick;
-	private int edad;
-	
-	
-	public Usuario(int idUs, String nombre, String pass, String nick, int edad) {
+	private String fecha_nac;
+	public Usuario(String nombre, String pass, String nick, String fecha_nac) {
 		super();
-		this.idUs = idUs;
 		this.nombre = nombre;
 		this.pass = pass;
 		this.nick = nick;
-		this.edad = edad;
+		this.fecha_nac = fecha_nac;
 	}
 	public int getIdUs() {
 		return idUs;
@@ -49,15 +58,17 @@ public class Usuario implements Serializable{
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	public int getEdad() {
-		return edad;
+	public String getFecha_nac() {
+		return fecha_nac;
 	}
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public void setFecha_nac(String fecha_nac) {
+		this.fecha_nac = fecha_nac;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
 	
 	
 	
