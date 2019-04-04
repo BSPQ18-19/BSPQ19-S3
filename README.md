@@ -18,18 +18,20 @@ HBN
 
 ## NUEVAS FUNCIONALIDADES!
 
-  [x] Cuentas de administradores y usuarios creadas
-  [x] Películas y series creadas
-  [ ] Diferentes perfiles de usuario
-  [x] Funcionalidades de inicio de sesión y registro añadidas
-  [X] BD creada
+ - [x] Cuentas de administradores y usuarios creadas
+ - [x] Películas y series creadas
+ - [ ] Diferentes perfiles de usuario
+ - [x] Funcionalidades de inicio de sesión y registro añadidas
+ - [X] BD creada
 
 ## Instalación
-Pasos previos:
+**Pasos previos:**
+
 * Crear BD (_MySql_) en _localhost_ (127.0.0.1) con el nombre: **hbn**.
 * Crear un usuario con permisos sobre la BD , cuyo nombre y contraseña han de ser, respectivamente: **hbnadmin** ; **admin**.
 
-Pasos a seguir:
+**Pasos a seguir:**
+
 -En el proyecto _comun_:
 
 ```sh
