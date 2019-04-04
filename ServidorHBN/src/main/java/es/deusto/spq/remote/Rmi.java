@@ -4,8 +4,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import javax.jdo.Extent;
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
 import es.deusto.data.Cliente;
@@ -35,7 +39,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 //		this.pm = pmf.getPersistenceManager();
 //		this.tx = pm.currentTransaction();
-		//Usuarios y perfiles de prueba
 		
 		perfiles.put("josu", new String[] {"1", "2", "3"});
 		usuarios.put("josu", "josu");
@@ -52,9 +55,52 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		pm.close();
 	}
 
+	private Cliente getCliente(String usuario, String contrasenya){
+		Cliente clienteCorrecto = null;
+        try
+        {
+            tx.begin();
+            System.out.println("Retrieving Extent for Messages");
+            Extent<Cliente> e = pm.getExtent(Cliente.class, true);
+            Iterator<Cliente> iter = e.iterator();
+            boolean seguir = true;
+            while (iter.hasNext() && seguir)
+            {
+                Cliente cliente = iter.next();
+                
+                if(cliente.getNick().equals(usuario) && cliente.getPass().contentEquals(contrasenya)) {
+                	seguir = false;
+                	clienteCorrecto = cliente;
+                }
+            }
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception thrown during retrieval of Extent : " + e.getMessage());
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+        
+        
+		return clienteCorrecto;
+	}
+	
 	@Override
 	public boolean login(String usuario, String contrasenya) {
-		// TODO Añadir lógica
+//		System.out.println("login(String "+usuario+", String "+contrasenya+")");
+//		if(getCliente(usuario, contrasenya)!=null) {
+//			return true;
+//		}else{
+//			return false;
+//		}
+		
 		System.out.println("login(String "+usuario+", String "+contrasenya+")");
 		String u = usuarios.get(usuario);
 		if(u == null) return false;
