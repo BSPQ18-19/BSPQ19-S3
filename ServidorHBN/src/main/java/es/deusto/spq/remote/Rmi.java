@@ -29,9 +29,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	
 		
 
-	
-	private HashMap<String, String[]> perfiles = new HashMap<String, String[]>();
-	private HashMap<String, String> usuarios = new HashMap<String, String>();
+	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
 	public ArrayList<Cliente>c=new ArrayList<Cliente>();
 	public Rmi(String serverName) throws RemoteException {
 		super();
@@ -40,8 +38,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //		this.pm = pmf.getPersistenceManager();
 //		this.tx = pm.currentTransaction();
 		
-		perfiles.put("josu", new String[] {"1", "2", "3"});
-		usuarios.put("josu", "josu");
 	}
 
 	public String getName() {
@@ -55,6 +51,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		pm.close();
 	}
 
+	@SuppressWarnings("unused")
 	private Cliente getCliente(String usuario, String contrasenya){
 		Cliente clienteCorrecto = null;
         try
@@ -102,9 +99,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //		}
 		
 		System.out.println("login(String "+usuario+", String "+contrasenya+")");
-		String u = usuarios.get(usuario);
+		Cliente u = hashMap.get(usuario);
 		if(u == null) return false;
-		boolean b = contrasenya.contentEquals(u);
+		boolean b = contrasenya.contentEquals(u.getPass());
 		System.out.println("\t"+b);
 		return b;
 	}
@@ -149,13 +146,13 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
             m = Modo.ADMIN;
             cliente = new Cliente(usuario, pass, nick, fecha, m);
         }
-        c.add(cliente);
+        hashMap.put(cliente.getNick(), cliente);
         System.out.println("añadido");
 	}
 
 	@Override
 	public String[] getPerfiles(String usuario) throws RemoteException {
-		return perfiles.get(usuario);
+		return new String[] {"Default"};
 	}
 	
 	

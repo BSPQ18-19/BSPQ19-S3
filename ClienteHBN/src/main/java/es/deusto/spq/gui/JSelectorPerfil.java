@@ -15,6 +15,9 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
@@ -150,15 +153,25 @@ public class JSelectorPerfil extends JPanel {
 		list.setModel(defaultListModel);
 	}
 	
-	private ServiceLocator serviceLocator;
-	//TODO:
 	public JSelectorPerfil(ServiceLocator serviceLocator) {
 		this();
-		this.serviceLocator = serviceLocator;
 		IRmi service = serviceLocator.getService();
-//		service.getPerfiles(usuario);
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				defaultListModel.removeAllElements();
+				try {
+					String perfiles [] = service.getPerfiles(JMainFrame.usuario);
+					for(String s : perfiles) {
+						add(new JPerfil(s));
+					}
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
-
+	
 	public void add(JPerfil perfil) {
 		defaultListModel.addElement(perfil);
 	}
