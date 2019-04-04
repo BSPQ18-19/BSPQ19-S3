@@ -61,32 +61,13 @@
       <version>[1.2.17, )</version>
     </dependency>
     <dependency>
-        <groupId>javax.jdo</groupId>
-        <artifactId>jdo-api</artifactId>
-        <version>3.1</version>
+      <groupId>javax.jdo</groupId>
+      <artifactId>jdo-api</artifactId>
+      <version>3.1</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.datanucleus/datanucleus-core -->
-    <dependency>
-        <groupId>org.datanucleus</groupId>
-        <artifactId>datanucleus-core</artifactId>
-        <version>5.2.0-release</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.datanucleus/datanucleus-api-jdo -->
-    <dependency>
-        <groupId>org.datanucleus</groupId>
-        <artifactId>datanucleus-api-jdo</artifactId>
-        <version>5.2.0-release</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.datanucleus/datanucleus-rdbms -->
-    <dependency>
-        <groupId>org.datanucleus</groupId>
-        <artifactId>datanucleus-rdbms</artifactId>
-        <version>5.2.0-release</version>
-		</dependency>
-
     <dependency><groupId>es.deusto.spq</groupId>
-        <artifactId>comun</artifactId>
-        <version>1.0-SNAPSHOT</version>
+      <artifactId>comun</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
 
   </dependencies>
