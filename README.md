@@ -23,7 +23,21 @@
 
 ## Instalación
 
+En el proyecto _comun_:
 
+  > mvn install
+
+En el proyecto cliente y en el servidor:
+
+  - Añadir el siguiente argumento a la VM de java o al ejecutarlo:
+
+  > -Djava.security.policy=security/java.policy
+
+  - mvn mvn compile
+
+En el servidor:
+  
+  > mvn datanucleus:schema-create 
 
 ### Versión
 v1.0
