@@ -23,7 +23,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry combineaccessrules="false" kind="src" path="/ServidorHBN"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/comun"/>
+=======
+>>>>>>> refs/heads/master
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

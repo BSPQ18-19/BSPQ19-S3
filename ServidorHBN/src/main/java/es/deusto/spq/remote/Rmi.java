@@ -5,14 +5,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
-import es.deusto.data.Administrador;
-import es.deusto.data.Usuario;
-import es.deusto.data.UsuarioEstandar;
+import es.deusto.data.Cliente;
+import es.deusto.data.Cliente.Modo;
 
 public class Rmi extends UnicastRemoteObject implements IRmi {
 
@@ -31,7 +28,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	
 	private HashMap<String, String[]> perfiles = new HashMap<String, String[]>();
 	private HashMap<String, String> usuarios = new HashMap<String, String>();
-	public ArrayList<Usuario>u=new ArrayList<Usuario>();
+	public ArrayList<Cliente>c=new ArrayList<Cliente>();
 	public Rmi(String serverName) throws RemoteException {
 		super();
 		this.serverName = serverName;
@@ -58,12 +55,15 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	@Override
 	public boolean login(String usuario, String contrasenya) {
 		// TODO Añadir lógica
-
-		System.out.println("login(String " + usuario + ", String " + contrasenya + ")");
-		return true;
+		System.out.println("login(String "+usuario+", String "+contrasenya+")");
+		String u = usuarios.get(usuario);
+		if(u == null) return false;
+		boolean b = contrasenya.contentEquals(u);
+		System.out.println("\t"+b);
+		return b;
 	}
 
-	public void registrarse(String usuario, String nick, String pass, String fecha_nac,int tipo) {
+	public void registrarse(String usuario, String nick, String pass, String fecha,int tipo) {
 //		try {
 //			tx.begin();
 //			System.out.println("Comprobando que el usuario no existe '" + usuario + "'");
@@ -94,15 +94,17 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //				tx.rollback();
 //			}
 //		}
-		Usuario user ;
-		if(tipo==0) {
-			user = new UsuarioEstandar(usuario, pass, nick, fecha_nac);}
-			else{
-			user = new Administrador(usuario, pass, nick, fecha_nac);
-			}
-		u.add(user);
-		System.out.println("añadido");
-
+		Cliente cliente;
+		Modo m;
+        if (tipo == 0) {
+            m = Modo.USER;
+            cliente = new Cliente(usuario, pass, nick, fecha, m);
+        } else {
+            m = Modo.ADMIN;
+            cliente = new Cliente(usuario, pass, nick, fecha, m);
+        }
+        c.add(cliente);
+        System.out.println("añadido");
 	}
 
 	@Override
