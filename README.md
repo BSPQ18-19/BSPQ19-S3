@@ -38,6 +38,8 @@ En el proyecto cliente y en el servidor:
 En el servidor:
   
   > mvn datanucleus:schema-create 
+  
+  Para lanzar el registry.bat, debe de estar en ServidorHBN/target/classes.
 
 ### Versión
 v1.0
