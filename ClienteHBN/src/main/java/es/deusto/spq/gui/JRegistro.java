@@ -1,5 +1,6 @@
 package es.deusto.spq.gui;
 
+import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -10,11 +11,23 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingUtilities;
+
+import es.deusto.spq.remote.IRmi;
+import es.deusto.spq.remote.ServiceLocator;
 
 import javax.swing.JComboBox;
+import javax.swing.JSpinner;
+import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 
 public class JRegistro extends JPanel {
 	/**
@@ -22,31 +35,20 @@ public class JRegistro extends JPanel {
 	 */
 	private static final long serialVersionUID = -1L;
 	private JTextField textField;
-	private JPasswordField passwordField;
-	private JTextField txtEdad;
-	private JTextField txtContrasea;
-	private JTextField txtConfirmarcontrasea;
+	private JPasswordField pwdContrasea;
+	private JPasswordField pwdConfirmarcontrasea;
+	private JTextField txtNick;
+	private ServiceLocator serviceLocator;
 
-	public static void main() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JRegistro registro = new JRegistro();
-					registro.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the panel.
 	 */
-	public JRegistro() {
+	public JRegistro(CardLayout cardLayout, ServiceLocator serviceLocator) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		this.serviceLocator=serviceLocator;
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 48, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
@@ -69,6 +71,20 @@ public class JRegistro extends JPanel {
 		add(lblUsuario, gbc_lblUsuario);
 
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent ke) {
+				char c = ke.getKeyChar();
+				// Prohibido número y caracteres especiales
+				if (!Character.isAlphabetic(c)) {
+					getToolkit().beep();
+					ke.consume();
+					JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
+
+				}
+
+			}
+		});
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -85,15 +101,31 @@ public class JRegistro extends JPanel {
 		gbc_lblNick.gridy = 2;
 		add(lblNick, gbc_lblNick);
 
-		passwordField = new JPasswordField();
-		GridBagConstraints gbc_passwordField = new GridBagConstraints();
-		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
-		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_passwordField.gridx = 1;
-		gbc_passwordField.gridy = 2;
-		add(passwordField, gbc_passwordField);
+		txtNick = new JTextField();
+		txtNick.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
 
-		JLabel lblEdad = new JLabel("Edad:");
+				char c = e.getKeyChar();
+
+				if (!Character.isDigit(c) && !Character.isAlphabetic(c)) {
+					getToolkit().beep();
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
+				}
+
+			}
+		});
+		txtNick.setText("");
+		GridBagConstraints gbc_txtNick = new GridBagConstraints();
+		gbc_txtNick.insets = new Insets(0, 0, 5, 5);
+		gbc_txtNick.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNick.gridx = 1;
+		gbc_txtNick.gridy = 2;
+		add(txtNick, gbc_txtNick);
+		txtNick.setColumns(10);
+
+		JLabel lblEdad = new JLabel("Fecha nac:");
 		GridBagConstraints gbc_lblEdad = new GridBagConstraints();
 		gbc_lblEdad.anchor = GridBagConstraints.EAST;
 		gbc_lblEdad.insets = new Insets(0, 0, 5, 5);
@@ -101,15 +133,51 @@ public class JRegistro extends JPanel {
 		gbc_lblEdad.gridy = 3;
 		add(lblEdad, gbc_lblEdad);
 
-		txtEdad = new JTextField();
-		txtEdad.setText("");
-		GridBagConstraints gbc_txtEdad = new GridBagConstraints();
-		gbc_txtEdad.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEdad.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEdad.gridx = 1;
-		gbc_txtEdad.gridy = 3;
-		add(txtEdad, gbc_txtEdad);
-		txtEdad.setColumns(10);
+		JComboBox comboBox = new JComboBox();
+		comboBox.addItem("Usuario");
+		comboBox.addItem("Administrador");
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 6;
+		add(comboBox, gbc_comboBox);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 50, 15);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 3;
+		add(panel, gbc_panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		// dia
+
+		SimpleDateFormat model1 = new SimpleDateFormat("dd-MM-yyyy");
+		// mes
+//		SimpleDateFormat model2 = new SimpleDateFormat("MM");
+//		// año
+//		SimpleDateFormat model3 = new SimpleDateFormat("yyyy");
+
+		JSpinner spinner = new JSpinner(new SpinnerDateModel());
+		spinner.setEditor(new JSpinner.DateEditor(spinner, model1.toPattern()));
+		panel.add(spinner);
+
+		JLabel label = new JLabel("/");
+		panel.add(label);
+
+//		JSpinner spinner_1 = new JSpinner(new SpinnerDateModel());
+//		spinner_1.setEditor(new JSpinner.DateEditor(spinner_1, model2.toPattern()));
+//		panel.add(spinner_1);
+//
+//		JLabel label_1 = new JLabel("/");
+//		panel.add(label_1);
+//
+//		JSpinner spinner_2 = new JSpinner(new SpinnerDateModel());
+//		spinner_2.setEditor(new JSpinner.DateEditor(spinner_2, model3.toPattern()));
+//		panel.add(spinner_2);
 
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
@@ -122,36 +190,60 @@ public class JRegistro extends JPanel {
 		JButton btnRegistro = new JButton("Registrarse");
 		btnRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				final String usuario;
-				final String contrasenya;
-
-				usuario = textField.getText();
-				contrasenya = new String(passwordField.getPassword());
-
+				char[] pass = pwdContrasea.getPassword();
+				//variables
+			 final String usuario=textField.getText();
+			 final String passString=new String(pass);
+			 final String nick=txtNick.getText();
+			 final String fecha_nac=spinner.getValue().toString();
+			 //spinner_1.getValue().toString()+"/"+spinner_2.getValue().toString();
+			 final int tipo=comboBox.getSelectedIndex();
+				
 				// Se usa un thread porque es posible que pueda tardar bastante
 				Thread thread = new Thread(new Runnable() {
 
 					@Override
 					public void run() {
+						if (!textField.getText().isEmpty() && !txtNick.getText().isEmpty()
+								&& pwdContrasea.getPassword().length > 0
+								&& pwdConfirmarcontrasea.getPassword().length > 0) {
+							if (confirmarContaseña(pwdContrasea.getPassword(), pwdConfirmarcontrasea.getPassword())) {
+								
+								btnRegistro.setEnabled(false);
+								try {
+									registrarse(usuario, nick, passString, fecha_nac,tipo);
+								} catch (RemoteException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								btnRegistro.setEnabled(true);
+								System.out.println(usuario+ nick+ passString+ fecha_nac);
+								cardLayout.show(getParent(), JMainFrame.LOGIN);
+								JMainFrame.usuario = usuario;
+								
+							}else {
+								JOptionPane.showMessageDialog(null, "Debe de coincidir la contraseña", "Error",
+										JOptionPane.WARNING_MESSAGE);
+							}
 
-						btnRegistro.setEnabled(false);
-						registrarse();
-						btnRegistro.setEnabled(true);
+						} else {
+							JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos", "Error",
+									JOptionPane.WARNING_MESSAGE);
+					}
 					}
 				});
 				thread.start();
 			}
 		});
 
-		txtContrasea = new JTextField();
-		txtContrasea.setText("");
-		GridBagConstraints gbc_txtContrasea = new GridBagConstraints();
-		gbc_txtContrasea.insets = new Insets(0, 0, 5, 5);
-		gbc_txtContrasea.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtContrasea.gridx = 1;
-		gbc_txtContrasea.gridy = 4;
-		add(txtContrasea, gbc_txtContrasea);
-		txtContrasea.setColumns(10);
+		pwdContrasea = new JPasswordField();
+		pwdContrasea.setText("");
+		GridBagConstraints gbc_pwdContrasea = new GridBagConstraints();
+		gbc_pwdContrasea.insets = new Insets(0, 0, 5, 5);
+		gbc_pwdContrasea.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pwdContrasea.gridx = 1;
+		gbc_pwdContrasea.gridy = 4;
+		add(pwdContrasea, gbc_pwdContrasea);
 
 		JLabel lblConfirmarContrasea = new JLabel("Confirmar Contraseña:");
 		GridBagConstraints gbc_lblConfirmarContrasea = new GridBagConstraints();
@@ -161,15 +253,14 @@ public class JRegistro extends JPanel {
 		gbc_lblConfirmarContrasea.gridy = 5;
 		add(lblConfirmarContrasea, gbc_lblConfirmarContrasea);
 
-		txtConfirmarcontrasea = new JTextField();
-		txtConfirmarcontrasea.setText("");
-		GridBagConstraints gbc_txtConfirmarcontrasea = new GridBagConstraints();
-		gbc_txtConfirmarcontrasea.insets = new Insets(0, 0, 5, 5);
-		gbc_txtConfirmarcontrasea.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtConfirmarcontrasea.gridx = 1;
-		gbc_txtConfirmarcontrasea.gridy = 5;
-		add(txtConfirmarcontrasea, gbc_txtConfirmarcontrasea);
-		txtConfirmarcontrasea.setColumns(10);
+		pwdConfirmarcontrasea = new JPasswordField();
+		pwdConfirmarcontrasea.setText("");
+		GridBagConstraints gbc_pwdConfirmarcontrasea = new GridBagConstraints();
+		gbc_pwdConfirmarcontrasea.insets = new Insets(0, 0, 5, 5);
+		gbc_pwdConfirmarcontrasea.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pwdConfirmarcontrasea.gridx = 1;
+		gbc_pwdConfirmarcontrasea.gridy = 5;
+		add(pwdConfirmarcontrasea, gbc_pwdConfirmarcontrasea);
 
 		JLabel lblTipoDeUsuario = new JLabel("Tipo de Usuario");
 		GridBagConstraints gbc_lblTipoDeUsuario = new GridBagConstraints();
@@ -179,17 +270,17 @@ public class JRegistro extends JPanel {
 		gbc_lblTipoDeUsuario.gridy = 6;
 		add(lblTipoDeUsuario, gbc_lblTipoDeUsuario);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("Usuario");
-		comboBox.addItem("Administrador");
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 6;
-		add(comboBox, gbc_comboBox);
+		
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				cardLayout.show(getParent(), JMainFrame.LOGIN);
+				
+			}
+		});
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
@@ -204,9 +295,30 @@ public class JRegistro extends JPanel {
 
 	}
 
-	public void registrarse() {
-		// TODO:logica
+	public boolean confirmarContaseña(char[] j1, char[] j2) {
+
+		boolean valor = true;
+		int puntero = 0;
+		if (j1.length != j2.length) {
+			valor = false;
+		} else {
+			while ((valor) && (puntero < j1.length)) {
+				if (j1[puntero] != j2[puntero]) {
+					valor = false;
+				}
+				puntero++;
+			}
+		}
+		return valor;
 
 	}
 
-}
+	public void registrarse(String usuario, String nick, String pass, String fecha_nac,int tipo) throws RemoteException {
+
+			System.out.println(serviceLocator);
+			IRmi s = serviceLocator.getService();
+			s.registrarse(usuario, nick, pass, fecha_nac,tipo);
+	
+
+		}
+	}

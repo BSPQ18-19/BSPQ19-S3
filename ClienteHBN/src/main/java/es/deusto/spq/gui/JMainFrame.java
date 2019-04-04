@@ -60,7 +60,7 @@ public class JMainFrame extends JFrame {
 		contentPane.add(login, LOGIN);
 		
 		// prueba registro
-		JRegistro r = new JRegistro();
+		JRegistro r = new JRegistro(cardLayout, serviceLocator);
 		contentPane.add(r, REGISTRO);
 		
 		JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);

@@ -3,6 +3,8 @@
 	<name>ClienteHBN</name>
 	<comment></comment>
 	<projects>
+		<project>comun</project>
+		<project>ServidorHBN</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
