@@ -14,8 +14,12 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <server.IP>127.0.0.1</server.IP>
+	<server.port>1099</server.port>
+	<server.Name>Servidor</server.Name>
+	<policy.file>${basedir}/security/java.policy</policy.file>
   </properties>
 
   <dependencies>
@@ -38,6 +42,7 @@
         <artifactId>datanucleus-api-jdo</artifactId>
         <version>5.1.9</version>
     </dependency>
+
     <dependency>
         <groupId>javax.jdo</groupId>
         <artifactId>jdo-api</artifactId>
@@ -60,7 +65,14 @@
         <groupId>org.datanucleus</groupId>
         <artifactId>datanucleus-rdbms</artifactId>
         <version>5.2.0-release</version>
+		</dependency>
+
+    <dependency><groupId>es.deusto.spq</groupId>
+        <artifactId>comun</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </dependency>
+        
+   
 
   </dependencies>
 
@@ -109,4 +121,41 @@
       </plugins>
     </pluginManagement>
   </build>
+  <profiles>
+		<!-- run as 'mvn exec:java -Pserver' -->
+		<profile>
+			<id>server</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<configuration>
+							<mainClass>es.deusto.sqp.Main</mainClass>
+							<systemProperties>
+								<systemProperty>
+									<key>java.security.manager</key>
+									<value>java.rmi.RMISecurityManager</value>
+								</systemProperty>
+								<systemProperty>
+									<key>java.rmi.server.codebase</key>
+									<value>file:${basedir}/target/classes/</value>
+								</systemProperty>
+								<systemProperty>
+									<key>java.security.policy</key>
+									<value>${policy.file}</value>
+								</systemProperty>
+							</systemProperties>
+							<arguments>
+								<argument>${server.IP}</argument>
+								<argument>${server.port}</argument>
+								<argument>${server.Name}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
