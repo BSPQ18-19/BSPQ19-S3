@@ -1,5 +1,7 @@
 package es.deusto.spq.remote;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ServiceLocator {
@@ -10,45 +12,22 @@ public class ServiceLocator {
 	
 	private IRmi stubServer;
 	
-	public void setService(){
+	public boolean setService(){
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-
+		String name = "//" + HOST + ":" + PORT + "/" + SERVER_NAME;
 		try {
-			String name = "//" + HOST + ":" + PORT + "/" + SERVER_NAME;
 			stubServer = (IRmi) java.rmi.Naming.lookup(name);
-			//System.out.println("* Message coming from the server: '" + stubServer.sayHello() + "'");
-//			try {
-//				stubServer.registerUser("usuario", "contraseña");
-//				System.out.println(stubServer.sayMessage("usuario", "contraseña", "Hola, esto es un mensaje"));
-//				System.out.println(stubServer.sayMessage("usuario", "contraseña incorrecta", "Esto no se va a ver"));
-//			} catch (RemoteException e) {
-//				System.err.println("Error al autentificarse: "+ e.getMessage());
-//			}
-//			try {
-//				System.out.println(stubServer.sayMessage("usuarioSinRegistrar", "contraseña2", "Esto no se va a ver"));
-//			} catch (RemoteException e) {
-//				System.err.println("Error al autentificarse: "+ e.getMessage());
-//			}
-		} catch (Exception e) {
-			System.err.println("- Exception running the client: " + e.getMessage());
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
+			return false;
 		}
-	}
-	public IRmi getService(){
-		return stubServer;
+		return true;
 	}
 	
-	public static void main(String args[]) {
-		ServiceLocator locator = new ServiceLocator();
-		locator.setService();
-		try {
-			locator.getService().login("u", "c");
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public IRmi getService(){
+		return stubServer;
 	}
 }
 

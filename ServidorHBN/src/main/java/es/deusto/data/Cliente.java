@@ -12,16 +12,20 @@ public class Cliente implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public enum Modo {
+		  ADMIN, USER;
+	}
+	
 	@PrimaryKey
 	private int idUs;
 	private String nombre;
 	private String pass;
 	private String nick;
 	private int edad;
-	private int tipo;
+	private Modo tipo;
 	
 	
-	public Cliente(int idUs, String nombre, String pass, String nick, int edad, int tipo) {
+	public Cliente(int idUs, String nombre, String pass, String nick, int edad, Modo tipo) {
 		this.idUs = idUs;
 		this.nombre = nombre;
 		this.pass = pass;
@@ -61,10 +65,12 @@ public class Cliente implements Serializable{
 		this.edad = edad;
 	}
 	
-	public int getTipo() {
+	public Modo getTipo() {
 		return tipo;
 	}
-	public void setTipo(int tipo) {
+	public void setTipo(Modo tipo) {
 		this.tipo = tipo;
 	}
+	
+	
 }

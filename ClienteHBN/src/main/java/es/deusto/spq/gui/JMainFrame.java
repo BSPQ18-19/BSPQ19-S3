@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import es.deusto.spq.remote.ServiceLocator;
+
 public class JMainFrame extends JFrame {
 
 	/**
@@ -31,6 +33,12 @@ public class JMainFrame extends JFrame {
 		});
 	}
 
+	public static final String LOGIN = "LOGIN";
+	public static final String REGISTRO = "REGISTRO";
+	public static final String PRINCIPAL = "PRINCIPAL";
+	
+	static String usuario;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -41,13 +49,24 @@ public class JMainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
-		//prueba registro
-		JRegistro r=new JRegistro();
-		contentPane.add(r);
+		CardLayout cardLayout = new CardLayout(0, 0);
+		contentPane.setLayout(cardLayout);
+		
+		ServiceLocator serviceLocator = new ServiceLocator();
+		serviceLocator.setService();
+		
 		//login
-		JLogin login = new JLogin();
-		contentPane.add(login, "name_7251737340411");
+		JLogin login = new JLogin(cardLayout, serviceLocator);
+		contentPane.add(login, LOGIN);
+		
+		// prueba registro
+		JRegistro r = new JRegistro();
+		contentPane.add(r, REGISTRO);
+		
+		JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
+		contentPane.add(selectorPerfil, PRINCIPAL);
+		
+		
 	}
 
 }

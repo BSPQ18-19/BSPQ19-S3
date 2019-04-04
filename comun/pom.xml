@@ -5,10 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>es.deusto.spq</groupId>
-  <artifactId>ClienteHBN</artifactId>
+  <artifactId>comun</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-  <name>ClienteHBN</name>
+  <name>comun</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -16,10 +17,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <server.IP>127.0.0.1</server.IP>
-	<server.port>1099</server.port>
-	<server.Name>Servidor</server.Name>
-	<policy.file>${basedir}/security/java.policy</policy.file>
   </properties>
 
   <dependencies>
@@ -28,12 +25,6 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-    <groupId>es.deusto.spq</groupId>
-    <artifactId>comun</artifactId>
-    <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
@@ -82,37 +73,4 @@
       </plugins>
     </pluginManagement>
   </build>
-  	<profiles>
-		<!-- run as 'mvn exec:java -Pclient' -->
-		<profile>
-			<id>client</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
-						<configuration>
-							<mainClass>es.deusto.spq.gui.JMainFrame</mainClass>
-							<systemProperties>
-								<systemProperty>
-									<key>java.security.manager</key>
-									<value>java.rmi.RMISecurityManager</value>
-								</systemProperty>
-								<systemProperty>
-									<key>java.security.policy</key>
-									<value>${policy.file}</value>
-								</systemProperty>
-							</systemProperties>
-							<arguments>
-								<argument>${server.IP}</argument>
-								<argument>${server.port}</argument>
-								<argument>${server.Name}</argument>
-							</arguments>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
