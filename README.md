@@ -55,9 +55,18 @@ $ mvn compile
  ```sh
 $ mvn datanucleus:schema-create 
 ```
-  
-  Para lanzar el `registry.bat`, debe de estar en **ServidorHBN/target/classes**.
 
+### Ejecución:
+
+En el servidor:
+
+1. Ejercutar el *registry.bat* del *ServidorHBN*
+2. Ejecutar ```mvn exec:java -Pserver```
+
+En el cliente:
+
+3. Ejecutar ```mvn exec:java -Pclient```
+  
 ### Versión
 v1.0
 

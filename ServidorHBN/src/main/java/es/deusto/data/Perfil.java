@@ -9,7 +9,7 @@ public class Perfil implements Serializable{
 
   private static final long serialVersionUID = -4955550385639157495L;
 
-  @PrimeryKey
+  @PrimaryKey
   private String nombre;
 
   public Perfil(String nombre){

@@ -20,7 +20,7 @@ public class ServiceLocator {
 		try {
 			stubServer = (IRmi) java.rmi.Naming.lookup(name);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 		return true;

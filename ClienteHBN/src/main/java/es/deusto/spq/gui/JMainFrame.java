@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import es.deusto.spq.remote.ServiceLocator;
+import javax.swing.JLabel;
 
 public class JMainFrame extends JFrame {
 
@@ -49,24 +50,28 @@ public class JMainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		CardLayout cardLayout = new CardLayout(0, 0);
-		contentPane.setLayout(cardLayout);
 		
 		ServiceLocator serviceLocator = new ServiceLocator();
-		serviceLocator.setService();
+		boolean ok = serviceLocator.setService();
 		
-		//login
-		JLogin login = new JLogin(cardLayout, serviceLocator);
-		contentPane.add(login, LOGIN);
-		
-		// prueba registro
-		JRegistro r = new JRegistro(cardLayout, serviceLocator);
-		contentPane.add(r, REGISTRO);
-		
-		JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
-		contentPane.add(selectorPerfil, PRINCIPAL);
-		
-		
+		if(ok) {
+			CardLayout cardLayout = new CardLayout(0, 0);
+			contentPane.setLayout(cardLayout);
+			
+			//login
+			JLogin login = new JLogin(cardLayout, serviceLocator);
+			contentPane.add(login, LOGIN);
+			
+			// prueba registro
+			JRegistro r = new JRegistro(cardLayout, serviceLocator);
+			contentPane.add(r, REGISTRO);
+			
+			JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
+			contentPane.add(selectorPerfil, PRINCIPAL);
+		}else {
+			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
+			contentPane.add(lblNoHaSido);
+		}
 	}
 
 }

@@ -19,7 +19,7 @@
     <server.IP>127.0.0.1</server.IP>
 	<server.port>1099</server.port>
 	<server.Name>Servidor</server.Name>
-	<policy.file>${basedir}/security/java.policy</policy.file>
+	<policy.file>${basedir}/src/main/resources/security/java.policy</policy.file>
   </properties>
 
   <dependencies>
