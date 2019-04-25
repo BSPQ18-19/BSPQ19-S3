@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+
+import com.stackoverflow.WrappingFlowLayout;
+
 import java.awt.Insets;
 import java.util.ArrayList;
 
@@ -23,15 +26,17 @@ public class JBarraBusqueda extends JPanel {
 
 	private static final String[] GENEROS = new String[] {"Drama", "Ciencia Ficción", "Terror", "Acción", "Comedia"};
 	
+	private WrappingFlowLayout wrappingFlowLayout;
+	
 	/**
 	 * Create the panel.
 	 */
 	public JBarraBusqueda() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		textField = new JTextField();
@@ -52,6 +57,8 @@ public class JBarraBusqueda extends JPanel {
 		add(btnBuscar, gbc_btnBuscar);
 		
 		panelGeneros = new JPanel();
+		wrappingFlowLayout = new WrappingFlowLayout();
+		panelGeneros.setLayout(wrappingFlowLayout);
 		GridBagConstraints gbc_panelGeneros = new GridBagConstraints();
 		gbc_panelGeneros.insets = new Insets(0, 0, 5, 0);
 		gbc_panelGeneros.gridwidth = 3;
@@ -60,21 +67,6 @@ public class JBarraBusqueda extends JPanel {
 		gbc_panelGeneros.gridy = 1;
 		add(panelGeneros, gbc_panelGeneros);
 		
-		chckbxSeries = new JCheckBox("Series");
-		GridBagConstraints gbc_chckbxSeries = new GridBagConstraints();
-		gbc_chckbxSeries.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxSeries.gridx = 0;
-		gbc_chckbxSeries.gridy = 2;
-		add(chckbxSeries, gbc_chckbxSeries);
-		
-		chckbxPelculas = new JCheckBox("Películas");
-		GridBagConstraints gbc_chckbxPelculas = new GridBagConstraints();
-		gbc_chckbxPelculas.anchor = GridBagConstraints.WEST;
-		gbc_chckbxPelculas.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxPelculas.gridx = 1;
-		gbc_chckbxPelculas.gridy = 2;
-		add(chckbxPelculas, gbc_chckbxPelculas);
-		
 		for(String genero: GENEROS) {
 			panelGeneros.add(new JCheckBox(genero));
 		}
@@ -82,6 +74,7 @@ public class JBarraBusqueda extends JPanel {
 		btnBuscar.addActionListener((e)->processBusquedaEvent());
 
 	}
+	
 	
 	public static void main(String args[]) {
 		JFrame frame = new JFrame();
@@ -92,11 +85,10 @@ public class JBarraBusqueda extends JPanel {
 		barraBusqueda.addBusquedaListener(new BusquedaListener() {
 			
 			@Override
-			public void onBuscar(boolean serieSelected, boolean peliculaSelected, ArrayList<String> generos,
+			public void onBuscar(ArrayList<String> generos,
 					String campoDeBusqueda) {
 				System.out.println(
-						"public void onBuscar(boolean serieSelected = " + serieSelected
-								+ ", boolean peliculaSelected = " + peliculaSelected + ", ArrayList<String> generos = "
+						"public void onBuscar(ArrayList<String> generos = "
 								+ generos + ",String campoDeBusqueda = " + campoDeBusqueda + ")");
 
 			}
@@ -106,8 +98,6 @@ public class JBarraBusqueda extends JPanel {
 	}
 	
 	private ArrayList<BusquedaListener> busquedaListeners = new ArrayList<BusquedaListener>();
-	private JCheckBox chckbxSeries;
-	private JCheckBox chckbxPelculas;
 	private JPanel panelGeneros;
 	
 	public void addBusquedaListener(BusquedaListener busquedaListener){
@@ -119,8 +109,6 @@ public class JBarraBusqueda extends JPanel {
 	}
 	
 	protected void processBusquedaEvent() {
-		boolean serieSelected = chckbxSeries.isSelected();
-		boolean peliculaSelected = chckbxPelculas.isSelected();
 		String campoDeBusqueda = textField.getText();
 		
 		ArrayList<String> generos = new ArrayList<String>();
@@ -133,7 +121,7 @@ public class JBarraBusqueda extends JPanel {
 		}
 		
 		for(BusquedaListener busquedaListener:busquedaListeners) {
-			busquedaListener.onBuscar(serieSelected, peliculaSelected, generos, campoDeBusqueda);
+			busquedaListener.onBuscar(generos, campoDeBusqueda);
 		}
 	}
 	
