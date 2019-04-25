@@ -1,7 +1,7 @@
 package es.deusto.data;
 
 import java.io.Serializable;
-
+import java.util.Collection;
 import javax.jdo.annotations.*;
 
 @PersistenceCapable
@@ -22,6 +22,9 @@ public class Cliente implements Serializable{
 	private String pass;
 	private Modo tipo;
 	private String fecha;
+	
+	@Element(column="NICK_OWNER")
+	private Collection<Perfil> perfiles;
 	
 	
 	public Cliente(String nombre, String pass, String nick, String fecha, Modo tipo) {
@@ -62,6 +65,14 @@ public class Cliente implements Serializable{
 	}
 	public void setTipo(Modo tipo) {
 		this.tipo = tipo;
+	}
+
+	public Collection<Perfil> getPerfiles() {
+		return perfiles;
+	}
+
+	public void setPerfiles(Collection<Perfil> perfiles) {
+		this.perfiles = perfiles;
 	}
 	
 }
