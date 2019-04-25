@@ -33,17 +33,18 @@ public class JLogin extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * @param cardLayout 
+	 * 
+	 * @param cardLayout
 	 */
 	public JLogin(CardLayout cardLayout, ServiceLocator serviceLocator) {
 		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JLabel lblIniciarSesin = new JLabel("Iniciar sesión");
 		lblIniciarSesin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblIniciarSesin = new GridBagConstraints();
@@ -52,7 +53,7 @@ public class JLogin extends JPanel {
 		gbc_lblIniciarSesin.gridx = 0;
 		gbc_lblIniciarSesin.gridy = 0;
 		add(lblIniciarSesin, gbc_lblIniciarSesin);
-		
+
 		JLabel lblUsuario = new JLabel("Usuario:");
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
@@ -60,7 +61,7 @@ public class JLogin extends JPanel {
 		gbc_lblUsuario.gridx = 0;
 		gbc_lblUsuario.gridy = 1;
 		add(lblUsuario, gbc_lblUsuario);
-		
+
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
@@ -69,7 +70,7 @@ public class JLogin extends JPanel {
 		gbc_textField.gridy = 1;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
 		gbc_lblContrasea.anchor = GridBagConstraints.EAST;
@@ -77,7 +78,7 @@ public class JLogin extends JPanel {
 		gbc_lblContrasea.gridx = 0;
 		gbc_lblContrasea.gridy = 2;
 		add(lblContrasea, gbc_lblContrasea);
-		
+
 		passwordField = new JPasswordField();
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
@@ -85,31 +86,31 @@ public class JLogin extends JPanel {
 		gbc_passwordField.gridx = 1;
 		gbc_passwordField.gridy = 2;
 		add(passwordField, gbc_passwordField);
-		
+
 		JButton btnIniciarSesin = new JButton("Iniciar sesión");
 		btnIniciarSesin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				final String usuario;
 				final String contrasenya;
-				
+
 				usuario = textField.getText();
 				contrasenya = new String(passwordField.getPassword());
-				
-				//Se usa un thread porque es posible que pueda tardar bastante
+
+				// Se usa un thread porque es posible que pueda tardar bastante
 				Thread thread = new Thread(new Runnable() {
-					
+
 					@Override
 					public void run() {
-						
+
 						btnIniciarSesin.setEnabled(false);
-						boolean ok=iniciarSesion(usuario, contrasenya);
+						boolean ok = iniciarSesion(usuario, contrasenya);
 						btnIniciarSesin.setEnabled(true);
-						
-						if(ok) {
+
+						if (ok) {
 							clear();
 							cardLayout.show(getParent(), JMainFrame.PRINCIPAL);
 							JMainFrame.usuario = usuario;
-						}else {
+						} else {
 							JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(JLogin.this),
 									"Usuario no válido", "Error", JOptionPane.ERROR_MESSAGE);
 						}
@@ -123,7 +124,7 @@ public class JLogin extends JPanel {
 		gbc_btnIniciarSesin.gridx = 1;
 		gbc_btnIniciarSesin.gridy = 3;
 		add(btnIniciarSesin, gbc_btnIniciarSesin);
-		
+
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,14 +138,14 @@ public class JLogin extends JPanel {
 		gbc_btnRegistrarse.gridx = 0;
 		gbc_btnRegistrarse.gridy = 4;
 		add(btnRegistrarse, gbc_btnRegistrarse);
-		
+
 	}
-	
+
 	private void clear() {
 		textField.setText("");
 		passwordField.setText("");
 	}
-	
+
 	public boolean iniciarSesion(String usuario, String contrasenya) {
 		try {
 			IRmi s = serviceLocator.getService();

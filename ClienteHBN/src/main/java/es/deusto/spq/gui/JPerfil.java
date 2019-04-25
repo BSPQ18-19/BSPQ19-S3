@@ -19,10 +19,9 @@ public class JPerfil extends JPanel {
 	 */
 	private static final long serialVersionUID = -4585459723721533346L;
 
-	
 	private JTextField txtNombre;
 	private static ImageIcon icon;
-	
+
 	{
 		BufferedImage image = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = (Graphics2D) image.getGraphics();
@@ -33,16 +32,16 @@ public class JPerfil extends JPanel {
 	}
 
 	private JLabel lblImagen;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public JPerfil(String nombre) {
 		setLayout(new BorderLayout(0, 0));
-		
+
 		lblImagen = new JLabel();
 		add(lblImagen, BorderLayout.WEST);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNombre.setText(nombre);
@@ -50,9 +49,9 @@ public class JPerfil extends JPanel {
 		txtNombre.setColumns(10);
 
 		setEditable(false);
-		
+
 		lblImagen.setIcon(icon);
-		
+
 		setBackground(Color.white);
 	}
 
@@ -60,30 +59,30 @@ public class JPerfil extends JPanel {
 	public String toString() {
 		return txtNombre.getText();
 	}
-	
-	public boolean isEditable(){
+
+	public boolean isEditable() {
 		return txtNombre.isEditable();
 	}
-	
+
 	public void setEditable(boolean b) {
 		txtNombre.setEditable(b);
 		txtNombre.setOpaque(b);
 	}
-	
+
 	@Override
 	public void setBackground(Color bg) {
-		if(bg != null) {
+		if (bg != null) {
 			super.setBackground(bg);
-		}else {
+		} else {
 			super.setBackground(Color.WHITE);
 		}
-		
+
 	}
-	
-	public void setNombre(String nombre){
+
+	public void setNombre(String nombre) {
 		txtNombre.setText(nombre);
 	}
-	
+
 	public String getNombre() {
 		return txtNombre.getText();
 	}

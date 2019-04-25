@@ -37,9 +37,10 @@ public class JMainFrame extends JFrame {
 	public static final String LOGIN = "LOGIN";
 	public static final String REGISTRO = "REGISTRO";
 	public static final String PRINCIPAL = "PRINCIPAL";
-	
+	public static final String USUARIO = "USUARIO";
+	public static final String PARENTAL="PARENTAL";
 	static String usuario;
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -50,25 +51,35 @@ public class JMainFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		ServiceLocator serviceLocator = new ServiceLocator();
 		boolean ok = serviceLocator.setService();
-		
-		if(ok) {
+
+		if (ok) {
 			CardLayout cardLayout = new CardLayout(0, 0);
 			contentPane.setLayout(cardLayout);
-			
-			//login
+
+			// login
 			JLogin login = new JLogin(cardLayout, serviceLocator);
 			contentPane.add(login, LOGIN);
 			
-			// prueba registro
+			//registro
 			JRegistro r = new JRegistro(cardLayout, serviceLocator);
 			contentPane.add(r, REGISTRO);
 			
+			//selector de Perfiles
 			JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
 			contentPane.add(selectorPerfil, PRINCIPAL);
-		}else {
+			
+			//control parental
+			JControlParental controlParental=new JControlParental(cardLayout);
+			contentPane.add(controlParental,PARENTAL);
+			
+			// ventana principal usuario
+			JUsuario ventanausuario = new JUsuario(cardLayout);
+			contentPane.add(ventanausuario, USUARIO);
+
+		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
 			contentPane.add(lblNoHaSido);
 		}
