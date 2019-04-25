@@ -14,7 +14,7 @@ public class Serie implements Serializable {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	private int idPel;
+	private int idSer;
 	private String titulo;
 	private int anho;
 	private String genero;
@@ -34,11 +34,11 @@ public class Serie implements Serializable {
 	}
 
 	public int getIdPel() {
-		return idPel;
+		return idSer;
 	}
 
 	public void setIdPel(int idPel) {
-		this.idPel = idPel;
+		this.idSer = idPel;
 	}
 
 	public String getTitulo() {

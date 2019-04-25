@@ -21,18 +21,16 @@ public class Cliente implements Serializable{
 	private String nombre;
 	private String pass;
 	private Modo tipo;
-	private String fecha;
 	
 	@Element(column="NICK_OWNER")
 	private Collection<Perfil> perfiles;
 	
 	
-	public Cliente(String nombre, String pass, String nick, String fecha, Modo tipo) {
+	public Cliente(String nombre, String pass, String nick, Modo tipo) {
 		this.nombre = nombre;
 		this.pass = pass;
 		this.nick = nick;
 		this.tipo = tipo;
-		this.fecha = fecha;
 	}
 	
 	public String getNombre() {
@@ -52,12 +50,6 @@ public class Cliente implements Serializable{
 	}
 	public void setNick(String nick) {
 		this.nick = nick;
-	}
-	public String getEdad() {
-		return fecha;
-	}
-	public void setEdad(String fecha) {
-		this.fecha = fecha;
 	}
 	
 	public Modo getTipo() {
