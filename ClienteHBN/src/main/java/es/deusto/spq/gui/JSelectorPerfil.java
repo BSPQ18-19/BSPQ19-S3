@@ -37,7 +37,6 @@ public class JSelectorPerfil extends JPanel {
 
 	private DefaultListModel<JPerfil> defaultListModel;
 	private JList<JPerfil> list;
-
 	private JPerfil perfil;
 
 	public JSelectorPerfil(JPerfil perfiles[]) {

@@ -12,6 +12,7 @@ import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import es.deusto.data.Cliente;
@@ -149,7 +150,41 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	@Override
 	public String[] getPerfiles(String usuario) throws RemoteException {
-		return new String[] { "Default" };
-	}
+			try {
+				tx.begin();
 
+				@SuppressWarnings("unchecked")
+				Query<Cliente> usuariosQuery = pm.newQuery("SELECT FROM " + Cliente.class.getName());
+
+				for (Cliente u : usuariosQuery.executeList()) {
+					c.add(u);
+				}
+
+				tx.commit();
+			} catch (Exception ex) {
+
+				System.err.println("* Exception executing a query: " + ex.getMessage());
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+
+				pm.close();
+			}
+			
+			ArrayList<String> nicks = new ArrayList<>();
+			
+			for (Cliente u : c) {
+				nicks.add(u.getNick());
+			}
+			
+			String[] usuarios = new String[nicks.size()];
+			
+			for (int i = 0; i < nicks.size(); i++) {
+				usuarios[i] = nicks.get(i);
+			}
+			
+		return usuarios;
+	}
 }

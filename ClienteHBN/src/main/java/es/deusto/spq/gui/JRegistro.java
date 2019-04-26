@@ -131,7 +131,7 @@ public class JRegistro extends JPanel {
 		gbc_lblEdad.gridy = 3;
 		add(lblEdad, gbc_lblEdad);
 
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.addItem("Usuario");
 		comboBox.addItem("Administrador");
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
