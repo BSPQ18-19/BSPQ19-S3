@@ -7,8 +7,12 @@ import javax.jdo.annotations.*;
 @PersistenceCapable
 public class Perfil implements Serializable {
 
-	private static final long serialVersionUID = -4955550385639157495L;
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -70269628117674220L;
+	
 	@PrimaryKey
 	private String nombreP;
 	private String fecha;
@@ -32,5 +36,10 @@ public class Perfil implements Serializable {
 
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
+	}
+
+	@Override
+	public String toString() {
+		return "Perfil [nombreP=" + nombreP + "]";
 	}
 }

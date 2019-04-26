@@ -17,7 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 
-
+import es.deusto.data.Perfil;
 import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 
@@ -28,6 +28,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class JRegistro extends JPanel {
 	/**

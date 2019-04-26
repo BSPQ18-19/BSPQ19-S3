@@ -3,8 +3,10 @@ package es.deusto.spq.remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
@@ -14,6 +16,7 @@ import javax.jdo.Transaction;
 
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
+import es.deusto.data.Perfil;
 import es.deusto.spq.JMainFrame;
 
 public class Rmi extends UnicastRemoteObject implements IRmi {
@@ -36,7 +39,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
-
 	}
 
 	public String getName() {
@@ -101,11 +103,13 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	public void registrarse(String usuario, String nick, String pass, String fecha, int tipo) {
 		try {
 			tx.begin();
-			JMainFrame.println("Comprobando que el usuario no existe '" + usuario + "'");
+			JMainFrame.println("Comprobando que el usuario no existía previamente '" + nick + "'");
 			Cliente user = null;
+			Perfil perfil = null;
 			Modo m;
+		
 			try {
-				user = pm.getObjectById(Cliente.class, usuario);
+				user = pm.getObjectById(Cliente.class, nick);
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				JMainFrame.println("Exception launched: " + jonfe.getMessage());
 			}
@@ -115,25 +119,29 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				user.setPass(pass);
 				JMainFrame.println("Password set user: " + user);
 			} else {
-				JMainFrame.println("Creating user: " + user);
 				if (tipo == 0) {
 					m = Modo.USER;
-					user = new Cliente(usuario, pass, nick, fecha, m);
+					user = new Cliente(usuario, pass, nick, m);
 				} else {
-					 m = Modo.ADMIN;
-					user = new Cliente(usuario, pass, nick, fecha, m);
+					m = Modo.ADMIN;
+					user = new Cliente(usuario, pass, nick, m);
 				}
+				perfil = new Perfil(usuario + "PerfilPrincipal", fecha);
+				user.perfiles.add(perfil);
+				JMainFrame.println("Creating user: " + user);
 				pm.makePersistent(user);
 				hashMap.put(user.getNick(), user);
 				JMainFrame.println("User created: " + user);
 			}
+			JMainFrame.println("Creating profile: " + perfil);
+			pm.makePersistent(perfil);
 			tx.commit();
+			
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 		}
-
 		
 	}
 

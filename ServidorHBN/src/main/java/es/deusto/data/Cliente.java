@@ -1,7 +1,8 @@
 package es.deusto.data;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.*;
+
 import javax.jdo.annotations.*;
 
 @PersistenceCapable
@@ -10,7 +11,7 @@ public class Cliente implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4267654683453575942L;
 	
 	public enum Modo {
 		  ADMIN, USER;
@@ -23,7 +24,7 @@ public class Cliente implements Serializable{
 	private Modo tipo;
 	
 	@Element(column="NICK_OWNER")
-	private Collection<Perfil> perfiles;
+	public List<Perfil> perfiles;
 	
 	
 	public Cliente(String nombre, String pass, String nick, Modo tipo) {
@@ -31,6 +32,7 @@ public class Cliente implements Serializable{
 		this.pass = pass;
 		this.nick = nick;
 		this.tipo = tipo;
+		this.perfiles = new ArrayList<Perfil>();
 	}
 	
 	public String getNombre() {
@@ -59,12 +61,17 @@ public class Cliente implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public Collection<Perfil> getPerfiles() {
+	public List<Perfil> getPerfiles() {
 		return perfiles;
 	}
 
-	public void setPerfiles(Collection<Perfil> perfiles) {
+	public void setPerfiles(List<Perfil> perfiles) {
 		this.perfiles = perfiles;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [nick=" + nick + "]";
 	}
 	
 }
