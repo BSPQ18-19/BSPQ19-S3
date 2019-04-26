@@ -166,7 +166,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					user.perfiles.add(perfil);
 					JMainFrame.println("Creating user: " + user);
 					pm.makePersistent(user);
-					// hashMap.put(user.getNick(), user);
 					JMainFrame.println("User created: " + user);
 				}
 				JMainFrame.println("Creating profile: " + perfil);
@@ -183,7 +182,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 
 	}
-
+	
 	@Override
 	public String[] getPerfiles(String usuario) throws RemoteException {
 		String[] usuarios = null;
@@ -194,20 +193,19 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			try {
 				tx.begin();
 				@SuppressWarnings("unchecked")
-				Query<String> perfilQuery = pm
-				.newQuery("SQL", "SELECT NOMBREP FROM PERFIL WHERE NICK_OWNER = '" + usuario + "'");
-				
+				Query<String> perfilQuery = pm.newQuery("SQL",
+						"SELECT NOMBREP FROM PERFIL WHERE NICK_OWNER = '" + usuario + "'");
+
 				@SuppressWarnings("unchecked")
-				Query<Perfil> perfilesQuery = pm
-				.newQuery("SELECT FROM " + Perfil.class.getName());
-				
-				//Hay que cambiarlo (Solo sirve para casos en los que haya 1 perfil)
+				Query<Perfil> perfilesQuery = pm.newQuery("SELECT FROM " + Perfil.class.getName());
+
+				// Hay que cambiarlo (Solo sirve para casos en los que haya 1 perfil)
 				String s = null;
 				for (String u : perfilQuery.executeList()) {
 					s = u;
 				}
 				//
-				
+
 				for (Perfil u : perfilesQuery.executeList()) {
 					if (u.getNombreP().equals(s)) {
 						p.add(u);
@@ -244,4 +242,40 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 		return usuarios;
 	}
+//
+//	@Override
+//	public void crearPerfil(String usuario, String nombreP, String fecha) {
+//		try {
+//			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+//			PersistenceManager pm = pmf.getPersistenceManager();
+//			Transaction tx = pm.currentTransaction();
+//			try {
+//				tx.begin();
+//				JMainFrame.println("Comprobando que el usuario no existía previamente '" + usuario + "'");
+//				Cliente user = null;
+//				Perfil perfil = null;
+//				ControlParental cp = ControlParental.FALSE;
+//
+//				for (Cliente c : clientes) {
+//					if (c.getNick().equals(usuario)) {
+//						user = c;
+//					}
+//				}
+//				perfil = new Perfil(nombreP, fecha, cp);
+//				user.perfiles.add(perfil);
+//				pm.makePersistent(user);
+//				JMainFrame.println("Creating profile: " + perfil);
+//				pm.makePersistent(perfil);
+//				tx.commit();
+//
+//			} finally {
+//				if (tx.isActive()) {
+//					tx.rollback();
+//				}
+//			}
+//		} catch (Exception ex) {
+//			System.err.println("* Exception: " + ex.getMessage());
+//		}
+//
+//	}
 }

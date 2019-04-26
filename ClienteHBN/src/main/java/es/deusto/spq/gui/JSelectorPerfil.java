@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Insets;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -90,18 +91,29 @@ public class JSelectorPerfil extends JPanel {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+
 			}
 		});
-		
 
 		JButton btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPerfil p = list.getSelectedValue();
-				if (p != null) {
-					p.setNombre(perfil.getNombre());
-					list.repaint();
+				boolean ok = true;
+//				for (JPerfil x : list) {
+//					if (x.getNombre().equals(perfil.getNombre())) {
+//						ok = false;
+//						JOptionPane.showMessageDialog(this,
+//								"El nombre introducido ya está siendo utizado en otro perfil, inténmtelo de nuevo.",
+//								"Error", JOptionPane.WARNING_MESSAGE);		p.setNombre(perfil.getNombre());
+//					}
+//				}
+				
+				if(ok) {
+					if (p != null) {
+						p.setNombre(perfil.getNombre());
+						list.repaint();
+					}
 				}
 			}
 		});
@@ -223,6 +235,6 @@ public class JSelectorPerfil extends JPanel {
 	}
 
 	private void cancelar() {
-		
+
 	}
 }

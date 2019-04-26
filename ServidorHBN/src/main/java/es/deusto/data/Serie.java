@@ -1,6 +1,7 @@
 package es.deusto.data;
 
 import java.io.Serializable;
+import java.util.*;
 
 import javax.jdo.annotations.*;
 
@@ -20,17 +21,17 @@ public class Serie implements Serializable {
 	private String genero;
 	private double val;
 	private String sinopsis;
-	private int temps;
-	private int caps;
-
-	public Serie(String titulo, int anho, String genero, double val, String sinopsis, int temps, int caps) {
+	
+	@Element(column="ID_SERIE")
+	public List<Temporada> temps;
+	
+	public Serie(String titulo, int anho, String genero, double val, String sinopsis) {
 		this.titulo = titulo;
 		this.anho = anho;
 		this.genero = genero;
 		this.val = val;
 		this.sinopsis = sinopsis;
-		this.temps = temps;
-		this.caps = caps;
+		this.temps = new ArrayList<Temporada>();
 	}
 
 	public int getIdPel() {
@@ -81,25 +82,17 @@ public class Serie implements Serializable {
 		this.sinopsis = sinopsis;
 	}
 
-	public int getTemps() {
+	public List<Temporada> getTemps() {
 		return temps;
 	}
 
-	public void setTemps(int temps) {
+	public void setTemps(List<Temporada> temps) {
 		this.temps = temps;
-	}
-
-	public int getCaps() {
-		return caps;
-	}
-
-	public void setCaps(int caps) {
-		this.caps = caps;
 	}
 
 	@Override
 	public String toString() {
 		return "Serie: " + titulo + "\nAño:" + anho + "\nGénero: " + genero + "\nValoración: " + val + "\nSinopsis: "
-				+ sinopsis + "\nNº de temporadas: " + temps + "\nNº de capítulos: " + caps;
+				+ sinopsis;
 	}
 }
