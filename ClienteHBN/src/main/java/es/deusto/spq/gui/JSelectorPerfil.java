@@ -223,6 +223,6 @@ public class JSelectorPerfil extends JPanel {
 	}
 
 	private void cancelar() {
-
+		
 	}
 }

@@ -121,7 +121,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 			for (Cliente cl : clientes) {
 				if (cl.getNick().equals(usuario)) {
-					JMainFrame.println("1");
 					b = contrasenya.contentEquals(cl.getPass());
 				}
 			}

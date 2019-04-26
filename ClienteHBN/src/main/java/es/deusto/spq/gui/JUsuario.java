@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class JUsuario extends JPanel {
-
+	
 	/**
 	 * 
 	 */
@@ -50,7 +50,7 @@ public class JUsuario extends JPanel {
 			}
 		});
 		
-		JLabel lblBienvenido = new JLabel("Bienvenido, " + JMainFrame.usuario);
+		JLabel lblBienvenido = new JLabel("Bienvenido!");
 		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
 		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBienvenido.gridx = 1;
