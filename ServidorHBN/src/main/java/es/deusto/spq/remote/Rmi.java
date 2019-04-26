@@ -16,6 +16,7 @@ import javax.jdo.Transaction;
 
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
+import es.deusto.data.Perfil.ControlParental;
 import es.deusto.data.Perfil;
 import es.deusto.spq.JMainFrame;
 
@@ -107,6 +108,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			Cliente user = null;
 			Perfil perfil = null;
 			Modo m;
+			ControlParental cp = ControlParental.FALSE;
 		
 			try {
 				user = pm.getObjectById(Cliente.class, nick);
@@ -126,7 +128,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					m = Modo.ADMIN;
 					user = new Cliente(usuario, pass, nick, m);
 				}
-				perfil = new Perfil(usuario + "PerfilPrincipal", fecha);
+				perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
 				user.perfiles.add(perfil);
 				JMainFrame.println("Creating user: " + user);
 				pm.makePersistent(user);

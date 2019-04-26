@@ -13,20 +13,27 @@ public class Perfil implements Serializable {
 	 */
 	private static final long serialVersionUID = -70269628117674220L;
 	
+	public enum ControlParental {
+		  TRUE, FALSE;
+	}
+	
+	
 	@PrimaryKey
 	private String nombreP;
 	private String fecha;
+	private ControlParental ControlParental;
 
-	public Perfil(String nombre, String fecha) {
+	public Perfil(String nombre, String fecha, ControlParental m) {
 		this.nombreP = nombre;
 		this.fecha = fecha;
+		this.ControlParental = m;
 	}
 
-	public String getNombre() {
+	public String getNombreP() {
 		return nombreP;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombreP(String nombre) {
 		this.nombreP = nombre;
 	}
 
@@ -38,6 +45,14 @@ public class Perfil implements Serializable {
 		this.fecha = fecha;
 	}
 
+	public ControlParental getControlParental() {
+		return ControlParental;
+	}
+
+	public void setControlParental(ControlParental cp) {
+		this.ControlParental = cp;
+	}
+	
 	@Override
 	public String toString() {
 		return "Perfil [nombreP=" + nombreP + "]";
