@@ -33,14 +33,16 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private Transaction tx = null;
 
 	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
-	public ArrayList<Cliente> c = new ArrayList<Cliente>();
+	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
 		this.serverName = serverName;
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		// PersistenceManagerFactory pmf =
+		// JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		// this.pm = pmf.getPersistenceManager();
+		// this.tx = pm.currentTransaction();
 	}
 
 	public String getName() {
@@ -86,70 +88,12 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	@Override
 	public boolean login(String usuario, String contrasenya) {
-//		JMainFrame.println("login(String "+usuario+", String "+contrasenya+")");
-//		if(getCliente(usuario, contrasenya)!=null) {
-//			return true;
-//		}else{
-//			return false;
-//		}
-
-		JMainFrame.println("login(String " + usuario + ", String " + contrasenya + ")");
-		Cliente u = hashMap.get(usuario);
-		if (u == null)
-			return false;
-		boolean b = contrasenya.contentEquals(u.getPass());
-		JMainFrame.println("\t" + b);
-		return b;
-	}
-
-	public void registrarse(String usuario, String nick, String pass, String fecha, int tipo) {
+		ArrayList<Cliente> c = new ArrayList<Cliente>();
+		boolean b = false;
 		try {
-			tx.begin();
-			JMainFrame.println("Comprobando que el usuario no existía previamente '" + nick + "'");
-			Cliente user = null;
-			Perfil perfil = null;
-			Modo m;
-			ControlParental cp = ControlParental.FALSE;
-		
-			try {
-				user = pm.getObjectById(Cliente.class, nick);
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				JMainFrame.println("Exception launched: " + jonfe.getMessage());
-			}
-			JMainFrame.println("User: " + user);
-			if (user != null) {
-				JMainFrame.println("Setting password user: " + user);
-				user.setPass(pass);
-				JMainFrame.println("Password set user: " + user);
-			} else {
-				if (tipo == 0) {
-					m = Modo.USER;
-					user = new Cliente(usuario, pass, nick, m);
-				} else {
-					m = Modo.ADMIN;
-					user = new Cliente(usuario, pass, nick, m);
-				}
-				perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
-				user.perfiles.add(perfil);
-				JMainFrame.println("Creating user: " + user);
-				pm.makePersistent(user);
-				hashMap.put(user.getNick(), user);
-				JMainFrame.println("User created: " + user);
-			}
-			JMainFrame.println("Creating profile: " + perfil);
-			pm.makePersistent(perfil);
-			tx.commit();
-			
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
-		
-	}
-
-	@Override
-	public String[] getPerfiles(String usuario) throws RemoteException {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
 			try {
 				tx.begin();
 
@@ -158,6 +102,117 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 				for (Cliente u : usuariosQuery.executeList()) {
 					c.add(u);
+				}
+				clientes = c;
+
+				tx.commit();
+			} catch (Exception ex) {
+
+				System.err.println("* Exception executing a query: " + ex.getMessage());
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+
+				pm.close();
+			}
+			JMainFrame.println("login(String " + usuario + ", String " + contrasenya + ")");
+
+			for (Cliente cl : clientes) {
+				if (cl.getNick().equals(usuario)) {
+					JMainFrame.println("1");
+					b = contrasenya.contentEquals(cl.getPass());
+				}
+			}
+			JMainFrame.println("\t" + b);
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+		return b;
+	}
+
+	public void registrarse(String usuario, String nick, String pass, String fecha, int tipo) {
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				tx.begin();
+				JMainFrame.println("Comprobando que el usuario no existía previamente '" + nick + "'");
+				Cliente user = null;
+				Perfil perfil = null;
+				Modo m;
+				ControlParental cp = ControlParental.FALSE;
+
+				try {
+					user = pm.getObjectById(Cliente.class, nick);
+				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+					JMainFrame.println("Exception launched: " + jonfe.getMessage());
+				}
+				JMainFrame.println("User: " + user);
+				if (user != null) {
+					JMainFrame.println("Setting password user: " + user);
+					user.setPass(pass);
+					JMainFrame.println("Password set user: " + user);
+				} else {
+					if (tipo == 0) {
+						m = Modo.USER;
+						user = new Cliente(usuario, pass, nick, m);
+					} else {
+						m = Modo.ADMIN;
+						user = new Cliente(usuario, pass, nick, m);
+					}
+					perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
+					user.perfiles.add(perfil);
+					JMainFrame.println("Creating user: " + user);
+					pm.makePersistent(user);
+					// hashMap.put(user.getNick(), user);
+					JMainFrame.println("User created: " + user);
+				}
+				JMainFrame.println("Creating profile: " + perfil);
+				pm.makePersistent(perfil);
+				tx.commit();
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+			}
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+
+	}
+
+	@Override
+	public String[] getPerfiles(String usuario) throws RemoteException {
+		String[] usuarios = null;
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				tx.begin();
+				@SuppressWarnings("unchecked")
+				Query<String> perfilQuery = pm
+				.newQuery("SQL", "SELECT NOMBREP FROM PERFIL WHERE NICK_OWNER = '" + usuario + "'");
+				
+				@SuppressWarnings("unchecked")
+				Query<Perfil> perfilesQuery = pm
+				.newQuery("SELECT FROM " + Perfil.class.getName());
+				
+				//Hay que cambiarlo (Solo sirve para casos en los que haya 1 perfil)
+				String s = null;
+				for (String u : perfilQuery.executeList()) {
+					s = u;
+				}
+				//
+				
+				for (Perfil u : perfilesQuery.executeList()) {
+					if (u.getNombreP().equals(s)) {
+						p.add(u);
+					}
 				}
 
 				tx.commit();
@@ -172,19 +227,22 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 				pm.close();
 			}
-			
+
 			ArrayList<String> nicks = new ArrayList<>();
-			
-			for (Cliente u : c) {
-				nicks.add(u.getNick());
+
+			for (Perfil u : p) {
+				nicks.add(u.getNombreP());
 			}
-			
-			String[] usuarios = new String[nicks.size()];
-			
+
+			usuarios = new String[nicks.size()];
+
 			for (int i = 0; i < nicks.size(); i++) {
 				usuarios[i] = nicks.get(i);
 			}
-			
+
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
 		return usuarios;
 	}
 }

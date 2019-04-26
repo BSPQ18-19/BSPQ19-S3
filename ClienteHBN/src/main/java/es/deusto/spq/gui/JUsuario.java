@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class JUsuario extends JPanel {
 
@@ -48,6 +49,13 @@ public class JUsuario extends JPanel {
 				
 			}
 		});
+		
+		JLabel lblBienvenido = new JLabel("Bienvenido, " + JMainFrame.usuario);
+		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
+		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 5);
+		gbc_lblBienvenido.gridx = 1;
+		gbc_lblBienvenido.gridy = 0;
+		add(lblBienvenido, gbc_lblBienvenido);
 		btnVlver.setIcon(new ImageIcon(JUsuario.class.getResource("/javax/swing/plaf/basic/icons/image-delayed.png")));
 		GridBagConstraints gbc_btnVlver = new GridBagConstraints();
 		gbc_btnVlver.insets = new Insets(0, 0, 5, 5);
