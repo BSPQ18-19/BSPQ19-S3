@@ -36,7 +36,7 @@ public class JMainFrame extends JFrame {
 
 	public static final String LOGIN = "LOGIN";
 	public static final String REGISTRO = "REGISTRO";
-	public static final String PRINCIPAL = "PRINCIPAL";
+	public static final String PERFILES = "PERFILES";
 	public static final String USUARIO = "USUARIO";
 	public static final String PARENTAL="PARENTAL";
 	static String usuario;
@@ -68,8 +68,8 @@ public class JMainFrame extends JFrame {
 			contentPane.add(r, REGISTRO);
 			
 			//selector de Perfiles
-			JSelectorPerfil selectorPerfil = new JSelectorPerfil(serviceLocator);
-			contentPane.add(selectorPerfil, PRINCIPAL);
+			JSelectorPerfil selectorPerfil = new JSelectorPerfil(cardLayout, serviceLocator);
+			contentPane.add(selectorPerfil, PERFILES);
 			
 			//control parental
 			JControlParental controlParental=new JControlParental(cardLayout);

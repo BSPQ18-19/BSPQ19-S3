@@ -1,33 +1,31 @@
 package es.deusto.spq.gui;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.rmi.RemoteException;
-import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.deusto.data.Perfil;
 import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
-
-import javax.swing.event.ListSelectionEvent;
 
 public class JSelectorPerfil extends JPanel {
 
@@ -40,17 +38,10 @@ public class JSelectorPerfil extends JPanel {
 	private JList<JPerfil> list;
 	private JPerfil perfil;
 
-	public JSelectorPerfil(JPerfil perfiles[]) {
-		this();
-		perfil.setNombre(perfiles[0].getNombre());
-		add(perfiles);
-		list.setSelectedIndex(0);
-	}
-
 	/**
 	 * Create the panel.
 	 */
-	public JSelectorPerfil() { // JPerfil perfiles []
+	private JSelectorPerfil() { // JPerfil perfiles []
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0 };
@@ -68,8 +59,9 @@ public class JSelectorPerfil extends JPanel {
 		JButton btnNuevoPerfil = new JButton("Nuevo perfil");
 		btnNuevoPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JPerfil perfil = new JPerfil("Nuevo Perfil");
-				defaultListModel.add(0, perfil);
+//				JPerfil perfil = new JPerfil("Nuevo Perfil");
+//				defaultListModel.add(0, perfil);
+				//TODO: Añadir nuevo perfil desde el servidor
 			}
 		});
 		GridBagConstraints gbc_btnNuevoPerfil = new GridBagConstraints();
@@ -78,7 +70,7 @@ public class JSelectorPerfil extends JPanel {
 		gbc_btnNuevoPerfil.gridy = 0;
 		add(btnNuevoPerfil, gbc_btnNuevoPerfil);
 
-		perfil = new JPerfil("");
+		perfil = new JPerfil();
 		perfil.setEditable(true);
 		GridBagConstraints gbc_perfil = new GridBagConstraints();
 		gbc_perfil.gridwidth = 2;
@@ -89,11 +81,7 @@ public class JSelectorPerfil extends JPanel {
 		add(perfil, gbc_perfil);
 
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
+		btnAceptar.addActionListener((e) -> aceptar());
 
 		JButton btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(new ActionListener() {
@@ -166,17 +154,19 @@ public class JSelectorPerfil extends JPanel {
 		list.setModel(defaultListModel);
 	}
 
-	public JSelectorPerfil(ServiceLocator serviceLocator) {
+	private CardLayout cardLayout;
+	public JSelectorPerfil(CardLayout cardLayout, ServiceLocator serviceLocator) {
 		this();
+		this.cardLayout = cardLayout;
 		IRmi service = serviceLocator.getService();
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				defaultListModel.removeAllElements();
 				try {
-					String perfiles[] = service.getPerfiles(JMainFrame.usuario);
-					for (String s : perfiles) {
-						add(new JPerfil(s));
+					Perfil[] perfiles = service.getPerfiles(JMainFrame.usuario);
+					for (Perfil p : perfiles) {
+						add(new JPerfil(p));
 					}
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
@@ -197,17 +187,6 @@ public class JSelectorPerfil extends JPanel {
 
 	public void removeAllElements() {
 		defaultListModel.removeAllElements();
-	}
-
-	public static void main(String args[]) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 600);
-		frame.setLocationRelativeTo(null);
-		JPerfil perfiles[] = new JPerfil[] { new JPerfil("1"), new JPerfil("2") };
-		JSelectorPerfil jSelectorPeril = new JSelectorPerfil(perfiles);
-		frame.setContentPane(jSelectorPeril);
-		frame.setVisible(true);
 	}
 
 	private class MyListRenderer extends DefaultListCellRenderer {
@@ -231,10 +210,16 @@ public class JSelectorPerfil extends JPanel {
 	}
 
 	private void aceptar() {
-
+		//Para obtener los perfiles
+//		for(Component component : getComponents()) {
+//			if(component.getClass().equals(JPerfil.class)) {
+//				JPerfil jPerfil = (JPerfil) component;
+//				jPerfil.getPerfil();
+//			}
+//		}
 	}
 
 	private void cancelar() {
-
+		cardLayout.show(getParent(), JMainFrame.USUARIO);
 	}
 }

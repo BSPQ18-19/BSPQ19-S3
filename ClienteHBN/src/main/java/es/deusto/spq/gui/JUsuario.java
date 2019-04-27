@@ -36,16 +36,16 @@ public class JUsuario extends JPanel {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		JButton btnVlver = new JButton("Volver");
 		btnVlver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				cardLayout.show(getParent(), JMainFrame.PRINCIPAL);
+				cardLayout.show(getParent(), JMainFrame.USUARIO);
 				
 			}
 		});
@@ -68,7 +68,7 @@ public class JUsuario extends JPanel {
 		gbc_btnPeliculas.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnPeliculas.insets = new Insets(0, 0, 5, 5);
 		gbc_btnPeliculas.gridx = 1;
-		gbc_btnPeliculas.gridy = 3;
+		gbc_btnPeliculas.gridy = 2;
 		add(btnPeliculas, gbc_btnPeliculas);
 
 		JButton btnSeries = new JButton("Series");
@@ -76,7 +76,7 @@ public class JUsuario extends JPanel {
 		gbc_btnSeries.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSeries.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSeries.gridx = 1;
-		gbc_btnSeries.gridy = 5;
+		gbc_btnSeries.gridy = 3;
 		add(btnSeries, gbc_btnSeries);
 
 		JButton btnMiLista = new JButton("Mi Lista");
@@ -84,7 +84,7 @@ public class JUsuario extends JPanel {
 		gbc_btnMiLista.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnMiLista.insets = new Insets(0, 0, 5, 5);
 		gbc_btnMiLista.gridx = 1;
-		gbc_btnMiLista.gridy = 7;
+		gbc_btnMiLista.gridy = 4;
 		add(btnMiLista, gbc_btnMiLista);
 
 		JButton btnConfig = new JButton("Config");
@@ -102,6 +102,19 @@ public class JUsuario extends JPanel {
 		gbc_btnConfig.gridx = 2;
 		gbc_btnConfig.gridy = 1;
 		add(btnConfig, gbc_btnConfig);
+		
+		JButton btnMisPerfiles = new JButton("Mis perfiles");
+		btnMisPerfiles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cardLayout.show(getParent(), JMainFrame.PERFILES);
+			}
+		});
+		GridBagConstraints gbc_btnMisPerfiles = new GridBagConstraints();
+		gbc_btnMisPerfiles.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnMisPerfiles.insets = new Insets(0, 0, 0, 5);
+		gbc_btnMisPerfiles.gridx = 1;
+		gbc_btnMisPerfiles.gridy = 5;
+		add(btnMisPerfiles, gbc_btnMisPerfiles);
 
 	}
 

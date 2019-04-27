@@ -3,10 +3,7 @@ package es.deusto.spq.remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
@@ -17,8 +14,8 @@ import javax.jdo.Transaction;
 
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
-import es.deusto.data.Perfil.ControlParental;
 import es.deusto.data.Perfil;
+import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.JMainFrame;
 
 public class Rmi extends UnicastRemoteObject implements IRmi {
@@ -32,9 +29,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 
-	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
-	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-	public ArrayList<Perfil> p = new ArrayList<Perfil>();
+//	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
+//	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+//	public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
@@ -88,7 +85,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	@Override
 	public boolean login(String usuario, String contrasenya) {
-		ArrayList<Cliente> c = new ArrayList<Cliente>();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		boolean b = false;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -101,9 +98,8 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				Query<Cliente> usuariosQuery = pm.newQuery("SELECT FROM " + Cliente.class.getName());
 
 				for (Cliente u : usuariosQuery.executeList()) {
-					c.add(u);
+					clientes.add(u);
 				}
-				clientes = c;
 
 				tx.commit();
 			} catch (Exception ex) {
@@ -184,8 +180,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	}
 	
 	@Override
-	public String[] getPerfiles(String usuario) throws RemoteException {
-		String[] usuarios = null;
+	public Perfil[] getPerfiles(String usuario) throws RemoteException {
+		ArrayList<Perfil> perfiles = new ArrayList<Perfil>();
+//		String[] usuarios = null;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
@@ -208,7 +205,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 				for (Perfil u : perfilesQuery.executeList()) {
 					if (u.getNombreP().equals(s)) {
-						p.add(u);
+						perfiles.add(u);
 					}
 				}
 
@@ -225,22 +222,22 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 
-			ArrayList<String> nicks = new ArrayList<>();
-
-			for (Perfil u : p) {
-				nicks.add(u.getNombreP());
-			}
-
-			usuarios = new String[nicks.size()];
-
-			for (int i = 0; i < nicks.size(); i++) {
-				usuarios[i] = nicks.get(i);
-			}
+//			ArrayList<String> nicks = new ArrayList<>();
+//
+//			for (Perfil u : p) {
+//				nicks.add(u.getNombreP());
+//			}
+//
+//			usuarios = new String[nicks.size()];
+//
+//			for (int i = 0; i < nicks.size(); i++) {
+//				usuarios[i] = nicks.get(i);
+//			}
 
 		} catch (Exception ex) {
 			System.err.println("* Exception: " + ex.getMessage());
 		}
-		return usuarios;
+		return perfiles.toArray(new Perfil[perfiles.size()]);
 	}
 //
 //	@Override

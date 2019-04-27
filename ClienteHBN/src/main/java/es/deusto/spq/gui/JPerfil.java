@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import es.deusto.data.Perfil;
+
 public class JPerfil extends JPanel {
 
 	/**
@@ -32,11 +34,17 @@ public class JPerfil extends JPanel {
 	}
 
 	private JLabel lblImagen;
+	private Perfil perfil;
 
 	/**
 	 * Create the panel.
 	 */
-	public JPerfil(String nombre) {
+	public JPerfil(Perfil perfil) {
+		this();
+		setPerfil(perfil);
+	}
+	
+	public JPerfil() {
 		setLayout(new BorderLayout(0, 0));
 
 		lblImagen = new JLabel();
@@ -44,7 +52,6 @@ public class JPerfil extends JPanel {
 
 		txtNombre = new JTextField();
 		txtNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNombre.setText(nombre);
 		add(txtNombre, BorderLayout.CENTER);
 		txtNombre.setColumns(10);
 
@@ -54,6 +61,19 @@ public class JPerfil extends JPanel {
 
 		setBackground(Color.white);
 	}
+
+	
+	
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+		txtNombre.setText(perfil.getNombreP());
+	}
+
+
 
 	@Override
 	public String toString() {
