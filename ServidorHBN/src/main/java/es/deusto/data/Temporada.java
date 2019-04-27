@@ -17,9 +17,16 @@ public class Temporada implements Serializable{
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private int idTemp;
 	private int num;
+	private int anho;
 	
 	@Element(column="IDTEMP")
 	List<Capitulo> caps;
+
+	public Temporada(int num, int anho) {
+		this.num = num;
+		this.anho = anho;
+		this.caps = new ArrayList<Capitulo>();
+	}
 
 	public Temporada(int num) {
 		this.num = num;
@@ -31,6 +38,14 @@ public class Temporada implements Serializable{
 
 	public void setNum(int num) {
 		this.num = num;
+	}
+
+	public int getAnho() {
+		return anho;
+	}
+
+	public void setAnho(int anho) {
+		this.anho = anho;
 	}
 
 	public List<Capitulo> getCaps() {

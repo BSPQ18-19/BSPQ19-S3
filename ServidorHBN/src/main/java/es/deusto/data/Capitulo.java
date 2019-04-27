@@ -16,15 +16,13 @@ public class Capitulo implements Serializable{
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private int idCap;
 	private String titulo;
-	private int anho;
 	private long duracion; // ms
 	private int edad_rec;
 	private String descr;
 	private double valoracion;
 	
-	public Capitulo(String titulo, int anho, long duracion, int edad_rec, String descr, double valoracion) {
+	public Capitulo(String titulo, long duracion, int edad_rec, String descr, double valoracion) {
 		this.titulo = titulo;
-		this.anho = anho;
 		this.duracion = duracion;
 		this.edad_rec = edad_rec;
 		this.descr = descr;
@@ -36,12 +34,6 @@ public class Capitulo implements Serializable{
 	}
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
-	}
-	public int getAnho() {
-		return anho;
-	}
-	public void setAnho(int anho) {
-		this.anho = anho;
 	}
 	public long getDuracion() {
 		return duracion;
