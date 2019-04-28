@@ -17,6 +17,7 @@ public class JMainFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 8115163704957507722L;
 	private JPanel contentPane;
+	public static String usuario;
 
 	/**
 	 * Launch the application.
@@ -40,7 +41,6 @@ public class JMainFrame extends JFrame {
 	public static final String USUARIO = "USUARIO";
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
-	static String usuario;
 
 	/**
 	 * Create the frame.
@@ -74,10 +74,12 @@ public class JMainFrame extends JFrame {
 
 			// control parental
 			JControlParental controlParental = new JControlParental(cardLayout);
+			controlParental.usuario = usuario;
 			contentPane.add(controlParental, PARENTAL);
 
 			// ventana principal usuario
 			JUsuario ventanaUsuario = new JUsuario(cardLayout);
+			ventanaUsuario.usuario = usuario;
 			contentPane.add(ventanaUsuario, USUARIO);
 
 			// ventana principal administrador

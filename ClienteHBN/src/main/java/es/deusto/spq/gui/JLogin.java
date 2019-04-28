@@ -110,9 +110,9 @@ public class JLogin extends JPanel {
 							clear();
 							JMainFrame.usuario = usuario;
 							if (getCliente(usuario)) {
-							cardLayout.show(getParent(), JMainFrame.ADMIN);
+								cardLayout.show(getParent(), JMainFrame.ADMIN);
 							} else {
-							cardLayout.show(getParent(), JMainFrame.USUARIO);
+								cardLayout.show(getParent(), JMainFrame.USUARIO);
 							}
 						} else {
 							JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(JLogin.this),

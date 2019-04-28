@@ -20,7 +20,9 @@ public class JUsuario extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4776827044525863728L;
+	
+	public String usuario = null;
 
 	protected ImageIcon createImageIcon(String path, String description) {
 		java.net.URL imgURL = getClass().getResource(path);
@@ -50,7 +52,7 @@ public class JUsuario extends JPanel {
 			}
 		});
 		
-		JLabel lblBienvenido = new JLabel("Bienvenido!");
+		JLabel lblBienvenido = new JLabel("¡Bienvenido, " + usuario + "!");
 		GridBagConstraints gbc_lblBienvenido = new GridBagConstraints();
 		gbc_lblBienvenido.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBienvenido.gridx = 1;
