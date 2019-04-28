@@ -13,5 +13,7 @@ public interface IRmi extends Remote {
 
 	public Perfil[] getPerfiles(String usuario) throws RemoteException;
 	
+	public boolean getTipo(String usuario) throws RemoteException;
+	
 //	public void crearPerfil(String usuario, String nombreP, String fecha);
 }

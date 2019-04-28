@@ -29,9 +29,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 
-//	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
-//	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-//	public ArrayList<Perfil> p = new ArrayList<Perfil>();
+	//	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
+	//	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	//	public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
@@ -178,11 +178,11 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 
 	}
-	
+
 	@Override
 	public Perfil[] getPerfiles(String usuario) throws RemoteException {
 		ArrayList<Perfil> perfiles = new ArrayList<Perfil>();
-//		String[] usuarios = null;
+		//		String[] usuarios = null;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
@@ -222,57 +222,97 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 
-//			ArrayList<String> nicks = new ArrayList<>();
-//
-//			for (Perfil u : p) {
-//				nicks.add(u.getNombreP());
-//			}
-//
-//			usuarios = new String[nicks.size()];
-//
-//			for (int i = 0; i < nicks.size(); i++) {
-//				usuarios[i] = nicks.get(i);
-//			}
+			//			ArrayList<String> nicks = new ArrayList<>();
+			//
+			//			for (Perfil u : p) {
+			//				nicks.add(u.getNombreP());
+			//			}
+			//
+			//			usuarios = new String[nicks.size()];
+			//
+			//			for (int i = 0; i < nicks.size(); i++) {
+			//				usuarios[i] = nicks.get(i);
+			//			}
 
 		} catch (Exception ex) {
 			System.err.println("* Exception: " + ex.getMessage());
 		}
 		return perfiles.toArray(new Perfil[perfiles.size()]);
 	}
-//
-//	@Override
-//	public void crearPerfil(String usuario, String nombreP, String fecha) {
-//		try {
-//			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-//			PersistenceManager pm = pmf.getPersistenceManager();
-//			Transaction tx = pm.currentTransaction();
-//			try {
-//				tx.begin();
-//				JMainFrame.println("Comprobando que el usuario no existía previamente '" + usuario + "'");
-//				Cliente user = null;
-//				Perfil perfil = null;
-//				ControlParental cp = ControlParental.FALSE;
-//
-//				for (Cliente c : clientes) {
-//					if (c.getNick().equals(usuario)) {
-//						user = c;
-//					}
-//				}
-//				perfil = new Perfil(nombreP, fecha, cp);
-//				user.perfiles.add(perfil);
-//				pm.makePersistent(user);
-//				JMainFrame.println("Creating profile: " + perfil);
-//				pm.makePersistent(perfil);
-//				tx.commit();
-//
-//			} finally {
-//				if (tx.isActive()) {
-//					tx.rollback();
-//				}
-//			}
-//		} catch (Exception ex) {
-//			System.err.println("* Exception: " + ex.getMessage());
-//		}
-//
-//	}
+	//
+	//	@Override
+	//	public void crearPerfil(String usuario, String nombreP, String fecha) {
+	//		try {
+	//			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+	//			PersistenceManager pm = pmf.getPersistenceManager();
+	//			Transaction tx = pm.currentTransaction();
+	//			try {
+	//				tx.begin();
+	//				JMainFrame.println("Comprobando que el usuario no existía previamente '" + usuario + "'");
+	//				Cliente user = null;
+	//				Perfil perfil = null;
+	//				ControlParental cp = ControlParental.FALSE;
+	//
+	//				for (Cliente c : clientes) {
+	//					if (c.getNick().equals(usuario)) {
+	//						user = c;
+	//					}
+	//				}
+	//				perfil = new Perfil(nombreP, fecha, cp);
+	//				user.perfiles.add(perfil);
+	//				pm.makePersistent(user);
+	//				JMainFrame.println("Creating profile: " + perfil);
+	//				pm.makePersistent(perfil);
+	//				tx.commit();
+	//
+	//			} finally {
+	//				if (tx.isActive()) {
+	//					tx.rollback();
+	//				}
+	//			}
+	//		} catch (Exception ex) {
+	//			System.err.println("* Exception: " + ex.getMessage());
+	//		}
+	//
+	//	}
+
+	@Override
+	public boolean getTipo(String usuario) throws RemoteException {
+		//false = usuario
+		//true = admin
+		boolean tipo = false;
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				tx.begin();
+				@SuppressWarnings("unchecked")
+				Query<Cliente> clientesQuery = pm.newQuery("SELECT FROM " + Cliente.class.getName());
+
+				for (Cliente c : clientesQuery.executeList()) {
+					if (c.getNick().equals(usuario)) {
+						if (c.getTipo() == Modo.ADMIN) {
+						tipo = true;
+						}
+					}
+				}
+
+				tx.commit();
+			} catch (Exception ex) {
+
+				System.err.println("* Exception executing a query: " + ex.getMessage());
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+
+				pm.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+		return tipo;
+	}
 }

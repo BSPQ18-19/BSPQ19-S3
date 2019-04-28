@@ -45,7 +45,7 @@ public class JUsuario extends JPanel {
 		btnVlver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				cardLayout.show(getParent(), JMainFrame.USUARIO);
+				cardLayout.show(getParent(), JMainFrame.LOGIN);
 				
 			}
 		});

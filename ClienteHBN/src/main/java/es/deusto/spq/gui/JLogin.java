@@ -105,11 +105,15 @@ public class JLogin extends JPanel {
 						btnIniciarSesin.setEnabled(false);
 						boolean ok = iniciarSesion(usuario, contrasenya);
 						btnIniciarSesin.setEnabled(true);
-
+						
 						if (ok) {
 							clear();
-							cardLayout.show(getParent(), JMainFrame.USUARIO);
 							JMainFrame.usuario = usuario;
+							if (getCliente(usuario)) {
+							cardLayout.show(getParent(), JMainFrame.ADMIN);
+							} else {
+							cardLayout.show(getParent(), JMainFrame.USUARIO);
+							}
 						} else {
 							JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(JLogin.this),
 									"Usuario no válido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -151,6 +155,16 @@ public class JLogin extends JPanel {
 			IRmi s = serviceLocator.getService();
 			boolean b = s.login(usuario, contrasenya);
 			return b;
+		} catch (RemoteException e) {
+			return false;
+		}
+	}
+
+	public boolean getCliente(String usuario) {
+		try {
+			IRmi s = serviceLocator.getService();
+			boolean c = s.getTipo(usuario);
+			return c;
 		} catch (RemoteException e) {
 			return false;
 		}
