@@ -17,6 +17,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <config.files.dir>../ServidorHBN/src/main/resources</config.files.dir>
   </properties>
 
   <dependencies>
@@ -49,7 +50,6 @@
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -90,7 +90,24 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>datanucleus-maven-plugin</artifactId>
+        <version>5.0.2</version>
+        <configuration>
+          <log4jConfiguration>${config.files.dir}/log4j.properties</log4jConfiguration>
+          <verbose>true</verbose>
+          <props>${config.files.dir}/datanucleus.properties</props>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 </project>
