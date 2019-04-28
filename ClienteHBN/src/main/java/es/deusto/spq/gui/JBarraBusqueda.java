@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class JBarraBusqueda extends JPanel {
 
@@ -34,9 +36,9 @@ public class JBarraBusqueda extends JPanel {
 	public JBarraBusqueda() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		textField = new JTextField();
@@ -66,6 +68,24 @@ public class JBarraBusqueda extends JPanel {
 		gbc_panelGeneros.gridx = 0;
 		gbc_panelGeneros.gridy = 1;
 		add(panelGeneros, gbc_panelGeneros);
+		
+		rdbtnPeliculas = new JRadioButton("Películas");
+		rdbtnPeliculas.setSelected(true);
+		buttonGroup.add(rdbtnPeliculas);
+		GridBagConstraints gbc_rdbtnPeliculas = new GridBagConstraints();
+		gbc_rdbtnPeliculas.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnPeliculas.gridx = 0;
+		gbc_rdbtnPeliculas.gridy = 2;
+		add(rdbtnPeliculas, gbc_rdbtnPeliculas);
+		
+		rdbtnSeries = new JRadioButton("Series");
+		buttonGroup.add(rdbtnSeries);
+		GridBagConstraints gbc_rdbtnSeries = new GridBagConstraints();
+		gbc_rdbtnSeries.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnSeries.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnSeries.gridx = 1;
+		gbc_rdbtnSeries.gridy = 2;
+		add(rdbtnSeries, gbc_rdbtnSeries);
 		
 		for(String genero: GENEROS) {
 			panelGeneros.add(new JCheckBox(genero));
@@ -99,6 +119,9 @@ public class JBarraBusqueda extends JPanel {
 	
 	private ArrayList<BusquedaListener> busquedaListeners = new ArrayList<BusquedaListener>();
 	private JPanel panelGeneros;
+	private JRadioButton rdbtnPeliculas;
+	private JRadioButton rdbtnSeries;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	public void addBusquedaListener(BusquedaListener busquedaListener){
 		busquedaListeners.add(busquedaListener);
@@ -126,4 +149,10 @@ public class JBarraBusqueda extends JPanel {
 	}
 	
 
+	public boolean isPeliculasSelected() {
+		return rdbtnPeliculas.isSelected();
+	}
+	public boolean isSeriesSelected() {
+		return rdbtnSeries.isSelected();
+	}
 }

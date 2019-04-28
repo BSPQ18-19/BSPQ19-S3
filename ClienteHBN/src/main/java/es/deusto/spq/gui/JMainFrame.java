@@ -41,14 +41,16 @@ public class JMainFrame extends JFrame {
 	public static final String USUARIO = "USUARIO";
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
+	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
+
 
 	/**
 	 * Create the frame.
 	 */
 	public JMainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setSize(450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,12 +81,15 @@ public class JMainFrame extends JFrame {
 
 			// ventana principal usuario
 			JUsuario ventanaUsuario = new JUsuario(cardLayout);
-			ventanaUsuario.usuario = usuario;
 			contentPane.add(ventanaUsuario, USUARIO);
 
 			// ventana principal administrador
 			JAdmin ventanaAdmin = new JAdmin(cardLayout);
 			contentPane.add(ventanaAdmin, ADMIN);
+			
+			//Panel búsqueda
+			JPanelBusquedaUsuario panelBusqueda = new JPanelBusquedaUsuario(cardLayout, serviceLocator);
+			contentPane.add(panelBusqueda, PANEL_BUSQUEDA_USUARIO);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");

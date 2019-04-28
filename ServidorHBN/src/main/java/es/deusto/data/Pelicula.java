@@ -3,9 +3,10 @@ package es.deusto.data;
 import java.io.Serializable;
 
 import javax.jdo.annotations.*;
+import javax.swing.ImageIcon;
 
 @PersistenceCapable
-public class Pelicula implements Serializable {
+public class Pelicula implements Serializable, Contenido {
 
 	/**
 	 * 
@@ -22,6 +23,9 @@ public class Pelicula implements Serializable {
 	private int edad_rec;
 	private String sinopsis;
 	private double valoracion;
+	
+	private ImageIcon portada;
+
 
 	public Pelicula(String titulo, int anho, long duracion, String genero, int edad_rec, String sinopsis,
 			double valoracion) {
@@ -101,6 +105,16 @@ public class Pelicula implements Serializable {
 	@Override
 	public String toString() {
 		return "Película: " + titulo + "\nAño: " + anho + "\nDuración: " + duracion + "\nGénero: " + genero + "\nEdad recomendada: " + edad_rec + "\nSinopsis: " + sinopsis + "\nValoración: " + valoracion;
+	}
+
+	@Override
+	public ImageIcon getPortada() {
+		return portada;
+	}
+
+	@Override
+	public void setPortada(ImageIcon portada) {
+		this.portada = portada;
 	}
 
 }

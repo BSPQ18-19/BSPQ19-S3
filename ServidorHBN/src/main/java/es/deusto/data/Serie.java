@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.jdo.annotations.*;
+import javax.swing.ImageIcon;
 
 @PersistenceCapable
-public class Serie implements Serializable {
+public class Serie implements Serializable, Contenido {
 
 	/**
 	 * 
@@ -24,6 +25,9 @@ public class Serie implements Serializable {
 	
 	@Element(column="ID_SERIE")
 	public List<Temporada> temps;
+	
+	private ImageIcon portada;
+
 	
 	public Serie(String titulo, int anho, String genero, double val, String sinopsis) {
 		this.titulo = titulo;
@@ -94,5 +98,15 @@ public class Serie implements Serializable {
 	public String toString() {
 		return "Serie: " + titulo + "\nAño:" + anho + "\nGénero: " + genero + "\nValoración: " + val + "\nSinopsis: "
 				+ sinopsis;
+	}
+	
+	@Override
+	public ImageIcon getPortada() {
+		return portada;
+	}
+
+	@Override
+	public void setPortada(ImageIcon portada) {
+		this.portada = portada;
 	}
 }
