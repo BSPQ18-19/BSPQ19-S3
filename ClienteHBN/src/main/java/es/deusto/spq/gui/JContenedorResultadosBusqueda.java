@@ -39,6 +39,7 @@ public class JContenedorResultadosBusqueda extends JPanel {
 	}
 
 	public void anyadirContenido(Contenido contenidos[]) {
+		panel.removeAll();
 		int columnas = 0;
 		JPanel fila = new JPanel();
 		panel.add(fila);
@@ -55,6 +56,8 @@ public class JContenedorResultadosBusqueda extends JPanel {
 			}
 			fila.add(jPortada);
 		}
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	public static void main(String args[]) {

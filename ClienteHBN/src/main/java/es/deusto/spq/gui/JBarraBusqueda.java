@@ -14,7 +14,6 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -87,8 +86,15 @@ public class JBarraBusqueda extends JPanel {
 		gbc_rdbtnSeries.gridy = 2;
 		add(rdbtnSeries, gbc_rdbtnSeries);
 		
-		for(String genero: GENEROS) {
-			panelGeneros.add(new JCheckBox(genero));
+		for(int i = 0; i < GENEROS.length; i++) {
+//		for(String genero: GENEROS) {
+			String genero = GENEROS[i];
+			JCheckBox button = new JCheckBox(genero);
+			panelGeneros.add(button);
+			buttonGroupGeneros.add(button);
+			if(i == 0) {
+				button.setSelected(true);
+			}
 		}
 		
 		btnBuscar.addActionListener((e)->processBusquedaEvent());
@@ -96,32 +102,12 @@ public class JBarraBusqueda extends JPanel {
 	}
 	
 	
-	public static void main(String args[]) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 600);
-		frame.setLocationRelativeTo(null);
-		JBarraBusqueda barraBusqueda = new JBarraBusqueda();
-		barraBusqueda.addBusquedaListener(new BusquedaListener() {
-			
-			@Override
-			public void onBuscar(ArrayList<String> generos,
-					String campoDeBusqueda) {
-				System.out.println(
-						"public void onBuscar(ArrayList<String> generos = "
-								+ generos + ",String campoDeBusqueda = " + campoDeBusqueda + ")");
-
-			}
-		});
-		frame.setContentPane(barraBusqueda);
-		frame.setVisible(true);
-	}
-	
 	private ArrayList<BusquedaListener> busquedaListeners = new ArrayList<BusquedaListener>();
 	private JPanel panelGeneros;
 	private JRadioButton rdbtnPeliculas;
 	private JRadioButton rdbtnSeries;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroupGeneros = new ButtonGroup();
 	
 	public void addBusquedaListener(BusquedaListener busquedaListener){
 		busquedaListeners.add(busquedaListener);
@@ -134,17 +120,19 @@ public class JBarraBusqueda extends JPanel {
 	protected void processBusquedaEvent() {
 		String campoDeBusqueda = textField.getText();
 		
-		ArrayList<String> generos = new ArrayList<String>();
+		String genero = null;
 		
+		//Tiene break
 		for(Component c: panelGeneros.getComponents()) {
 			JCheckBox checkBox = (JCheckBox) c;
 			if(checkBox.isSelected()) {
-				generos.add(checkBox.getText());
+				genero = checkBox.getText();
+				break;
 			}
 		}
 		
 		for(BusquedaListener busquedaListener:busquedaListeners) {
-			busquedaListener.onBuscar(generos, campoDeBusqueda);
+			busquedaListener.onBuscar(genero, campoDeBusqueda, rdbtnPeliculas.isSelected());
 		}
 	}
 	

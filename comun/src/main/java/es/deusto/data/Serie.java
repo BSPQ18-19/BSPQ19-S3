@@ -26,7 +26,7 @@ public class Serie implements Serializable, Contenido {
 	@Element(column="ID_SERIE")
 	public List<Temporada> temps;
 	
-	private ImageIcon portada;
+//	private ImageIcon portada;
 
 	
 	public Serie(String titulo, int anho, String genero, double val, String sinopsis) {
@@ -102,11 +102,11 @@ public class Serie implements Serializable, Contenido {
 	
 	@Override
 	public ImageIcon getPortada() {
-		return portada;
+		return null;
 	}
 
 	@Override
 	public void setPortada(ImageIcon portada) {
-		this.portada = portada;
+//		this.portada = portada;
 	}
 }

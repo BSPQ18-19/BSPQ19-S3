@@ -1,8 +1,10 @@
 package es.deusto.data;
 
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
-public interface Contenido {
+public interface Contenido extends Serializable {
 	
 //	private ImageIcon portada;
 //	private String titulo;
@@ -36,5 +38,9 @@ public interface Contenido {
 	public void setPortada(ImageIcon portada);
 	public String getTitulo();
 	public void setTitulo(String titulo);
+	
+	public String getGenero();
+
+	public void setGenero(String genero);
 	
 }

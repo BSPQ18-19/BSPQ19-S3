@@ -24,7 +24,7 @@ public class Pelicula implements Serializable, Contenido {
 	private String sinopsis;
 	private double valoracion;
 	
-	private ImageIcon portada;
+//	private ImageIcon portada;
 
 
 	public Pelicula(String titulo, int anho, long duracion, String genero, int edad_rec, String sinopsis,
@@ -109,12 +109,12 @@ public class Pelicula implements Serializable, Contenido {
 
 	@Override
 	public ImageIcon getPortada() {
-		return portada;
+		return null;
 	}
 
 	@Override
 	public void setPortada(ImageIcon portada) {
-		this.portada = portada;
+//		this.portada = portada;
 	}
 
 }

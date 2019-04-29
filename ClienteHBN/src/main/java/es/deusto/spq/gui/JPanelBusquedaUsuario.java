@@ -2,6 +2,7 @@ package es.deusto.spq.gui;
 
 import javax.swing.JPanel;
 
+import es.deusto.data.Contenido;
 import es.deusto.spq.remote.ServiceLocator;
 
 import java.awt.GridBagLayout;
@@ -10,8 +11,8 @@ import javax.swing.JButton;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 
 public class JPanelBusquedaUsuario extends JPanel {
@@ -72,13 +73,26 @@ public class JPanelBusquedaUsuario extends JPanel {
 		barraBusqueda.addBusquedaListener(new BusquedaListener() {
 			
 			@Override
-			public void onBuscar(ArrayList<String> generos, String campoDeBusqueda) {
-				// TODO Añadir lógica
+			public void onBuscar(String genero, String campoDeBusqueda, boolean isPelicula) {
+				Contenido[] contenidos;
+				try {
+					if(isPelicula) {
+						contenidos = serviceLocator.getService().buscarPelicula(genero, campoDeBusqueda);
+					}else {
+						contenidos = serviceLocator.getService().buscarSerie(genero, campoDeBusqueda);
+					}
+					contenedorResultadosBusqueda.anyadirContenido(contenidos);
+					
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		});
 
 	}
+	
 	
 	
 
