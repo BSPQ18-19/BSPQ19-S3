@@ -3,7 +3,6 @@ package es.deusto.spq.remote;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import es.deusto.data.Contenido;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Serie;
@@ -20,8 +19,7 @@ public interface IRmi extends Remote {
 	
 //	public void crearPerfil(String usuario, String nombreP, String fecha);
 	
-//	public Contenido[] buscar(String genero, String campoDeBusqueda, boolean isPelicula) throws RemoteException;
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException;
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException;
-
+	public void cambiarControlParental(Perfil p) throws RemoteException;
 }
