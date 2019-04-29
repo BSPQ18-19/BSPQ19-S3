@@ -214,6 +214,10 @@
 									<key>java.security.policy</key>
 									<value>${policy.file}</value>
 								</systemProperty>
+								<systemProperty>
+									<key>log4j.configuration</key>
+									<value>log4j.properties</value>
+								</systemProperty>
 							</systemProperties>
 							<arguments>
 								<argument>${server.IP}</argument>

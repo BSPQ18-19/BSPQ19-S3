@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.log4j.Logger;
+
 import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.Rmi;
 
@@ -68,7 +70,8 @@ public class JMainFrame extends JFrame {
 		return ventana;
 		
 	}
-	
+	final static Logger logger = Logger.getLogger(JMainFrame.class);
+
 	/**
 	 * Create the frame.
 	 */
@@ -94,6 +97,7 @@ public class JMainFrame extends JFrame {
 	
 	public static void println(String mensaje) {
 		ventana.textArea.setText(ventana.textArea.getText()+mensaje+"\n");
+		logger.info(ventana.textArea.getText());
 	}
 
 }
