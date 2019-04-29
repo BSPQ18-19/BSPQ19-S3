@@ -73,10 +73,29 @@ public class PeliculaTest {
 		p.setSinopsis("B");
 		assertEquals("B", p.getSinopsis());
 	}
-//	@Test
-//	public void testsetValoracion() {
-//		p.setValoracion(7);
-//		assertEquals(7,p.getValoracion());
-//	}
 
+	@Test
+	public void testtoString() {
+		assertTrue(p.toString()!=null);
+	}
+	
+	@Test
+	public void testgetPortada() {
+		p.setPortada(null);
+		assertTrue(p.getPortada()==null);
+	}
+	
+	@Test
+	public void testValoracion() {
+		double d = 1;
+		p.setValoracion(d);
+		assertTrue(d==p.getValoracion());
+	}
+	
+	@Test
+	public void testId() {
+		p.setIdPel(1);
+		assertTrue(p.getIdPel()==1);
+	}
+	
 }

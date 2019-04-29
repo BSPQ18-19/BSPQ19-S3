@@ -34,17 +34,10 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 
-	//	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
-	//	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-	//	public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
 		this.serverName = serverName;
-		// PersistenceManagerFactory pmf =
-		// JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		// this.pm = pmf.getPersistenceManager();
-		// this.tx = pm.currentTransaction();
 	}
 
 	public String getName() {
@@ -377,67 +370,10 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
 			System.out.println(Arrays.toString(resultado));
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-//	@Override
-//	public Contenido[] buscar(String genero, String campoDeBusqueda, boolean isPelicula) throws RemoteException {
-//		ArrayList<Contenido> arrayList = new ArrayList<Contenido>();
-//		
-//		String nombreTabla;
-//		
-//		if(isPelicula) {
-//			nombreTabla = Pelicula.class.getName();
-//		}else {
-//			nombreTabla = Serie.class.getName();
-//		}
-//		System.out.println("Nombre tabla = "+nombreTabla);
-//		try {
-//			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-//			PersistenceManager pm = pmf.getPersistenceManager();
-//			Transaction tx = pm.currentTransaction();
-//			try
-//			{
-//			    tx.begin();
-//
-//			    Query q = pm.newQuery("SELECT FROM " + nombreTabla );
-//			    List<Contenido> contenidos = (List<Contenido>)q.execute();
-//			    Iterator<Contenido> iter = contenidos.iterator();
-//			    while (iter.hasNext())
-//			    {
-//			    	Contenido c = iter.next();
-//			    	if(c.getTitulo().contains(campoDeBusqueda) && c.getGenero().equalsIgnoreCase(genero)) {
-//			    		arrayList.add(c);
-//			    	}
-//			    	
-//			    }
-//
-//			    
-//			    tx.commit();
-//			    //Si no se pone este for, no se inicializan las variables
-//			    for(Contenido c: arrayList) {
-//			    	c.toString();
-//			    }
-//			}
-//			catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			finally
-//			{
-//			    if (tx.isActive())
-//			    {
-//			        tx.rollback();
-//			    }
-//
-//			    pm.close();
-//			}
-//		} catch (Exception e) {
-//			System.err.println("* Exception: " + e.getMessage());
-//		}
-//		return arrayList.toArray(new Contenido[arrayList.size()]);
-//	}
 
 	@Override
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException {
@@ -454,8 +390,10 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			{
 			    tx.begin();
 
-			    Query q = pm.newQuery("SELECT FROM " + nombreTabla );
-			    List<Pelicula> contenidos = (List<Pelicula>)q.execute();
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
+			    @SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>)q.execute();
 			    Iterator<Pelicula> iter = contenidos.iterator();
 			    while (iter.hasNext())
 			    {
@@ -493,7 +431,55 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	@Override
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+ArrayList<Serie> arrayList = new ArrayList<Serie>();
+		
+		String nombreTabla;
+		
+		nombreTabla = Pelicula.class.getName();
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try
+			{
+			    tx.begin();
+
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
+			    @SuppressWarnings("unchecked")
+				List<Serie> contenidos = (List<Serie>)q.execute();
+			    Iterator<Serie> iter = contenidos.iterator();
+			    while (iter.hasNext())
+			    {
+			    	Serie s = iter.next();
+			    	if(s.getTitulo().contains(campoDeBusqueda) && s.getGenero().equalsIgnoreCase(genero)) {
+			    		arrayList.add(s);
+			    	}
+			    	
+			    }
+
+			    
+			    tx.commit();
+			    //Si no se pone este for, no se inicializan las variables
+			    for(Contenido c: arrayList) {
+			    	c.toString();
+			    }
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally
+			{
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+
+			    pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
+		return arrayList.toArray(new Serie[arrayList.size()]);
 	}
 }
