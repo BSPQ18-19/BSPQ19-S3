@@ -276,6 +276,38 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	//
 	//	}
 
+	public void cambiarControlParental(Perfil p)throws RemoteException {
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				tx.begin();
+				if(p.getControlParental()==ControlParental.TRUE){
+					p.setControlParental(ControlParental.FALSE);
+				}else {
+					p.setControlParental(ControlParental.TRUE);
+				}
+				pm.makePersistent(p);
+				JMainFrame.println("Control Parental actualizado");
+				tx.commit();
+			} catch (Exception ex) {
+
+			//	System.err.println("* Exception executing a query: " + ex.getMessage());
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+
+				pm.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+		
+	}
+		
 	@Override
 	public boolean getTipo(String usuario) throws RemoteException {
 		//false = usuario

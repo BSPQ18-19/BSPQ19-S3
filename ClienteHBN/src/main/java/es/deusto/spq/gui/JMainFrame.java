@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import es.deusto.data.Perfil;
+import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
 
@@ -41,7 +43,7 @@ public class JMainFrame extends JFrame {
 	public static final String USUARIO = "USUARIO";
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
-
+	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
 	/**
 	 * Create the frame.
 	 */
@@ -73,7 +75,7 @@ public class JMainFrame extends JFrame {
 			contentPane.add(selectorPerfil, PERFILES);
 
 			// control parental
-			JControlParental controlParental = new JControlParental(cardLayout);
+			JControlParental controlParental = new JControlParental(cardLayout, serviceLocator);
 			controlParental.usuario = usuario;
 			contentPane.add(controlParental, PARENTAL);
 
