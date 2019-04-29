@@ -345,34 +345,33 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 		return tipo;
 	}
-	
-	public static void main(String[] args) {
-//		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		Transaction tx=pm.currentTransaction();
-//		try
-//		{
-//		    tx.begin();
-//		    Pelicula p = new Pelicula("t", 1, 1, "Drama", 1, "", 1);
-//		    pm.makePersistent(p);
-//		    tx.commit();
+//	public static void main(String[] args) {
+////		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+////		PersistenceManager pm = pmf.getPersistenceManager();
+////		Transaction tx=pm.currentTransaction();
+////		try
+////		{
+////		    tx.begin();
+////		    Pelicula p = new Pelicula("t", 1, 1, "Drama", 1, "", 1);
+////		    pm.makePersistent(p);
+////		    tx.commit();
+////		}
+////		finally
+////		{
+////		    if (tx.isActive())
+////		    {
+////		        tx.rollback();
+////		    }
+////		    pm.close();
+////		}
+//		try {
+//			Rmi rmi = new Rmi("");
+//			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
+//			System.out.println(Arrays.toString(resultado));
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
 //		}
-//		finally
-//		{
-//		    if (tx.isActive())
-//		    {
-//		        tx.rollback();
-//		    }
-//		    pm.close();
-//		}
-		try {
-			Rmi rmi = new Rmi("");
-			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
-			System.out.println(Arrays.toString(resultado));
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
+//	}
 
 
 	@Override
@@ -435,7 +434,7 @@ ArrayList<Serie> arrayList = new ArrayList<Serie>();
 		
 		String nombreTabla;
 		
-		nombreTabla = Pelicula.class.getName();
+		nombreTabla = Serie.class.getName();
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
