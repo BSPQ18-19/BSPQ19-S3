@@ -16,4 +16,6 @@ public interface IRmi extends Remote {
 	public boolean getTipo(String usuario) throws RemoteException;
 	
 	public void crearPerfil(String usuario,Perfil p) throws RemoteException;
+	
+	public void cambiarControlParental(Perfil p) throws RemoteException;
 }

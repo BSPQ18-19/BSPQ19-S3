@@ -11,8 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+
+import es.deusto.data.Perfil;
+import es.deusto.data.Perfil.ControlParental;
+import es.deusto.spq.remote.IRmi;
+import es.deusto.spq.remote.ServiceLocator;
 
 public class JControlParental extends JPanel {
 
@@ -25,10 +31,12 @@ public class JControlParental extends JPanel {
 	public String usuario = null;
 	private JTextField textField;
 	public boolean tipo = true;
+	private ServiceLocator serviceLocator;
 
-	public JControlParental(CardLayout cardLayout) {
+	public JControlParental(CardLayout cardLayout, ServiceLocator sl) {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		this.serviceLocator = sl;
 		gridBagLayout.columnWidths = new int[] { 0, 0, 251 };
 		gridBagLayout.rowHeights = new int[] { 0, 46, 0, 48, 0, 30, 26, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0 };
@@ -88,23 +96,42 @@ public class JControlParental extends JPanel {
 		gbc_btnCambiarPass.gridy = 4;
 		add(btnCambiarPass, gbc_btnCambiarPass);
 
-		JButton btnAtras = new JButton("Atrás");
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		//if (tipo) {
 
-				cardLayout.show(getParent(), JMainFrame.USUARIO);
-
-			}
-		});
-		GridBagConstraints gbc_btnAtras = new GridBagConstraints();
-		gbc_btnAtras.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAtras.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAtras.gridx = 1;
-		gbc_btnAtras.gridy = 6;
-		add(btnAtras, gbc_btnAtras);
-
-		if (tipo) {
 			JButton btnActivarControlParental = new JButton("Activar Control Parental");
+			JButton btnDesactivarControlParental = new JButton("Desactivar Control Parental");
+			JButton btnInfo = new JButton("i");
+			btnDesactivarControlParental.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						cambiarControlParental(JMainFrame.p);
+						btnActivarControlParental.setVisible(true);
+						btnInfo.setVisible(true);
+						btnDesactivarControlParental.setVisible(false);
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+				}
+			});
+			
+			
+			btnActivarControlParental.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					try {
+						cambiarControlParental(JMainFrame.p);
+						btnActivarControlParental.setVisible(false);
+						btnInfo.setVisible(false);
+						btnDesactivarControlParental.setVisible(true);
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			GridBagConstraints gbc_btnActivarControlParental = new GridBagConstraints();
 			gbc_btnActivarControlParental.fill = GridBagConstraints.VERTICAL;
 			gbc_btnActivarControlParental.anchor = GridBagConstraints.EAST;
@@ -112,8 +139,16 @@ public class JControlParental extends JPanel {
 			gbc_btnActivarControlParental.gridx = 2;
 			gbc_btnActivarControlParental.gridy = 6;
 			add(btnActivarControlParental, gbc_btnActivarControlParental);
+
 			
-			JButton btnInfo = new JButton("i");
+			GridBagConstraints gbc_btnDesactivarControlParental = new GridBagConstraints();
+			gbc_btnDesactivarControlParental.anchor = GridBagConstraints.EAST;
+			gbc_btnDesactivarControlParental.insets = new Insets(0, 0, 5, 5);
+			gbc_btnDesactivarControlParental.gridx = 2;
+			gbc_btnDesactivarControlParental.gridy = 7;
+			add(btnDesactivarControlParental, gbc_btnDesactivarControlParental);
+
+			
 			btnInfo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JOptionPane.showMessageDialog(null,
@@ -121,12 +156,46 @@ public class JControlParental extends JPanel {
 							"Control parental", JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
-			
+			if (JMainFrame.p.getControlParental() == ControlParental.FALSE) {
+				btnActivarControlParental.setVisible(true);
+				btnInfo.setVisible(true);
+				btnDesactivarControlParental.setVisible(false);
+			} else {
+				btnActivarControlParental.setVisible(false);
+				btnInfo.setVisible(true);
+				btnDesactivarControlParental.setVisible(true);
+			}
 			GridBagConstraints gbc_btnInfo = new GridBagConstraints();
 			gbc_btnInfo.insets = new Insets(0, 0, 5, 0);
 			gbc_btnInfo.gridx = 3;
 			gbc_btnInfo.gridy = 6;
 			add(btnInfo, gbc_btnInfo);
+
+			JButton btnAtras = new JButton("Atrás");
+			btnAtras.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					cardLayout.show(getParent(), JMainFrame.USUARIO);
+
+				}
+			});
+			GridBagConstraints gbc_btnAtras = new GridBagConstraints();
+			gbc_btnAtras.fill = GridBagConstraints.HORIZONTAL;
+			gbc_btnAtras.insets = new Insets(0, 0, 0, 5);
+			gbc_btnAtras.gridx = 1;
+			gbc_btnAtras.gridy = 8;
+			add(btnAtras, gbc_btnAtras);
+
 		}
+		
+	//}
+	public void cambiarControlParental(Perfil p) throws RemoteException{
+
+		System.out.println(serviceLocator);
+		IRmi s = serviceLocator.getService();
+		s.cambiarControlParental(p);
+
 	}
+	
 }
+
