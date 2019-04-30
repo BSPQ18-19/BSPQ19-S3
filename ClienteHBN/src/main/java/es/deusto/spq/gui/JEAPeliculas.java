@@ -27,6 +27,7 @@ public class JEAPeliculas extends JPanel{
 	private JPanel panel;
 	private JButton btnEditar;
 	private JButton btnAñadir;
+	private JButton btnEliminar;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroupGeneros = new ButtonGroup();
 	
@@ -75,6 +76,15 @@ public class JEAPeliculas extends JPanel{
 		gbc_btnAñadir.gridx = 1;
 		gbc_btnAñadir.gridy = 2;
 		add(btnAñadir, gbc_btnAñadir);
+		
+		btnEliminar = new JButton("Eliminar");
+		buttonGroup.add(btnEliminar);
+		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
+		gbc_btnEliminar.anchor = GridBagConstraints.WEST;
+		gbc_btnEliminar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEliminar.gridx = 1;
+		gbc_btnEliminar.gridy = 2;
+		add(btnEliminar, gbc_btnEliminar);
 		
 		textFieldSinopsis = new JTextField("Sinopsis");
 		GridBagConstraints gbc_rdbtnTextFieldSinopsis = new GridBagConstraints();
@@ -154,6 +164,7 @@ public class JEAPeliculas extends JPanel{
 		add(panel, gbc_panel);
 
 		btnEditar.addActionListener((e)->processEditarEvent());
+		btnEliminar.addActionListener((e)->processAñadirEvent());
 		btnAñadir.addActionListener((e)->processAñadirEvent());
 		
 	}
@@ -196,12 +207,31 @@ public class JEAPeliculas extends JPanel{
 		String campoDeBusquedaID = textFieldID.getText();
 		String campoDeBusquedaTitulo = textFieldID.getText();
 		
-		String genero = null;
-
 		//TODO
 		
 		for(AñadirListener añadirListener:añadirListeners) {
 			añadirListener.onBuscar(campoDeBusquedaID, campoDeBusquedaTitulo, true);
+		}
+	}
+	
+	private ArrayList<AñadirListener> eliminarListeners = new ArrayList<EliminarListener>();
+	
+	public void addEliminarListener(eliminarListener EliminarListener){
+		eliminarListeners.add(eliminarListener);
+	}
+	
+	public boolean removeEliminarListener(EliminarListener eliminarListener) {
+		return eliminarListeners.remove(eliminarListener);
+	}
+	
+	protected void processEliminarEvent() {
+		String campoDeBusquedaID = textFieldID.getText();
+		String campoDeBusquedaTitulo = textFieldID.getText();
+		
+		//TODO
+		
+		for(EliminarListener eliminarListener:eliminarListeners) {
+			eliminarListener.onBuscar(campoDeBusquedaID, campoDeBusquedaTitulo, true);
 		}
 	}
 	
