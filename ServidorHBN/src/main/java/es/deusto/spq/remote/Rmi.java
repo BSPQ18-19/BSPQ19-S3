@@ -13,6 +13,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.log4j.Logger;
+
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
 import es.deusto.data.Contenido;
@@ -30,6 +32,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private static final long serialVersionUID = 7373884561963536199L;
 	private String serverName;
 
+	private PersistenceManagerFactory pmf;
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -39,6 +42,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
+		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
 		this.serverName = serverName;
 	}
 
@@ -93,7 +99,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			Transaction tx = pm.currentTransaction();
 			try {
 				tx.begin();
-
 				@SuppressWarnings("unchecked")
 				Query<Cliente> usuariosQuery = pm.newQuery("SELECT FROM " + Cliente.class.getName());
 
@@ -160,6 +165,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					}
 					perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
 					user.perfiles.add(perfil);
+					clientes.add(user);
 					JMainFrame.println("Creating user: " + user);
 					pm.makePersistent(user);
 					JMainFrame.println("User created: " + user);
@@ -243,10 +249,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	
 		@Override
 		public void crearPerfil(String usuario, Perfil p) {
-			try {
-				PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-				PersistenceManager pm = pmf.getPersistenceManager();
-				Transaction tx = pm.currentTransaction();
 				try {
 					tx.begin();
 					Cliente user = null;
@@ -255,12 +257,12 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 							user = c;
 						}	
 					}
-				
-					user.perfiles.add(p);
+					
+					//user.perfiles.add(p);
 					List<Perfil> nuevo = user.perfiles;
-					for(Perfil x: nuevo) {
-					JMainFrame.println(x.getNombreP());
-					}
+//					for(Perfil x: nuevo) {
+//					JMainFrame.println(x.getNombreP());
+//					}
 					
 					JMainFrame.println("Creating profile: " + p);
 					pm.makePersistent(p);
@@ -271,9 +273,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					}
 					pm.close();
 				}
-			} catch (Exception ex) {
-				System.err.println("* Exception: " + ex.getMessage());
-			}
 	
 		}
 
@@ -396,9 +395,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		
 		nombreTabla = Pelicula.class.getName();
 		try {
-			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-			PersistenceManager pm = pmf.getPersistenceManager();
-			Transaction tx = pm.currentTransaction();
+			
 			try
 			{
 			    tx.begin();
