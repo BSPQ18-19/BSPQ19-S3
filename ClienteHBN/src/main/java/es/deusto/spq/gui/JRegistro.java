@@ -77,7 +77,7 @@ public class JRegistro extends JPanel {
 				if (!Character.isAlphabetic(c)) {
 					getToolkit().beep();
 					ke.consume();
-					JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
+//					JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
 
 				}
 
@@ -103,13 +103,13 @@ public class JRegistro extends JPanel {
 		txtNick.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				
 				char c = e.getKeyChar();
 
-				if (!Character.isDigit(c) && !Character.isAlphabetic(c)) {
+				if ((!Character.isDigit(c) && !Character.isAlphabetic(c))) {
 					getToolkit().beep();
 					e.consume();
-					JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
+					//JOptionPane.showMessageDialog(null, "Caracter no permitido", "Error", JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
