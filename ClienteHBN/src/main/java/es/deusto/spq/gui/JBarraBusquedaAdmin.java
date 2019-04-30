@@ -159,12 +159,12 @@ public class JBarraBusquedaAdmin extends JPanel {
 		}
 		
 		boolean seguir = true;
-		String modo = null;
+		String modo = "Por defecto";
 		for(int i = 0; i < panelAdmin.getComponentCount() && seguir == true; i++) {
-			if(panelAdmin.getComponent(i).getClass().equals(JCheckBox.class)) {
-				JCheckBox checkBox = (JCheckBox) panelAdmin.getComponent(i);
-				if(checkBox.isSelected()) {
-					modo = checkBox.getText();
+			if(panelAdmin.getComponent(i).getClass().equals(JRadioButton.class)) {
+				JRadioButton b = (JRadioButton) panelAdmin.getComponent(i);
+				if(b.isSelected()) {
+					modo = b.getText();
 					seguir = false;
 				}
 			}

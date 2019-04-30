@@ -72,9 +72,9 @@ public class JPanelBusquedaAdmin extends JPanel {
 				Contenido[] contenidos;
 				try {
 					if(isPelicula) {
-						contenidos = serviceLocator.getService().buscarPelicula(genero, campoDeBusqueda);
+						contenidos = serviceLocator.getService().buscarPelicula(genero, campoDeBusqueda, modo);
 					}else {
-						contenidos = serviceLocator.getService().buscarSerie(genero, campoDeBusqueda);
+						contenidos = serviceLocator.getService().buscarSerie(genero, campoDeBusqueda, modo);
 					}
 					contenedorResultadosBusqueda.anyadirContenido(contenidos);
 					

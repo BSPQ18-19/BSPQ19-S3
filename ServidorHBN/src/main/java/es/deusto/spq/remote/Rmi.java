@@ -348,35 +348,35 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 		return tipo;
 	}
-	public static void main(String[] args) {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
-		try
-		{
-		    tx.begin();
-		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
-		    Serie s = new Serie("s", 1, "Drama", 1, "");
-		    pm.makePersistent(p);
-		    pm.makePersistent(s);
-		    tx.commit();
-		}
-		finally
-		{
-		    if (tx.isActive())
-		    {
-		        tx.rollback();
-		    }
-		    pm.close();
-		}
-		try {
-			Rmi rmi = new Rmi("");
-			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
-			System.out.println(java.util.Arrays.toString(resultado));
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+//		PersistenceManager pm = pmf.getPersistenceManager();
+//		Transaction tx=pm.currentTransaction();
+//		try
+//		{
+//		    tx.begin();
+//		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
+//		    Serie s = new Serie("s", 1, "Drama", 1, "");
+//		    pm.makePersistent(p);
+//		    pm.makePersistent(s);
+//		    tx.commit();
+//		}
+//		finally
+//		{
+//		    if (tx.isActive())
+//		    {
+//		        tx.rollback();
+//		    }
+//		    pm.close();
+//		}
+//		try {
+//			Rmi rmi = new Rmi("");
+//			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
+//			System.out.println(java.util.Arrays.toString(resultado));
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 
 	@Override
@@ -392,7 +392,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	@Override
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda, String modo) throws RemoteException {
 		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
-		
 		String nombreTabla;
 		
 		nombreTabla = Pelicula.class.getName();
