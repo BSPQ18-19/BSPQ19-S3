@@ -1,10 +1,8 @@
 package es.deusto.spq.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,6 +39,7 @@ public class JContenedorResultadosBusqueda extends JPanel {
 	}
 
 	public void anyadirContenido(Contenido contenidos[]) {
+		panel.removeAll();
 		int columnas = 0;
 		JPanel fila = new JPanel();
 		panel.add(fila);
@@ -57,6 +56,8 @@ public class JContenedorResultadosBusqueda extends JPanel {
 			}
 			fila.add(jPortada);
 		}
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	public static void main(String args[]) {

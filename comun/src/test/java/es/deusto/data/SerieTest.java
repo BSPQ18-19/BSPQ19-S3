@@ -63,4 +63,9 @@ public class SerieTest {
 		assertEquals("Si",s.getSinopsis() );
 	}
 	
+	@Test
+	public void testgetPortada() {
+		s.setPortada(null);
+		assertTrue(s.getPortada()==null);
+	}
 }

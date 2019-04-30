@@ -68,25 +68,29 @@ public class JPortada extends JPanel {
 
 	
 	public void setIcon(ImageIcon icon) {
-		
-		BufferedImage bufferedImage = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = bufferedImage.createGraphics();
-		
-		double escalaAncho = ANCHO / (double)icon.getIconWidth();
-		double escalaAlto = ALTO / (double)icon.getIconHeight();
+		if(icon != null) {
+			BufferedImage bufferedImage = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g2 = bufferedImage.createGraphics();
+			
+			double escalaAncho = ANCHO / (double)icon.getIconWidth();
+			double escalaAlto = ALTO / (double)icon.getIconHeight();
 
-		double escala = escalaAlto > escalaAncho ? escalaAncho:escalaAlto;
+			double escala = escalaAlto > escalaAncho ? escalaAncho:escalaAlto;
+			
+			int ancho = (int) (icon.getIconWidth()*escala);
+			int alto = (int) (icon.getIconHeight()*escala);
+			
+			g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+			g2.drawImage(icon.getImage(), (ANCHO-ancho)/2, (ALTO-alto)/2, ancho, alto, null);
+			g2.dispose();
+			
+			ImageIcon icon2 = new ImageIcon(bufferedImage);
+			
+			lblImagen.setIcon(icon2);
+		}else {
+			lblImagen.setIcon(icon);
+		}
 		
-		int ancho = (int) (icon.getIconWidth()*escala);
-		int alto = (int) (icon.getIconHeight()*escala);
-		
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g2.drawImage(icon.getImage(), (ANCHO-ancho)/2, (ALTO-alto)/2, ancho, alto, null);
-		g2.dispose();
-		
-		ImageIcon icon2 = new ImageIcon(bufferedImage);
-		
-		lblImagen.setIcon(icon2);
 	}
 	public ImageIcon getIcon() {
 		return (ImageIcon) lblImagen.getIcon();
