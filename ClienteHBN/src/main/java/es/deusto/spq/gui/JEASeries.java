@@ -13,8 +13,12 @@ import com.stackoverflow.WrappingFlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JEASeries extends JPanel{
 
@@ -25,7 +29,6 @@ public class JEASeries extends JPanel{
 	
 
 	private JPanel panel;
-	private JButton btnEditar;
 	private JButton btnAñadir;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroupGeneros = new ButtonGroup();
@@ -39,6 +42,7 @@ public class JEASeries extends JPanel{
 	private JTextField textFieldSinopsis;
 	private JTextField textFieldTemp;
 	private JTextField textFieldCaps;
+	private static CardLayout card;
 	
 	/* ventana donde tenga a elegir si añadir o editar
 	 * ventana donde tenga recuadros a rellenar con la caracteristicas de Editar
@@ -48,30 +52,50 @@ public class JEASeries extends JPanel{
 	 * datos deseados usando el formato de rellenar los huecos
 	 */
 	
-	public JEASeries(){
+	public JEASeries(CardLayout cd){
+		this.card = cd;
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{68, 383, 0};
+		gridBagLayout.rowHeights = new int[]{206, 0, -49};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
+				
+				btnAtrs = new JButton("Atrás");
+				btnAtrs.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cd.show(getParent(), JMainFrame.ADMIN);
+					}
+				});
+				GridBagConstraints gbc_btnAtrs = new GridBagConstraints();
+				gbc_btnAtrs.anchor = GridBagConstraints.EAST;
+				gbc_btnAtrs.insets = new Insets(0, 0, 5, 5);
+				gbc_btnAtrs.gridx = 0;
+				gbc_btnAtrs.gridy = 1;
+				add(btnAtrs, gbc_btnAtrs);
 		
-		btnEditar = new JButton("Editar");
-		btnEditar.setSelected(true);
-		buttonGroup.add(btnEditar);
-		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
-		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnEditar.gridx = 0;
-		gbc_btnEditar.gridy = 2;
-		add(btnEditar, gbc_btnEditar);
+				panel = new JPanel();
+				GridBagConstraints gbc_panel= new GridBagConstraints();
+				gbc_panel.insets = new Insets(0, 0, 5, 5);
+				gbc_panel.anchor = GridBagConstraints.EAST;
+				gbc_panel.fill = GridBagConstraints.VERTICAL;
+				gbc_panel.gridx = 1;
+				gbc_panel.gridy = 1;
+				add(panel, gbc_panel);
+				panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				
+				btnNewButton = new JButton("Eliminar");
+				panel.add(btnNewButton);
+				
+				btnNewButton_1 = new JButton("Editar");
+				panel.add(btnNewButton_1);
 		
 		btnAñadir = new JButton("Añadir");
 		buttonGroup.add(btnAñadir);
 		GridBagConstraints gbc_btnAñadir = new GridBagConstraints();
 		gbc_btnAñadir.anchor = GridBagConstraints.WEST;
-		gbc_btnAñadir.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAñadir.gridx = 1;
-		gbc_btnAñadir.gridy = 2;
+		gbc_btnAñadir.gridx = 2;
+		gbc_btnAñadir.gridy = 1;
 		add(btnAñadir, gbc_btnAñadir);
 		
 		textFieldCaps = new JTextField("Capitulo");
@@ -133,23 +157,10 @@ public class JEASeries extends JPanel{
 		GridBagConstraints gbc_rdbtnTextFieldID = new GridBagConstraints();
 		gbc_rdbtnTextFieldID.gridwidth = 2;
 		gbc_rdbtnTextFieldID.insets = new Insets(0, 0, 245, 5);
-		gbc_rdbtnTextFieldID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_rdbtnTextFieldID.fill = GridBagConstraints.BOTH;
 		gbc_rdbtnTextFieldID.gridx = 0;
 		gbc_rdbtnTextFieldID.gridy = 0;
 		add(textFieldID, gbc_rdbtnTextFieldID);
-
-		panel = new JPanel();
-		wrappingFlowLayout = new WrappingFlowLayout();
-		panel.setLayout(wrappingFlowLayout);
-		GridBagConstraints gbc_panel= new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridwidth = 3;
-		gbc_panel.fill = GridBagConstraints.VERTICAL;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		add(panel, gbc_panel);
-
-		btnEditar.addActionListener((e)->processEditarEvent());
 		btnAñadir.addActionListener((e)->processAñadirEvent());
 		
 	}
@@ -179,6 +190,9 @@ public class JEASeries extends JPanel{
 	}
 	
 	private ArrayList<AñadirListener> añadirListeners = new ArrayList<AñadirListener>();
+	private JButton btnAtrs;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 	
 	public void addAñadirListener(AñadirListener añadirListener){
 		añadirListeners.add(añadirListener);
@@ -199,16 +213,6 @@ public class JEASeries extends JPanel{
 		for(AñadirListener añadirListener:añadirListeners) {
 			añadirListener.onBuscar(campoDeBusquedaID, campoDeBusquedaTitulo, false);
 		}
-	}
-	
-	public static void main(String args[]) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JEASeries jEASeries = new JEASeries();
-		frame.setContentPane(jEASeries);
-		frame.setSize(600,500);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 
 }

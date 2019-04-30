@@ -27,9 +27,19 @@ public class JAdmin extends JPanel {
 		panel.add(btnUsers);
 		
 		JButton btnPel = new JButton("Películas");
+		btnPel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cd.show(getParent(), JMainFrame.PELICULAS);
+			}
+		});
 		panel.add(btnPel);
 		
 		JButton btnSer = new JButton("Series");
+		btnSer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cd.show(getParent(), JMainFrame.SERIES);
+			}
+		});
 		panel.add(btnSer);
 		
 		JButton btnConf = new JButton("Ajustes de la cuenta");

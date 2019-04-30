@@ -14,6 +14,7 @@ import com.stackoverflow.WrappingFlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 
@@ -41,6 +42,7 @@ public class JEAPeliculas extends JPanel{
 	private JTextField textFieldEdadRec;
 	private JSpinner spinnerFieldEdadRec;
 	private JTextField textFieldSinopsis;
+	private static CardLayout card;
 	
 	/* ventana donde tenga a elegir si añadir o editar
 	 * ventana donde tenga recuadros a rellenar con la caracteristicas de Editar
@@ -50,7 +52,8 @@ public class JEAPeliculas extends JPanel{
 	 * datos deseados usando el formato de rellenar los huecos
 	 */
 	
-	public JEAPeliculas(){
+	public JEAPeliculas(CardLayout cd){
+		this.card = cd;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
@@ -203,16 +206,6 @@ public class JEAPeliculas extends JPanel{
 		for(AñadirListener añadirListener:añadirListeners) {
 			añadirListener.onBuscar(campoDeBusquedaID, campoDeBusquedaTitulo, true);
 		}
-	}
-	
-	public static void main(String args[]) {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JEAPeliculas jEAPeliculas = new JEAPeliculas();
-		frame.setContentPane(jEAPeliculas);
-		frame.setSize(600,500);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 
 }
