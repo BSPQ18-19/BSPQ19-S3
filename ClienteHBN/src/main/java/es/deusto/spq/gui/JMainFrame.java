@@ -43,6 +43,8 @@ public class JMainFrame extends JFrame {
 	public static final String USUARIO = "USUARIO";
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
+	public static final String PELICULAS = "PELICULAS";
+	public static final String SERIES = "SERIES";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
@@ -93,10 +95,17 @@ public class JMainFrame extends JFrame {
 			JPanelBusquedaUsuario panelBusqueda = new JPanelBusquedaUsuario(cardLayout, serviceLocator);
 			contentPane.add(panelBusqueda, PANEL_BUSQUEDA_USUARIO);
 			
-			//Panel búsqueda
+			//Panel búsqueda Admin
 			JPanelBusquedaAdmin panelBusquedaAdmin = new JPanelBusquedaAdmin(cardLayout, serviceLocator);
 			contentPane.add(panelBusquedaAdmin, PANEL_BUSQUEDA_ADMIN);
 			
+			//Ventana gestión de películas
+			JEAPeliculas pelis = new JEAPeliculas(cardLayout);
+			contentPane.add(pelis, PELICULAS);
+			
+			//Ventana gestión de series
+			JEASeries series = new JEASeries(cardLayout);
+			contentPane.add(series, SERIES);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");

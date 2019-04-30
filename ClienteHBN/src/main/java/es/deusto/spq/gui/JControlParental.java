@@ -152,7 +152,7 @@ public class JControlParental extends JPanel {
 			btnInfo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JOptionPane.showMessageDialog(null,
-							"El mando a distancia es uno de los objetos más deseados del salón, también para los más peques.\n Cogen el mando, empiezan a pulsar botones y aparece en la tele una película poco adecuada, seguro que te ha pasado.n Mediante el control parental, solo apareceran las películas o series apropiadas para determinada edad. ",
+							"El mando a distancia es uno de los objetos más deseados del salón, también para los más peques.\n Cogen el mando, empiezan a pulsar botones y aparece en la tele una película poco adecuada, seguro que te ha pasado.\n Mediante el control parental, solo apareceran las películas o series apropiadas para determinada edad. ",
 							"Control parental", JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
