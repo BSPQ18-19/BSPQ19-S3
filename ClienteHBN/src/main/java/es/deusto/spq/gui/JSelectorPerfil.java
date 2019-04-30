@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import es.deusto.data.Perfil;
+import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 
@@ -37,6 +38,7 @@ public class JSelectorPerfil extends JPanel {
 	private DefaultListModel<JPerfil> defaultListModel;
 	private JList<JPerfil> list;
 	private JPerfil perfil;
+	private IRmi service;
 
 	/**
 	 * Create the panel.
@@ -59,9 +61,17 @@ public class JSelectorPerfil extends JPanel {
 		JButton btnNuevoPerfil = new JButton("Nuevo perfil");
 		btnNuevoPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				JPerfil perfil = new JPerfil("Nuevo Perfil");
-//				defaultListModel.add(0, perfil);
-				//TODO: Añadir nuevo perfil desde el servidor
+				Perfil nuevoPerfil = JCrearPerfil.getPerfil();
+				
+				if (nuevoPerfil != null) {
+				try {
+					service.crearPerfil(JMainFrame.usuario, nuevoPerfil);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+				JPerfil perfil = new JPerfil(nuevoPerfil);
+				defaultListModel.add(defaultListModel.size(), perfil);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnNuevoPerfil = new GridBagConstraints();
@@ -158,7 +168,7 @@ public class JSelectorPerfil extends JPanel {
 	public JSelectorPerfil(CardLayout cardLayout, ServiceLocator serviceLocator) {
 		this();
 		this.cardLayout = cardLayout;
-		IRmi service = serviceLocator.getService();
+		service = serviceLocator.getService();
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
