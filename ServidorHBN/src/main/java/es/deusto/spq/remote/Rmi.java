@@ -3,7 +3,6 @@ package es.deusto.spq.remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -345,37 +344,49 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 		return tipo;
 	}
-//	public static void main(String[] args) {
-////		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-////		PersistenceManager pm = pmf.getPersistenceManager();
-////		Transaction tx=pm.currentTransaction();
-////		try
-////		{
-////		    tx.begin();
-////		    Pelicula p = new Pelicula("t", 1, 1, "Drama", 1, "", 1);
-////		    pm.makePersistent(p);
-////		    tx.commit();
-////		}
-////		finally
-////		{
-////		    if (tx.isActive())
-////		    {
-////		        tx.rollback();
-////		    }
-////		    pm.close();
-////		}
-//		try {
-//			Rmi rmi = new Rmi("");
-//			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
-//			System.out.println(Arrays.toString(resultado));
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+		    tx.begin();
+		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
+		    Serie s = new Serie("s", 1, "Drama", 1, "");
+		    pm.makePersistent(p);
+		    pm.makePersistent(s);
+		    tx.commit();
+		}
+		finally
+		{
+		    if (tx.isActive())
+		    {
+		        tx.rollback();
+		    }
+		    pm.close();
+		}
+		try {
+			Rmi rmi = new Rmi("");
+			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
+			System.out.println(java.util.Arrays.toString(resultado));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	@Override
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException {
+		return buscarPelicula(genero, campoDeBusqueda, "Por defecto");
+	}
+
+	@Override
+	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException {
+		return buscarSerie(genero, campoDeBusqueda, "Por defecto");
+	}
+
+	@Override
+	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda, String modo) throws RemoteException {
 		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
 		
 		String nombreTabla;
@@ -398,7 +409,18 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			    {
 			    	Pelicula p = iter.next();
 			    	if(p.getTitulo().contains(campoDeBusqueda) && p.getGenero().equalsIgnoreCase(genero)) {
-			    		arrayList.add(p);
+			    		if(modo.equalsIgnoreCase("Sinopsis vacía")) {
+			    			if(p.getSinopsis().equals("")) {
+			    				arrayList.add(p);
+			    			}
+			    		}else if(modo.equalsIgnoreCase("Título vacío")) {
+			    			if(p.getTitulo().equals("")) {
+			    				arrayList.add(p);
+			    			}
+			    		}else {
+			    			arrayList.add(p);
+			    		}
+			    		
 			    	}
 			    	
 			    }
@@ -429,8 +451,8 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	}
 
 	@Override
-	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException {
-ArrayList<Serie> arrayList = new ArrayList<Serie>();
+	public Serie[] buscarSerie(String genero, String campoDeBusqueda, String modo) throws RemoteException {
+		ArrayList<Serie> arrayList = new ArrayList<Serie>();
 		
 		String nombreTabla;
 		
@@ -452,7 +474,17 @@ ArrayList<Serie> arrayList = new ArrayList<Serie>();
 			    {
 			    	Serie s = iter.next();
 			    	if(s.getTitulo().contains(campoDeBusqueda) && s.getGenero().equalsIgnoreCase(genero)) {
-			    		arrayList.add(s);
+			    		if(modo.equalsIgnoreCase("Sinopsis vacía")) {
+			    			if(s.getSinopsis().equals("")) {
+			    				arrayList.add(s);
+			    			}
+			    		}else if(modo.equalsIgnoreCase("Título vacío")) {
+			    			if(s.getTitulo().equals("")) {
+			    				arrayList.add(s);
+			    			}
+			    		}else {
+			    			arrayList.add(s);
+			    		}
 			    	}
 			    	
 			    }

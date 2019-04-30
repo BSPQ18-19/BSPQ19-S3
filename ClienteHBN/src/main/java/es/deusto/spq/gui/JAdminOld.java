@@ -1,6 +1,7 @@
 package es.deusto.spq.gui;
 
 import javax.swing.JPanel;
+import java.awt.GridBagLayout;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -9,17 +10,12 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class JAdmin extends JPanel {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8846287396916347596L;
+public class JAdminOld extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public JAdmin(CardLayout cd) {
+	public JAdminOld(CardLayout cd) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -48,6 +44,9 @@ public class JAdmin extends JPanel {
 		add(panelSuperior, BorderLayout.NORTH);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
 
+		JBarraBusqueda barra = new JBarraBusqueda();
+		panelSuperior.add(barra, BorderLayout.CENTER);
+		
 		JPanel panel_1 = new JPanel();
 		panelSuperior.add(panel_1, BorderLayout.WEST);
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -59,14 +58,6 @@ public class JAdmin extends JPanel {
 			}
 		});
 		panel_1.add(button, BorderLayout.NORTH);
-		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cd.show(getParent(), JMainFrame.PANEL_BUSQUEDA_ADMIN);
-			}
-		});
-		panelSuperior.add(btnBuscar, BorderLayout.EAST);
 	}
 
 }

@@ -44,6 +44,7 @@ public class JMainFrame extends JFrame {
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
+	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
 	/**
 	 * Create the frame.
@@ -91,6 +92,11 @@ public class JMainFrame extends JFrame {
 			//Panel búsqueda
 			JPanelBusquedaUsuario panelBusqueda = new JPanelBusquedaUsuario(cardLayout, serviceLocator);
 			contentPane.add(panelBusqueda, PANEL_BUSQUEDA_USUARIO);
+			
+			//Panel búsqueda
+			JPanelBusquedaAdmin panelBusquedaAdmin = new JPanelBusquedaAdmin(cardLayout, serviceLocator);
+			contentPane.add(panelBusquedaAdmin, PANEL_BUSQUEDA_ADMIN);
+			
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
