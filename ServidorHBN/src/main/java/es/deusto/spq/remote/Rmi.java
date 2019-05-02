@@ -395,7 +395,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		
 		nombreTabla = Pelicula.class.getName();
 		try {
-			
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
 			try
 			{
 			    tx.begin();
