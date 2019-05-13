@@ -59,5 +59,11 @@ public class Capitulo implements Serializable{
 	public void setValoracion(double valoracion) {
 		this.valoracion = valoracion;
 	}
+
+	@Override
+	public String toString() {
+		return "titulo=" + titulo + ", duracion=" + duracion + ", edad_rec=" + edad_rec + ", descr=" + descr
+				+ ", valoracion=" + valoracion ;
+	}
 	
 }

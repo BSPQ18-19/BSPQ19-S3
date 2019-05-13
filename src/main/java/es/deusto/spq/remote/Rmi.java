@@ -102,7 +102,8 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				@SuppressWarnings("unchecked")
 				Query<Cliente> usuariosQuery = pm.newQuery("SELECT FROM " + Cliente.class.getName());
 
-				for (Cliente u : usuariosQuery.executeList()) {
+				List<Cliente> listaUsuarios = usuariosQuery.executeList();
+				for (Cliente u : listaUsuarios) {
 					clientes.add(u);
 				}
 

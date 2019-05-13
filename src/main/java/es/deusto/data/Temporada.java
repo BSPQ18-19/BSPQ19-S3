@@ -29,7 +29,7 @@ public class Temporada implements Serializable{
 	}
 
 	public Temporada(int num) {
-		this.num = num;
+		this(num, 0);
 	}
 
 	public int getNum() {
