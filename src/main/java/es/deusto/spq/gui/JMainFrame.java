@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.remote.ServiceLocator;
@@ -44,10 +45,12 @@ public class JMainFrame extends JFrame {
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
 	public static final String PELICULAS = "PELICULAS";
+	public static final String JP = "JP";
 	public static final String SERIES = "SERIES";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
+	public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 3.5);
 	/**
 	 * Create the frame.
 	 */
@@ -106,6 +109,10 @@ public class JMainFrame extends JFrame {
 			//Ventana gestión de series
 			JEASeries series = new JEASeries(cardLayout);
 			contentPane.add(series, SERIES);
+			
+			//Ventana Pelicula
+			JPelicula jp= new JPelicula(cardLayout,peli,serviceLocator);
+			contentPane.add(jp,JP);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
