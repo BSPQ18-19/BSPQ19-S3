@@ -49,6 +49,7 @@ public class JTemporada extends JPanel {
 			
 		}
 		JTable table = new JTable();
+		table.setEnabled(false);
 		table.setModel(new DefaultTableModel(
 			datos,
 			nombreColumnas

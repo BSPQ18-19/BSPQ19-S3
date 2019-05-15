@@ -3,10 +3,12 @@ package es.deusto.spq.gui;
 import javax.swing.JPanel;
 
 import es.deusto.data.Contenido;
+import es.deusto.data.Serie;
 import es.deusto.spq.remote.ServiceLocator;
 
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
@@ -70,6 +72,8 @@ public class JPanelBusquedaUsuario extends JPanel {
 		gbc_contenedorResultadosBusqueda.gridy = 2;
 		add(contenedorResultadosBusqueda, gbc_contenedorResultadosBusqueda);
 		
+		contenedorResultadosBusqueda.addOnContenidoClicked((c)->onContenidoClicked(c));
+		
 		barraBusqueda.addBusquedaListener(new BusquedaListener() {
 			
 			@Override
@@ -93,7 +97,20 @@ public class JPanelBusquedaUsuario extends JPanel {
 
 	}
 	
-	
+	private void onContenidoClicked(Contenido c) {
+		if(c instanceof Serie) {
+			Serie serie = (Serie) c;
+			JSerie jSerie = new JSerie();
+			jSerie.setSerie(serie);
+			JDialog dialog = new JDialog();
+			dialog.setBounds(getBounds());
+			dialog.setContentPane(jSerie);
+			dialog.setModal(true);
+			dialog.setVisible(true);
+			dialog.dispose();
+		}
+		
+	}
 	
 
 }

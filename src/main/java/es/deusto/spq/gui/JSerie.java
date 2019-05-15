@@ -1,22 +1,18 @@
 package es.deusto.spq.gui;
 
-import javax.swing.JPanel;
-
-import es.deusto.data.Serie;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.text.DateFormat;
-import java.text.NumberFormat;
+import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JFormattedTextField;
+import es.deusto.data.Serie;
+import es.deusto.data.Temporada;
 
 public class JSerie extends JPanel {
 
@@ -24,14 +20,14 @@ public class JSerie extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -7005907198791608715L;
-	private JTextArea textArea;
+	private JTextArea textAreaSinopsis;
 	private JLabel lblTtulo;
-	private JTextField textField;
-	private JDateChooser dateChooser;
+	private JTextField textFieldGenero;
 	private JLabel lblAo;
 	private JLabel lblValoracin;
-	private JFormattedTextField formattedTextField;
 	private JTemporada temporada;
+	private JTextField textFieldAnyo;
+	private JTextField textFieldValoracion;
 
 	/**
 	 * Create the panel.
@@ -53,15 +49,15 @@ public class JSerie extends JPanel {
 		gbc_lblTtulo.gridy = 0;
 		add(lblTtulo, gbc_lblTtulo);
 		
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 2;
-		gbc_textArea.insets = new Insets(0, 0, 5, 0);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 1;
-		add(textArea, gbc_textArea);
+		textAreaSinopsis = new JTextArea();
+		textAreaSinopsis.setEditable(false);
+		GridBagConstraints gbc_textAreaDescripcion = new GridBagConstraints();
+		gbc_textAreaDescripcion.gridwidth = 2;
+		gbc_textAreaDescripcion.insets = new Insets(0, 0, 5, 0);
+		gbc_textAreaDescripcion.fill = GridBagConstraints.BOTH;
+		gbc_textAreaDescripcion.gridx = 0;
+		gbc_textAreaDescripcion.gridy = 1;
+		add(textAreaSinopsis, gbc_textAreaDescripcion);
 		
 		JLabel lblGnero = new JLabel("Género:");
 		GridBagConstraints gbc_lblGnero = new GridBagConstraints();
@@ -71,30 +67,33 @@ public class JSerie extends JPanel {
 		gbc_lblGnero.gridy = 2;
 		add(lblGnero, gbc_lblGnero);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 2;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldGenero = new JTextField();
+		textFieldGenero.setEditable(false);
+		GridBagConstraints gbc_textFieldGenero = new GridBagConstraints();
+		gbc_textFieldGenero.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldGenero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldGenero.gridx = 1;
+		gbc_textFieldGenero.gridy = 2;
+		add(textFieldGenero, gbc_textFieldGenero);
+		textFieldGenero.setColumns(10);
 		
 		lblAo = new JLabel("Año: ");
 		GridBagConstraints gbc_lblAo = new GridBagConstraints();
-		gbc_lblAo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAo.anchor = GridBagConstraints.EAST;
 		gbc_lblAo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAo.gridx = 0;
 		gbc_lblAo.gridy = 3;
 		add(lblAo, gbc_lblAo);
 		
-		dateChooser = new JDateChooser();
-		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
-		gbc_dateChooser.insets = new Insets(0, 0, 5, 0);
-		gbc_dateChooser.fill = GridBagConstraints.BOTH;
-		gbc_dateChooser.gridx = 1;
-		gbc_dateChooser.gridy = 3;
-		add(dateChooser, gbc_dateChooser);
+		textFieldAnyo = new JTextField();
+		textFieldAnyo.setEditable(false);
+		GridBagConstraints gbc_textFieldAnyo = new GridBagConstraints();
+		gbc_textFieldAnyo.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldAnyo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAnyo.gridx = 1;
+		gbc_textFieldAnyo.gridy = 3;
+		add(textFieldAnyo, gbc_textFieldAnyo);
+		textFieldAnyo.setColumns(10);
 		
 		lblValoracin = new JLabel("Valoración:");
 		GridBagConstraints gbc_lblValoracin = new GridBagConstraints();
@@ -104,13 +103,15 @@ public class JSerie extends JPanel {
 		gbc_lblValoracin.gridy = 4;
 		add(lblValoracin, gbc_lblValoracin);
 		
-		formattedTextField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		GridBagConstraints gbc_formattedTextField = new GridBagConstraints();
-		gbc_formattedTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_formattedTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_formattedTextField.gridx = 1;
-		gbc_formattedTextField.gridy = 4;
-		add(formattedTextField, gbc_formattedTextField);
+		textFieldValoracion = new JTextField();
+		textFieldValoracion.setEditable(false);
+		GridBagConstraints gbc_textFieldValoracion = new GridBagConstraints();
+		gbc_textFieldValoracion.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldValoracion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldValoracion.gridx = 1;
+		gbc_textFieldValoracion.gridy = 4;
+		add(textFieldValoracion, gbc_textFieldValoracion);
+		textFieldValoracion.setColumns(10);
 		
 		temporada = new JTemporada();
 		GridBagConstraints gbc_temporada = new GridBagConstraints();
@@ -123,12 +124,19 @@ public class JSerie extends JPanel {
 	}
 	
 	public void setSerie(Serie serie) {
-//		lblTtulo.setText(serie.getTitulo());
-//		dateChooser.setDate(DateFormat.parse(serie.getAnho()));
-//		serie.getGenero();
-//		serie.getSinopsis();
-//		serie.getTemps();
-//		serie.getVal();
+		lblTtulo.setText(serie.getTitulo());
+		textAreaSinopsis.setText(serie.getSinopsis());
+		textFieldGenero.setText(serie.getGenero());
+		textFieldAnyo.setText(Integer.toString(serie.getAnho()));
+		textFieldValoracion.setText(Double.toString(serie.getVal()));
+		
+		List<Temporada> temporadas = serie.getTemps();
+		temporada.eliminarTodas();
+		if(temporadas != null) {
+			for (Temporada t:temporadas) {
+				temporada.anyadirTemporada(t);
+			}
+		}
 	}
 
 }
