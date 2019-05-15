@@ -23,12 +23,13 @@ public class Pelicula implements Serializable, Contenido {
 	private int edad_rec;
 	private String sinopsis;
 	private double valoracion;
+	private int numvotos;
 	
 //	private ImageIcon portada;
 
 
 	public Pelicula(String titulo, int anho, long duracion, String genero, int edad_rec, String sinopsis,
-			double valoracion) {
+			double valoracion, int numvotos) {
 		this.titulo = titulo;
 		this.anho = anho;
 		this.duracion = duracion;
@@ -36,6 +37,23 @@ public class Pelicula implements Serializable, Contenido {
 		this.edad_rec = edad_rec;
 		this.sinopsis = sinopsis;
 		this.valoracion = valoracion;
+		this.numvotos=numvotos;
+	}
+
+	public int getAnho() {
+		return anho;
+	}
+
+	public void setAnho(int anho) {
+		this.anho = anho;
+	}
+
+	public int getNumvotos() {
+		return numvotos;
+	}
+
+	public void setNumvotos(int numvotos) {
+		this.numvotos = numvotos;
 	}
 
 	public int getIdPel() {
@@ -54,13 +72,6 @@ public class Pelicula implements Serializable, Contenido {
 		this.titulo = titulo;
 	}
 
-	public int getAño() {
-		return anho;
-	}
-
-	public void setAño(int año) {
-		this.anho = año;
-	}
 
 	public long getDuracion() {
 		return duracion;

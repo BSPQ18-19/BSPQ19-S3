@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import es.deusto.data.Pelicula;
+import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import java.awt.Panel;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 
 public class JPelicula extends JPanel {
@@ -59,7 +61,7 @@ public class JPelicula extends JPanel {
 		add(btnAtras, gbc_btnAtras);
 		
 		JLabel lblAño = new JLabel("Año");
-		lblAño.setText("Año: "+Integer.toString(p.getAño()));
+		lblAño.setText("Año: "+Integer.toString(p.getAnho()));
 		GridBagConstraints gbc_lblAño = new GridBagConstraints();
 		gbc_lblAño.anchor = GridBagConstraints.WEST;
 		gbc_lblAño.insets = new Insets(0, 0, 5, 5);
@@ -121,6 +123,15 @@ public class JPelicula extends JPanel {
 				String[] options = {"0", "1", "2", "3","4","5"};
 				int seleccion = JOptionPane.showOptionDialog(null, "¿Qué nota le pondrías a esta película?", "Valora "+p.getTitulo(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				System.out.println(seleccion);
+				//calculo valoracion
+				double val=(p.getValoracion()+seleccion)/(p.getNumvotos()+1);
+				System.out.println("Valor final "+val);
+				try {
+					valorar(val, p);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnValorarPelicula = new GridBagConstraints();
@@ -129,7 +140,15 @@ public class JPelicula extends JPanel {
 		gbc_btnValorarPelicula.gridy = 5;
 		add(btnValorarPelicula, gbc_btnValorarPelicula);
 		
-		
+	}
+	
+	public void valorar(double val,Pelicula p)
+			throws RemoteException {
+
+		System.out.println(serviceLocator);
+		IRmi s = serviceLocator.getService();
+		s.valorarPelicula(val, p);
+
 	}
 
 }

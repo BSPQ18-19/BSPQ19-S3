@@ -28,4 +28,6 @@ public interface IRmi extends Remote {
 	
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda, String modo) throws RemoteException;
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda, String modo) throws RemoteException;
+	
+	public void valorarPelicula(double val,Pelicula p)throws RemoteException;
 }

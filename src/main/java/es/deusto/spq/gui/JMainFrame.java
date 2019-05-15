@@ -50,7 +50,7 @@ public class JMainFrame extends JFrame {
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
-	public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 3.5);
+	public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
 	/**
 	 * Create the frame.
 	 */

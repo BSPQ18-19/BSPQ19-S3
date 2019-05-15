@@ -14,6 +14,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.log4j.Logger;
+import org.datanucleus.store.types.wrappers.Collection;
 
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
@@ -515,5 +516,38 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			System.err.println("* Exception: " + e.getMessage());
 		}
 		return arrayList.toArray(new Serie[arrayList.size()]);
+	}
+
+	public void valorarPelicula(double val,Pelicula p) {
+	
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				Query<Pelicula> query =  pm.newQuery(Pelicula.class,"titulo == \"Narnia\"");
+System.out.println(p.getTitulo());
+						Collection result = (Collection) query.execute();
+
+							Pelicula peli = (Pelicula) result.iterator().next();
+
+						query.close();
+
+						peli.setValoracion(val);
+						  pm.makePersistent(peli);
+						   tx.commit();
+						   
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+				pm.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+
+		
+		
 	}
 }
