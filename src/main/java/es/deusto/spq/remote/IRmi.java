@@ -145,4 +145,14 @@ public interface IRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public Cliente[] buscarUsuarios(String nombre) throws RemoteException;
+	/**
+	 * Este metodo se utiliza valorar una Serie
+	 * 
+	 * @param val Valoración final de la Serie
+	 * @param p Pelicula que se desea cambiar la valoración
+	 * @exception RemoteException
+	 * @see RemoteException
+	 */
+
+	public void valorarSerie(double val, Serie s) throws RemoteException;
 }
