@@ -72,6 +72,9 @@ $(function() {
 <div class="title">es.deusto.spq.remote.IRmi Interface Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>La interface <a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html" title="La interface IRmi contiene todas las funciones remotas del servidor.">IRmi</a> contiene todas las funciones remotas del servidor.  
+ <a href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for es.deusto.spq.remote.IRmi:</div>
 <div class="dyncontent">
@@ -85,31 +88,46 @@ Inheritance diagram for es.deusto.spq.remote.IRmi:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a21728d2952b156581eb432301db257ca"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a21728d2952b156581eb432301db257ca">login</a> (String usuario, String contrasenya)  throws RemoteException</td></tr>
+<tr class="memdesc:a21728d2952b156581eb432301db257ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para logear a los diferentes usuarios desde la BD.  <a href="#a21728d2952b156581eb432301db257ca">More...</a><br /></td></tr>
 <tr class="separator:a21728d2952b156581eb432301db257ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2eabff2eb43304b40ea5c1353f73b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a5b2eabff2eb43304b40ea5c1353f73b0">registrarse</a> (String usuario, String nick, String pass, String fecha_nac, int tipo)  throws RemoteException</td></tr>
+<tr class="memdesc:a5b2eabff2eb43304b40ea5c1353f73b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para registrar un nuevo Usuario/Administrador en la BD.  <a href="#a5b2eabff2eb43304b40ea5c1353f73b0">More...</a><br /></td></tr>
 <tr class="separator:a5b2eabff2eb43304b40ea5c1353f73b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d061cb3c635041cf6d9ee2e96789c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classes_1_1deusto_1_1data_1_1_perfil.html">Perfil</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#aa8d061cb3c635041cf6d9ee2e96789c3">getPerfiles</a> (String usuario)  throws RemoteException</td></tr>
+<tr class="memdesc:aa8d061cb3c635041cf6d9ee2e96789c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener una lista de perfiles del Usuario en cuestión BD.  <a href="#aa8d061cb3c635041cf6d9ee2e96789c3">More...</a><br /></td></tr>
 <tr class="separator:aa8d061cb3c635041cf6d9ee2e96789c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada3c253e4b9c7bb9151b236a5565e5b1"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#ada3c253e4b9c7bb9151b236a5565e5b1">getTipo</a> (String usuario)  throws RemoteException</td></tr>
+<tr class="memdesc:ada3c253e4b9c7bb9151b236a5565e5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener el tipo de Usuario(Estandar/Administrador) del Usuario en cuestión.  <a href="#ada3c253e4b9c7bb9151b236a5565e5b1">More...</a><br /></td></tr>
 <tr class="separator:ada3c253e4b9c7bb9151b236a5565e5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5dbe721b2f4d87e7825b48460a085544"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a5dbe721b2f4d87e7825b48460a085544">crearPerfil</a> (String usuario, <a class="el" href="classes_1_1deusto_1_1data_1_1_perfil.html">Perfil</a> p)  throws RemoteException</td></tr>
+<tr class="memdesc:a5dbe721b2f4d87e7825b48460a085544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para crear un nuevo Perfil para el Usuario en cuestión.  <a href="#a5dbe721b2f4d87e7825b48460a085544">More...</a><br /></td></tr>
 <tr class="separator:a5dbe721b2f4d87e7825b48460a085544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66528a1a0eea78f5dcc303f9bb0e89b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classes_1_1deusto_1_1data_1_1_pelicula.html">Pelicula</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a66528a1a0eea78f5dcc303f9bb0e89b4">buscarPelicula</a> (String genero, String campoDeBusqueda)  throws RemoteException</td></tr>
+<tr class="memdesc:a66528a1a0eea78f5dcc303f9bb0e89b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener un listado de peliculas según el filtro.  <a href="#a66528a1a0eea78f5dcc303f9bb0e89b4">More...</a><br /></td></tr>
 <tr class="separator:a66528a1a0eea78f5dcc303f9bb0e89b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac283c2c420ee318bbdf706c05649b64f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classes_1_1deusto_1_1data_1_1_serie.html">Serie</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#ac283c2c420ee318bbdf706c05649b64f">buscarSerie</a> (String genero, String campoDeBusqueda)  throws RemoteException</td></tr>
+<tr class="memdesc:ac283c2c420ee318bbdf706c05649b64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener un listado de Series según el filtro.  <a href="#ac283c2c420ee318bbdf706c05649b64f">More...</a><br /></td></tr>
 <tr class="separator:ac283c2c420ee318bbdf706c05649b64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d1aa06510df5924e166312d404291f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a8d1aa06510df5924e166312d404291f6">cambiarControlParental</a> (<a class="el" href="classes_1_1deusto_1_1data_1_1_perfil.html">Perfil</a> p)  throws RemoteException</td></tr>
+<tr class="memdesc:a8d1aa06510df5924e166312d404291f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para cambiar el control parental de un perfil.  <a href="#a8d1aa06510df5924e166312d404291f6">More...</a><br /></td></tr>
 <tr class="separator:a8d1aa06510df5924e166312d404291f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7908f52326f98e9a3c4bc811b81799c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classes_1_1deusto_1_1data_1_1_pelicula.html">Pelicula</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#aa7908f52326f98e9a3c4bc811b81799c">buscarPelicula</a> (String genero, String campoDeBusqueda, String modo)  throws RemoteException</td></tr>
+<tr class="memdesc:aa7908f52326f98e9a3c4bc811b81799c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener un listado de peliculas según el filtro(Administrador)  <a href="#aa7908f52326f98e9a3c4bc811b81799c">More...</a><br /></td></tr>
 <tr class="separator:aa7908f52326f98e9a3c4bc811b81799c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c117d39b7498b2b3bd24d23fe482d5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classes_1_1deusto_1_1data_1_1_serie.html">Serie</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a6c117d39b7498b2b3bd24d23fe482d5e">buscarSerie</a> (String genero, String campoDeBusqueda, String modo)  throws RemoteException</td></tr>
+<tr class="memdesc:a6c117d39b7498b2b3bd24d23fe482d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza para obtener un listado de Series según el filtro(Administrador)  <a href="#a6c117d39b7498b2b3bd24d23fe482d5e">More...</a><br /></td></tr>
 <tr class="separator:a6c117d39b7498b2b3bd24d23fe482d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73fe3374e7d1eab330a0463813cf6695"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#a73fe3374e7d1eab330a0463813cf6695">valorarPelicula</a> (double val, <a class="el" href="classes_1_1deusto_1_1data_1_1_pelicula.html">Pelicula</a> p)  throws RemoteException</td></tr>
+<tr class="memdesc:a73fe3374e7d1eab330a0463813cf6695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Este metodo se utiliza valorar una Película.  <a href="#a73fe3374e7d1eab330a0463813cf6695">More...</a><br /></td></tr>
 <tr class="separator:a73fe3374e7d1eab330a0463813cf6695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_i_rmi_8java_source.html#l00010">10</a> of file <a class="el" href="_i_rmi_8java_source.html">IRmi.java</a>.</p>
+<div class="textblock"><p>La interface <a class="el" href="interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html" title="La interface IRmi contiene todas las funciones remotas del servidor.">IRmi</a> contiene todas las funciones remotas del servidor. </p>
+<dl class="section author"><dt>Author</dt><dd>Dani, Josu, Iker y Unai </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>3.0 </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2019-05-16 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_i_rmi_8java_source.html#l00018">18</a> of file <a class="el" href="_i_rmi_8java_source.html">IRmi.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a66528a1a0eea78f5dcc303f9bb0e89b4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66528a1a0eea78f5dcc303f9bb0e89b4">&#9670;&nbsp;</a></span>buscarPelicula() <span class="overload">[1/2]</span></h2>
@@ -136,6 +154,23 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza para obtener un listado de peliculas según el filtro. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">genero</td><td>Género de la película que se desea buscar </td></tr>
+    <tr><td class="paramname">campoDeBusqueda</td><td>Nombre de la Película que se desea buscar </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List Lista de peliculas </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a66d9c63136cfe74d2e221d7ac3bf3492">es.deusto.spq.remote.Rmi</a>.</p>
 
@@ -173,6 +208,24 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Este metodo se utiliza para obtener un listado de peliculas según el filtro(Administrador) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">genero</td><td>Género de la película que se desea buscar </td></tr>
+    <tr><td class="paramname">campoDeBusqueda</td><td>Nombre de la Película que se desea buscar </td></tr>
+    <tr><td class="paramname">modo</td><td>String utilizado para poder obtener las peliculas sin nombre/sinopsis </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List Lista de peliculas </dd></dl>
+
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a2711994a70c94170f0a066cb0caf2bd8">es.deusto.spq.remote.Rmi</a>.</p>
 
 </div>
@@ -202,6 +255,23 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza para obtener un listado de Series según el filtro. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">genero</td><td>Género de la serie que se desea buscar </td></tr>
+    <tr><td class="paramname">campoDeBusqueda</td><td>Nombre de la Serie que se desea buscar </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List Lista de Series </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a680317fbfcdb68032e1f3bf2464b08d7">es.deusto.spq.remote.Rmi</a>.</p>
 
@@ -239,6 +309,24 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Este metodo se utiliza para obtener un listado de Series según el filtro(Administrador) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">genero</td><td>Género de la serie que se desea buscar </td></tr>
+    <tr><td class="paramname">campoDeBusqueda</td><td>Nombre de la Serie que se desea buscar </td></tr>
+    <tr><td class="paramname">modo</td><td>String utilizado para poder obtener las series sin nombre/sinopsis </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List Lista de Series </dd></dl>
+
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a19a07a1ee19ca46ba5f87f6822d07ca5">es.deusto.spq.remote.Rmi</a>.</p>
 
 </div>
@@ -258,6 +346,21 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza para cambiar el control parental de un perfil. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Perfil al que se desea cambiar el control parental </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a3b7c1689bb483a1300a1a45c281f0805">es.deusto.spq.remote.Rmi</a>.</p>
 
@@ -289,6 +392,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Este metodo se utiliza para crear un nuevo Perfil para el Usuario en cuestión. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>Nombre de Usuario al que se quiere crear el nuevo Perfil. </td></tr>
+    <tr><td class="paramname">p</td><td>Perfil nuevo a crear </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#aff0d2050114429efec6c39842f4dd002">es.deusto.spq.remote.Rmi</a>.</p>
 
 </div>
@@ -309,6 +428,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Este metodo se utiliza para obtener una lista de perfiles del Usuario en cuestión BD. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>Nombre de Usuario del que se quieren obtener los perfiles. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List Devuelve una lista de Perfiles </dd></dl>
+
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#af11ecbc75b61de5abd3608a4177960ba">es.deusto.spq.remote.Rmi</a>.</p>
 
 </div>
@@ -328,6 +463,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza para obtener el tipo de Usuario(Estandar/Administrador) del Usuario en cuestión. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>Nombre de Usuario del que se quieren obtener el tipo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean Devuelve True si El Usuario en de tipo Usuario </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#ad14ba1edd724dfdd294e8a21164ed90d">es.deusto.spq.remote.Rmi</a>.</p>
 
@@ -358,6 +509,23 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza para logear a los diferentes usuarios desde la BD. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>Nombre de Usuario/Administrador deseado </td></tr>
+    <tr><td class="paramname">contrasenya</td><td>Contraseña del Usuario/Administrador deseado </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean Devuelve True en caso de que haya encontrado un Usuario con esa convinación de nombre y contraseña </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#ac2eae282357edf290cfa4308ff69916f">es.deusto.spq.remote.Rmi</a>.</p>
 
@@ -407,6 +575,25 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Este metodo se utiliza para registrar un nuevo Usuario/Administrador en la BD. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>Nombre de Usuario/Administrador deseado </td></tr>
+    <tr><td class="paramname">nick</td><td>Nick del Usuario/Administrador deseado </td></tr>
+    <tr><td class="paramname">pass</td><td>Contraseña del Usuario/Administrador deseado </td></tr>
+    <tr><td class="paramname">fecha_nac</td><td>Fecha de nacimiento del Usuario/Administrador deseado </td></tr>
+    <tr><td class="paramname">tipo</td><td>Tipo de Uusaurio entre Usuario Estandar y Usuario Administrador </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
+
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#ab41f1eb1916b17c15fccb8e1091d5bab">es.deusto.spq.remote.Rmi</a>.</p>
 
 </div>
@@ -436,6 +623,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Este metodo se utiliza valorar una Película. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>Valoración final de la Pelicula </td></tr>
+    <tr><td class="paramname">p</td><td>Pelicula que se desea cambiar la valoración </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RemoteException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>RemoteException </dd></dl>
 
 <p>Implemented in <a class="el" href="classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#a3cd9364f0e647ec01db664c83f62183a">es.deusto.spq.remote.Rmi</a>.</p>
 
