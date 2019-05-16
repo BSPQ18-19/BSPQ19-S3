@@ -12,12 +12,14 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 
 import es.deusto.data.Cliente;
+import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 
 import java.awt.Insets;
 import javax.swing.JList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +36,17 @@ public class JGestionarUsuarios extends JPanel {
 	private static final long serialVersionUID = -3696860771215487513L;
 	
 	private DefaultListModel<Cliente> defaultListModel;
+	private JTextField textField;
+	private ServiceLocator serviceLocator;
 
 	/**
-	 * Create the panel.
-	 * @param serviceLocator 
+	 * Constructor del {@link JGestionarUsuarios}
+	 * @param cardLayout Es un {@link CardLayout} que se usa para cambiar entre paneles.
+	 * @param serviceLocator Es un {@link ServiceLocator} para comunicarse con el servidor.
 	 */
 	public JGestionarUsuarios(CardLayout cardLayout, ServiceLocator serviceLocator) {
+		this.serviceLocator = serviceLocator;
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
@@ -78,7 +85,7 @@ public class JGestionarUsuarios extends JPanel {
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				processOnBuscarListener(textField.getText());
@@ -124,11 +131,20 @@ public class JGestionarUsuarios extends JPanel {
 	}
 	
 	private List<GestionarUsuarioListener> gestionarUsuarioListeners = new ArrayList<GestionarUsuarioListener>();
-	private JTextField textField;
+	private JButton btnBuscar;
+	
+	/**
+	 * Añade el listener {@link GestionarUsuarioListener}
+	 * @param gestionarUsuarioListener Un {@link GestionarUsuarioListener}
+	 */
 	public void addGestionarUsuarioListener(GestionarUsuarioListener gestionarUsuarioListener){
 		gestionarUsuarioListeners.add(gestionarUsuarioListener);
 	}
 	
+	/**
+	 * Elimina el listener {@link GestionarUsuarioListener}
+	 * @param gestionarUsuarioListener Un {@link GestionarUsuarioListener}
+	 */
 	public void removeGestionarUsuarioListener(GestionarUsuarioListener gestionarUsuarioListener){
 		gestionarUsuarioListeners.remove(gestionarUsuarioListener);
 	}
@@ -140,6 +156,28 @@ public class JGestionarUsuarios extends JPanel {
 	}
 	
 	protected void processOnBuscarListener(String texto) {
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				btnBuscar.setEnabled(false);
+				IRmi service = serviceLocator.getService();
+				if(service != null) {
+					try {
+						Cliente[] clientes = service.buscarUsuarios(texto);
+						defaultListModel.clear();
+						for(Cliente cliente:clientes) {
+							defaultListModel.addElement(cliente);
+						}
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				btnBuscar.setEnabled(true);
+			}
+		});
+		thread.start();
 		for(GestionarUsuarioListener gestionarUsuarioListener:gestionarUsuarioListeners) {
 			gestionarUsuarioListener.onBuscar(texto);
 		}

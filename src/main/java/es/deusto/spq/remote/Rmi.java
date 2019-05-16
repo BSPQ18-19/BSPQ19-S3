@@ -60,35 +60,35 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //		pm.close();
 //	}
 
-	@SuppressWarnings("unused")
-	private Cliente getCliente(String usuario, String contrasenya) {
-		Cliente clienteCorrecto = null;
-		try {
-			tx.begin();
-			JMainFrame.println("Retrieving Extent for Messages");
-			Extent<Cliente> e = pm.getExtent(Cliente.class, true);
-			Iterator<Cliente> iter = e.iterator();
-			boolean seguir = true;
-			while (iter.hasNext() && seguir) {
-				Cliente cliente = iter.next();
-
-				if (cliente.getNick().equals(usuario) && cliente.getPass().contentEquals(contrasenya)) {
-					seguir = false;
-					clienteCorrecto = cliente;
-				}
-			}
-			tx.commit();
-		} catch (Exception e) {
-			JMainFrame.println("Exception thrown during retrieval of Extent : " + e.getMessage());
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-
-		return clienteCorrecto;
-	}
+//	@SuppressWarnings("unused")
+//	private Cliente getCliente(String usuario, String contrasenya) {
+//		Cliente clienteCorrecto = null;
+//		try {
+//			tx.begin();
+//			JMainFrame.println("Retrieving Extent for Messages");
+//			Extent<Cliente> e = pm.getExtent(Cliente.class, true);
+//			Iterator<Cliente> iter = e.iterator();
+//			boolean seguir = true;
+//			while (iter.hasNext() && seguir) {
+//				Cliente cliente = iter.next();
+//
+//				if (cliente.getNick().equals(usuario) && cliente.getPass().contentEquals(contrasenya)) {
+//					seguir = false;
+//					clienteCorrecto = cliente;
+//				}
+//			}
+//			tx.commit();
+//		} catch (Exception e) {
+//			JMainFrame.println("Exception thrown during retrieval of Extent : " + e.getMessage());
+//		} finally {
+//			if (tx.isActive()) {
+//				tx.rollback();
+//			}
+//			pm.close();
+//		}
+//
+//		return clienteCorrecto;
+//	}
 
 	@Override
 	public boolean login(String usuario, String contrasenya) {
@@ -549,5 +549,54 @@ System.out.println(p.getTitulo());
 
 		
 		
+	}
+
+	@Override
+	public Cliente[] buscarUsuarios(String nombre) throws RemoteException {
+		ArrayList<Cliente> arrayList = new ArrayList<Cliente>();
+		
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try
+			{
+			    tx.begin();
+
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName() );
+			    @SuppressWarnings("unchecked")
+				List<Cliente> contenidos = (List<Cliente>)q.execute();
+			    Iterator<Cliente> iter = contenidos.iterator();
+			    while (iter.hasNext())
+			    {
+			    	Cliente s = iter.next();
+			    	if(s.getNick().contains(nombre)) {
+			    		arrayList.add(s);
+			    	}
+			    }
+
+			    tx.commit();
+			    //Si no se pone este for, no se inicializan las variables
+			    for(Cliente c: arrayList) {
+			    	c.toString();
+			    }
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally
+			{
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+
+			    pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
+		return arrayList.toArray(new Cliente[arrayList.size()]);
 	}
 }

@@ -14,7 +14,7 @@ public class Cliente implements Serializable{
 	private static final long serialVersionUID = 4267654683453575942L;
 	
 	public enum Modo {
-		  ADMIN, USER;
+		USER, ADMIN;
 	}
 	
 	@PrimaryKey
@@ -22,6 +22,9 @@ public class Cliente implements Serializable{
 	private String nombre;
 	private String pass;
 	private Modo tipo;
+	
+	private int selectedPerfil = 0;
+	private boolean habilitado = true;
 	
 	@Element(column="NICK_OWNER")
 	public List<Perfil> perfiles;
@@ -69,9 +72,28 @@ public class Cliente implements Serializable{
 		this.perfiles = perfiles;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Cliente [nick=" + nick + "]";
+		return "Cliente [nick=" + nick + ", nombre=" + nombre + ", pass=" + pass + ", tipo=" + tipo
+				+ ", selectedPerfil=" + selectedPerfil + ", habilitado=" + habilitado + ", perfiles=" + perfiles + "]";
+	}
+
+	public int getSelectedPerfil() {
+		return selectedPerfil;
+	}
+
+	public void setSelectedPerfil(int selectedPerfil) {
+		this.selectedPerfil = selectedPerfil;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
 	}
 	
 }

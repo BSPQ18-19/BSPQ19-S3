@@ -3,6 +3,7 @@ package es.deusto.spq.remote;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import es.deusto.data.Cliente;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Serie;
@@ -136,4 +137,12 @@ public interface IRmi extends Remote {
 	 * @see RemoteException
 	 */
 	public void valorarPelicula(double val, Pelicula p) throws RemoteException;
+	
+	/**
+	 * Este metodo se utiliza para obtener un listado de usuarios
+	 * @param nombre el nombre que se busca
+	 * @return un array de {@link Cliente}
+	 * @throws RemoteException
+	 */
+	public Cliente[] buscarUsuarios(String nombre) throws RemoteException;
 }

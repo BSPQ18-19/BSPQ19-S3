@@ -52,9 +52,10 @@ public class Perfil implements Serializable {
 	public void setControlParental(ControlParental cp) {
 		this.ControlParental = cp;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Perfil [nombreP=" + nombreP + "]";
+		return "Perfil [nombreP=" + nombreP + ", fecha=" + fecha + ", ControlParental=" + ControlParental + "]";
 	}
+	
 }
