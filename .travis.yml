@@ -1,1 +1,17 @@
 language: java
+os: xenial
+jdk:
+  - openjdk11
+  - openjdk10
+  - openjdk8
+services:
+  - mysql
+  
+cache:
+  directories:
+    - "$HOME/.m2"
+before_install:
+  - rmiregistry -J-Djava.rmi.server.useCodebaseOnly=false &
+  - mysql -u root -e "create database hbn";
+  - mysql -u root -e "CREATE USER 'hbnadmin'@'localhost' IDENTIFIED BY 'admin'";
+  - mysql -u root -e "GRANT ALL ON hbn.* TO 'hbnadmin'@'localhost'";
