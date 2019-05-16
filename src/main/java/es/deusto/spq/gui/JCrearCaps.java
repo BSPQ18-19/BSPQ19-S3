@@ -6,12 +6,25 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.ArrayList;
+
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JCrearCaps extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
+	private JSpinner spinner;
+	private JTextField textField_1;
+	private JTabbedPane tb = new JTabbedPane();
+	private int n = 1;
 
 	/**
 	 * Launch the application.
@@ -33,36 +46,45 @@ public class JCrearCaps extends JDialog {
 		this();
 		setModal(modal);
 	}
-	
+
 	public JCrearCaps() {
-		
+
 		setBounds(100, 100, 450, 300);
+		
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-			contentPanel.add(tabbedPane);
-		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton btnAadirTemporada = new JButton("Añadir temporada");
+				btnAadirTemporada.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						n++;
+						JContenedorCrearCaps cont = new JContenedorCrearCaps();
+						tb.addTab("Temporada " + n, cont);
+						getContentPane().add(tb, BorderLayout.CENTER);
+					}
+				});
+				buttonPane.add(btnAadirTemporada);
+			}
+			{
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+			{
+				JButton okButton = new JButton("Guardar");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		}
+		{
+			JContenedorCrearCaps panel = new JContenedorCrearCaps();
+			tb.add("Temporada " + n, panel);
+			getContentPane().add(tb, BorderLayout.CENTER);	
 		}
 	}
-	
-	
 
 }

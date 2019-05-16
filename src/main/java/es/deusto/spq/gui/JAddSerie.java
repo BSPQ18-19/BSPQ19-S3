@@ -160,7 +160,8 @@ public class JAddSerie extends JPanel {
 		JButton btnCaps = new JButton("Añadir capítulos");
 		btnCaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				JCrearCaps d = new JCrearCaps(true);
+				d.setVisible(true);
 			}
 		});
 		panel_1.add(btnCaps);

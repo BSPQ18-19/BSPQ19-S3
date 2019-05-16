@@ -17,14 +17,12 @@ public class Capitulo implements Serializable{
 	private int idCap;
 	private String titulo;
 	private long duracion; // ms
-	private int edad_rec;
 	private String descr;
 	private double valoracion;
 	
-	public Capitulo(String titulo, long duracion, int edad_rec, String descr, double valoracion) {
+	public Capitulo(String titulo, long duracion, String descr, double valoracion) {
 		this.titulo = titulo;
 		this.duracion = duracion;
-		this.edad_rec = edad_rec;
 		this.descr = descr;
 		this.valoracion = valoracion;
 	}
@@ -40,12 +38,6 @@ public class Capitulo implements Serializable{
 	}
 	public void setDuracion(long duracion) {
 		this.duracion = duracion;
-	}
-	public int getEdad_rec() {
-		return edad_rec;
-	}
-	public void setEdad_rec(int edad_rec) {
-		this.edad_rec = edad_rec;
 	}
 	public String getDescr() {
 		return descr;
