@@ -1,6 +1,9 @@
 package es.deusto.spq.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -15,6 +18,18 @@ public class JContenedorResultadosBusqueda extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -5974977954770722399L;
+	
+	private MouseAdapter adapter = new MouseAdapter() {
+		public void mouseClicked(java.awt.event.MouseEvent e) {
+			if(e.getButton() == java.awt.event.MouseEvent.BUTTON1 && e.getClickCount() >=2) {
+				Object object = e.getSource();
+				if(object instanceof JPortada) {
+					JPortada jPortada = (JPortada) object;
+					processOnContenidoClicked(jPortada.getContenido());
+				}
+			}
+		};
+	};
 
 	public JContenedorResultadosBusqueda() {
 		this(5);
@@ -46,6 +61,7 @@ public class JContenedorResultadosBusqueda extends JPanel {
 		fila.setLayout(new BoxLayout(fila, BoxLayout.X_AXIS));
 		for(Contenido contenido : contenidos) {
 			JPortada jPortada = new JPortada(contenido);
+			jPortada.addMouseListener(adapter);
 			if(columnas < numColumnas) {
 				columnas++;
 			}else {
@@ -58,6 +74,22 @@ public class JContenedorResultadosBusqueda extends JPanel {
 		}
 		panel.revalidate();
 		panel.repaint();
+	}
+	
+	private List<ContenidoClickedListener> clickedListeners = new ArrayList<ContenidoClickedListener>();
+	
+	public void addOnContenidoClicked(ContenidoClickedListener l){
+		clickedListeners.add(l);
+	}
+	
+	public void removeOnContenidoClicked(ContenidoClickedListener l){
+		clickedListeners.remove(l);
+	}
+	
+	protected void processOnContenidoClicked(Contenido c) {
+		for(ContenidoClickedListener l:clickedListeners) {
+			l.onContenidoClicked(c);
+		}
 	}
 	
 	public static void main(String args[]) {
