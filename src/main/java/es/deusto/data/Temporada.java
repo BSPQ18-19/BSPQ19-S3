@@ -55,6 +55,11 @@ public class Temporada implements Serializable{
 	public void setCaps(List<Capitulo> caps) {
 		this.caps = caps;
 	}
+
+	@Override
+	public String toString() {
+		return "Temporada [idTemp=" + idTemp + ", num=" + num + ", anho=" + anho + ", caps=" + caps + "]";
+	}
 	
 	
 }

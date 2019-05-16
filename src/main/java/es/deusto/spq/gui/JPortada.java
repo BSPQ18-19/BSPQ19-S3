@@ -7,7 +7,9 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,8 +33,14 @@ public class JPortada extends JPanel {
 	private static final int ALTO = 100;
 	private static final int ANCHO = 70;
 	{
-		defaultIcon = new ImageIcon(JPortada.class.getResource("/resources/portada.png"));
-		defaultIcon = escalar(defaultIcon);
+		
+		try {
+			BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("portada.png"));
+			defaultIcon = new ImageIcon(image);
+			defaultIcon = escalar(defaultIcon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Contenido contenido;
