@@ -44,7 +44,6 @@ public class JMainFrame extends JFrame {
 	public static final String ADMIN = "ADMIN";
 	public static final String PARENTAL = "PARENTAL";
 	public static final String PELICULAS = "PELICULAS";
-	public static final String SERIES = "SERIES";
 	public static final String ADDSERIES = "ADDSERIES";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
@@ -103,10 +102,6 @@ public class JMainFrame extends JFrame {
 			//Ventana gestión de películas
 			JEAPeliculas pelis = new JEAPeliculas(cardLayout);
 			contentPane.add(pelis, PELICULAS);
-			
-			//Ventana gestión de series
-			JEASeries series = new JEASeries(cardLayout);
-			contentPane.add(series, SERIES);
 			
 			//Ventana creación de series
 			JAddSerie serie = new JAddSerie(cardLayout);

@@ -9,9 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
 import es.deusto.data.Serie;
+import es.deusto.data.Temporada;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -24,23 +25,26 @@ import java.awt.event.MouseEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.GridLayout;
+import javax.swing.JSlider;
 
 public class JAddSerie extends JPanel {
 	private JTextField txtFieldTtulo;
 	private JTextField textFieldSinopsis;
 	private ArrayList<String> generos = new ArrayList<String>();
+	private Serie serie = null;
+	private ArrayList<Temporada> temps;
 
 	/**
 	 * Create the panel.
 	 */
 	public JAddSerie(CardLayout card) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{388, 0};
-		gridBagLayout.rowHeights = new int[]{55, 170, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 388, 0 };
+		gridBagLayout.rowHeights = new int[] { 55, 170, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JPanel panelSuperior = new JPanel();
 		GridBagConstraints gbc_panelSuperior = new GridBagConstraints();
 		gbc_panelSuperior.insets = new Insets(0, 0, 5, 0);
@@ -49,7 +53,7 @@ public class JAddSerie extends JPanel {
 		gbc_panelSuperior.gridy = 0;
 		add(panelSuperior, gbc_panelSuperior);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
-		
+
 		txtFieldTtulo = new JTextField();
 		txtFieldTtulo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -62,7 +66,7 @@ public class JAddSerie extends JPanel {
 		txtFieldTtulo.setFont(new Font("Oxygen", Font.PLAIN, 25));
 		panelSuperior.add(txtFieldTtulo, BorderLayout.CENTER);
 		txtFieldTtulo.setColumns(10);
-		
+
 		JPanel panelCentral = new JPanel();
 		GridBagConstraints gbc_panelCentral = new GridBagConstraints();
 		gbc_panelCentral.insets = new Insets(0, 0, 5, 0);
@@ -71,19 +75,19 @@ public class JAddSerie extends JPanel {
 		gbc_panelCentral.gridy = 1;
 		add(panelCentral, gbc_panelCentral);
 		GridBagLayout gbl_panelCentral = new GridBagLayout();
-		gbl_panelCentral.columnWidths = new int[]{56, 420, 0};
-		gbl_panelCentral.rowHeights = new int[]{0, 0, 60, 0};
-		gbl_panelCentral.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panelCentral.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelCentral.columnWidths = new int[] { 56, 420, 0 };
+		gbl_panelCentral.rowHeights = new int[] { 0, 0, 51, 60, 0 };
+		gbl_panelCentral.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panelCentral.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panelCentral.setLayout(gbl_panelCentral);
-		
+
 		JLabel lblAnho = new JLabel("Año");
 		GridBagConstraints gbc_lblAnho = new GridBagConstraints();
 		gbc_lblAnho.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnho.gridx = 0;
 		gbc_lblAnho.gridy = 0;
 		panelCentral.add(lblAnho, gbc_lblAnho);
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(1970, 1895, 2019, 1));
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
@@ -92,21 +96,21 @@ public class JAddSerie extends JPanel {
 		gbc_spinner.gridx = 1;
 		gbc_spinner.gridy = 0;
 		panelCentral.add(spinner, gbc_spinner);
-		
+
 		JLabel lblGnero = new JLabel("Género");
 		GridBagConstraints gbc_lblGnero = new GridBagConstraints();
 		gbc_lblGnero.insets = new Insets(0, 0, 5, 5);
 		gbc_lblGnero.gridx = 0;
 		gbc_lblGnero.gridy = 1;
 		panelCentral.add(lblGnero, gbc_lblGnero);
-		
+
 		generos.add("");
 		generos.add("Drama");
 		generos.add("Ciencia Ficción");
 		generos.add("Terror");
 		generos.add("Acción");
 		generos.add("Comedia");
-		
+
 		JComboBox comboBoxGenero = new JComboBox(generos.toArray());
 		GridBagConstraints gbc_comboBoxGenero = new GridBagConstraints();
 		gbc_comboBoxGenero.insets = new Insets(0, 0, 5, 0);
@@ -114,26 +118,47 @@ public class JAddSerie extends JPanel {
 		gbc_comboBoxGenero.gridx = 1;
 		gbc_comboBoxGenero.gridy = 1;
 		panelCentral.add(comboBoxGenero, gbc_comboBoxGenero);
-		
+
+		JLabel lblEdadRecomendada = new JLabel("Edad rec.");
+		GridBagConstraints gbc_lblEdadRecomendada = new GridBagConstraints();
+		gbc_lblEdadRecomendada.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEdadRecomendada.gridx = 0;
+		gbc_lblEdadRecomendada.gridy = 2;
+		panelCentral.add(lblEdadRecomendada, gbc_lblEdadRecomendada);
+
+		JSlider slider = new JSlider();
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setMajorTickSpacing(1);
+		slider.setValue(0);
+		GridBagConstraints gbc_slider = new GridBagConstraints();
+		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_slider.insets = new Insets(0, 0, 5, 0);
+		gbc_slider.gridx = 1;
+		gbc_slider.gridy = 2;
+		panelCentral.add(slider, gbc_slider);
+		slider.setMaximum(18);
+		slider.setMinimum(0);
+
 		JLabel lblSinopsis = new JLabel("Sinopsis");
 		GridBagConstraints gbc_lblSinopsis = new GridBagConstraints();
 		gbc_lblSinopsis.insets = new Insets(0, 0, 0, 5);
 		gbc_lblSinopsis.gridx = 0;
-		gbc_lblSinopsis.gridy = 2;
+		gbc_lblSinopsis.gridy = 3;
 		panelCentral.add(lblSinopsis, gbc_lblSinopsis);
-		
+
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 2;
+		gbc_panel.gridy = 3;
 		panelCentral.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		textFieldSinopsis = new JTextField();
 		panel.add(textFieldSinopsis, BorderLayout.CENTER);
 		textFieldSinopsis.setColumns(10);
-		
+
 		JPanel panelInferior = new JPanel();
 		GridBagConstraints gbc_panelInferior = new GridBagConstraints();
 		gbc_panelInferior.fill = GridBagConstraints.BOTH;
@@ -141,7 +166,7 @@ public class JAddSerie extends JPanel {
 		gbc_panelInferior.gridy = 2;
 		add(panelInferior, gbc_panelInferior);
 		panelInferior.setLayout(new BorderLayout(0, 0));
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -152,26 +177,54 @@ public class JAddSerie extends JPanel {
 			}
 		});
 		panelInferior.add(btnCancelar, BorderLayout.WEST);
-		
+
 		JPanel panel_1 = new JPanel();
 		panelInferior.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JButton btnCaps = new JButton("Añadir capítulos");
 		btnCaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JCrearCaps d = new JCrearCaps(true);
-				d.setVisible(true);
+				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
+						&& comboBoxGenero.getSelectedIndex() != 0) {
+					ArrayList<Temporada> tes = JCrearCaps.getTemps();
+					if (tes != null) {
+						temps = tes;
+						btnCaps.setEnabled(false);
+					}
+				} else {
+					JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
+							"Campos incompletos", JOptionPane.WARNING_MESSAGE);
+				}
+
 			}
 		});
 		panel_1.add(btnCaps);
-		
+
 		JButton button = new JButton("Añadir");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
+						&& comboBoxGenero.getSelectedIndex() != 0) {
+					serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
+							(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
+							textFieldSinopsis.getText());
+					serie.setTemps(temps);
+					// AÑADIR SERIE A BASE DE DATOS
+					card.show(getParent(), JMainFrame.ADMIN);
+					clear();
+				}  else {
+					JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
+							"Campos incompletos", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		panel_1.add(button);
 	}
-	
+
 	public void clear() {
 		txtFieldTtulo.setText("");
+
 		textFieldSinopsis.setText("");
 	}
 

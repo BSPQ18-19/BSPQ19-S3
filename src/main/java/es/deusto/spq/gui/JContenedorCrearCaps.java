@@ -13,25 +13,30 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import es.deusto.data.Capitulo;
+import es.deusto.data.Temporada;
 
 public class JContenedorCrearCaps extends JPanel {
-	
+
 	private JTextField textFieldTitulo;
 	private JSpinner spinner;
 	private JTextField textFieldDescr;
-	private JTabbedPane tb = new JTabbedPane();
-	private ArrayList<JTabbedPane> array = new ArrayList<>();
 	private Capitulo c;
-	
+	private Temporada t;
+	private static ArrayList<Temporada> temporadas = new ArrayList<Temporada>();
+	private ArrayList<Capitulo> capitulos;
+
 	/**
 	 * Create the panel.
 	 */
-	public JContenedorCrearCaps() {
+	public JContenedorCrearCaps(int n) {
+		capitulos = new ArrayList<Capitulo>();
+		capitulos.clear();
+		t = new Temporada(n);
+
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 88, 374, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 173, 0 };
@@ -105,28 +110,53 @@ public class JContenedorCrearCaps extends JPanel {
 			this.add(btnAadirCaptulo, gbc_btnAadirCaptulo);
 			btnAadirCaptulo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (!textFieldTitulo.getText().isEmpty() && !spinner.getValue().equals(0) && !textFieldDescr.getText().isEmpty()) {
-					String titulo = textFieldTitulo.getText();
-					int duracion = (Integer) spinner.getValue();
-					String descr = textFieldDescr.getText();
-					c = new Capitulo(titulo, duracion, descr, 0);
-					clear();
+					if (!textFieldTitulo.getText().isEmpty() && !spinner.getValue().equals(0)
+							&& !textFieldDescr.getText().isEmpty()) {
+						String titulo = textFieldTitulo.getText();
+						int duracion = (Integer) spinner.getValue();
+						String descr = textFieldDescr.getText();
+						c = new Capitulo(titulo, duracion, descr, 0);
+						capitulos.add(c);
+						t.setCaps(capitulos);
+						boolean guardar = true;
+						for (int i = 0; i < temporadas.size(); i++) {
+							if (temporadas.get(i).getNum() == t.getNum()) {
+								guardar = false;
+							}
+						}
+						if (guardar) {
+						temporadas.add(t);
+						}
+						clear();
 					} else {
-						JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
+								"Campos incompletos", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
 			clear();
 		}
 	}
-	
+
 	public Capitulo getCapitulo() {
 		return c;
 	}
+
+	public ArrayList<Capitulo> getCapitulos() {
+		return capitulos;
+	}
 	
+	public ArrayList<Temporada> getTemporadas() {
+		return temporadas;
+	}
+
 	public void clear() {
 		textFieldTitulo.setText("");
 		spinner.setValue(0);
 		textFieldDescr.setText("");
+	}
+	
+	public void clearData() {
+		temporadas.clear();
 	}
 }
