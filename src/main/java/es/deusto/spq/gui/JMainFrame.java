@@ -12,6 +12,7 @@ import es.deusto.data.Perfil;
 import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
+import es.deusto.spq.remote.*;
 
 public class JMainFrame extends JFrame {
 
