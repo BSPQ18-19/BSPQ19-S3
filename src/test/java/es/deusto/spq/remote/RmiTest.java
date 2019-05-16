@@ -34,7 +34,7 @@ public class RmiTest {
 			{
 			    tx.begin();
 			    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1, 0);
-			    Serie serie = new Serie("s", 1, "Drama", 1, "");
+			    Serie serie = new Serie("s", 1, "Drama", 1, "",1);
 			    List<Temporada> temporadas= serie.getTemps();
 			    Temporada t = new Temporada(1, 2002);
 			    List<Capitulo> caps = t.getCaps();

@@ -10,7 +10,7 @@ public class SerieTest {
 
 	@Before
 	public void setUp() {
-		s = new Serie("Red", 2002, "Drama", 8, "Hola");
+		s = new Serie("Red", 2002, "Drama", 8, "Hola",1);
 	}
 
 	// getters
