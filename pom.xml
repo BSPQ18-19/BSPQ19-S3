@@ -87,6 +87,7 @@
           <include>**/*.jdo</include>
           <include>**/*.orm</include>
           <include>**/*.properties</include>
+           <include>**/*.png</include>
         </includes>
       </resource>
     </resources>

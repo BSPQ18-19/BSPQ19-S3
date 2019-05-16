@@ -97,7 +97,7 @@ public class Serie implements Serializable, Contenido {
 	@Override
 	public String toString() {
 		return "Serie: " + titulo + "\nAño:" + anho + "\nGénero: " + genero + "\nValoración: " + val + "\nSinopsis: "
-				+ sinopsis;
+				+ sinopsis+ "Temp:" + temps.toString();
 	}
 	
 	@Override

@@ -1,8 +1,10 @@
 package es.deusto.spq.gui;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import es.deusto.data.Contenido;
+import es.deusto.data.Pelicula;
 import es.deusto.data.Serie;
 import es.deusto.spq.remote.ServiceLocator;
 
@@ -13,6 +15,7 @@ import javax.swing.JDialog;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
@@ -103,11 +106,16 @@ public class JPanelBusquedaUsuario extends JPanel {
 			JSerie jSerie = new JSerie();
 			jSerie.setSerie(serie);
 			JDialog dialog = new JDialog();
-			dialog.setBounds(getBounds());
+			dialog.setSize(getSize());
+			Point point = getLocation();
+			SwingUtilities.convertPointToScreen(point, this);
+			dialog.setLocation(point);
 			dialog.setContentPane(jSerie);
 			dialog.setModal(true);
 			dialog.setVisible(true);
 			dialog.dispose();
+		}else if(c instanceof Pelicula) {
+			
 		}
 		
 	}
