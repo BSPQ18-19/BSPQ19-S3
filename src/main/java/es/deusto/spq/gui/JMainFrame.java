@@ -44,7 +44,8 @@ public class JMainFrame extends JFrame {
 	/** Panel principal */
 	private JPanel contentPane;
 	public static String usuario;
-
+	//public static Pelicula peli;
+	//=new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
 	/**
 	 * Launch the application.
 	 */
@@ -84,7 +85,7 @@ public class JMainFrame extends JFrame {
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	/** Variable final para la ventana del Perfil */
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
-	public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
+	//public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
 	
 	/**Create the frame.*/
 	public JMainFrame() {
@@ -144,8 +145,7 @@ public class JMainFrame extends JFrame {
 			contentPane.add(series, SERIES);
 			
 			/**Carga Panel de Película.*/
-			JPelicula jp= new JPelicula(cardLayout,peli,serviceLocator);
-			contentPane.add(jp,JP);
+			
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");

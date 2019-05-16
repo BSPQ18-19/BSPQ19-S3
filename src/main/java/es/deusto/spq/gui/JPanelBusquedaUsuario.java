@@ -27,8 +27,8 @@ public class JPanelBusquedaUsuario extends JPanel {
 	 */
 	private static final long serialVersionUID = 8279609532633434074L;
 
-//	private CardLayout cardLayout;
-//	private ServiceLocator serviceLocator;
+	private CardLayout cardLayout;
+	private ServiceLocator serviceLocator;
 	
 	/**
 	 * Create the panel.
@@ -36,8 +36,8 @@ public class JPanelBusquedaUsuario extends JPanel {
 	 * @param cardLayout 
 	 */
 	public JPanelBusquedaUsuario(CardLayout cardLayout, ServiceLocator serviceLocator) {
-//		this.cardLayout = cardLayout;
-//		this.serviceLocator = serviceLocator;
+		this.cardLayout = cardLayout;
+		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -115,6 +115,19 @@ public class JPanelBusquedaUsuario extends JPanel {
 			dialog.setVisible(true);
 			dialog.dispose();
 		}else if(c instanceof Pelicula) {
+			Pelicula p =(Pelicula)c;
+			JPelicula jp= new JPelicula(cardLayout,serviceLocator);
+			jp.setPelicula(p);
+			//cardLayout.show(getParent(), JMainFrame.JP);
+			JDialog dialog = new JDialog();
+			dialog.setSize(getSize());
+			Point point = getLocation();
+			SwingUtilities.convertPointToScreen(point, this);
+			dialog.setLocation(point);
+			dialog.setContentPane(jp);
+			dialog.setModal(true);
+			dialog.setVisible(true);
+			dialog.dispose();
 			
 		}
 		
