@@ -45,6 +45,7 @@ public class JMainFrame extends JFrame {
 	public static final String PARENTAL = "PARENTAL";
 	public static final String PELICULAS = "PELICULAS";
 	public static final String SERIES = "SERIES";
+	public static final String ADDSERIES = "ADDSERIES";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
@@ -106,6 +107,10 @@ public class JMainFrame extends JFrame {
 			//Ventana gestión de series
 			JEASeries series = new JEASeries(cardLayout);
 			contentPane.add(series, SERIES);
+			
+			//Ventana creación de series
+			JAddSerie serie = new JAddSerie(cardLayout);
+			contentPane.add(serie, ADDSERIES);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");

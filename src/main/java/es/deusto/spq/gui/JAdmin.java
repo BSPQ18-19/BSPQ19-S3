@@ -30,7 +30,7 @@ public class JAdmin extends JPanel {
 		JButton btnUsers = new JButton("Usuarios");
 		panel.add(btnUsers);
 		
-		JButton btnPel = new JButton("Películas");
+		JButton btnPel = new JButton("Añadir película");
 		btnPel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cd.show(getParent(), JMainFrame.PELICULAS);
@@ -38,10 +38,10 @@ public class JAdmin extends JPanel {
 		});
 		panel.add(btnPel);
 		
-		JButton btnSer = new JButton("Series");
+		JButton btnSer = new JButton("Añadir serie");
 		btnSer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cd.show(getParent(), JMainFrame.SERIES);
+				cd.show(getParent(), JMainFrame.ADDSERIES);
 			}
 		});
 		panel.add(btnSer);

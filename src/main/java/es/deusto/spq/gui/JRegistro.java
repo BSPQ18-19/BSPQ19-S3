@@ -202,7 +202,7 @@ public class JRegistro extends JPanel {
 								System.out.println(usuario + nick + passString + fecha_nac);
 								cardLayout.show(getParent(), JMainFrame.LOGIN);
 								JMainFrame.usuario = usuario;
-
+								clear();
 							} else {
 								JOptionPane.showMessageDialog(null, "Debe de coincidir la contraseña", "Error",
 										JOptionPane.WARNING_MESSAGE);
@@ -255,7 +255,7 @@ public class JRegistro extends JPanel {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				clear();
 				cardLayout.show(getParent(), JMainFrame.LOGIN);
 
 			}
@@ -299,5 +299,12 @@ public class JRegistro extends JPanel {
 		IRmi s = serviceLocator.getService();
 		s.registrarse(usuario, nick, pass, fecha_nac, tipo);
 
+	}
+	
+	public void clear() {
+		textField.setText("");
+		txtNick.setText("");
+		pwdContrasea.setText("");
+		pwdConfirmarcontrasea.setText("");
 	}
 }
