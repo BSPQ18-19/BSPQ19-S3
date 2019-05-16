@@ -11,7 +11,6 @@ import java.awt.CardLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
 
@@ -21,14 +20,12 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.GridLayout;
 import javax.swing.JSlider;
 
-public class JAddSerie extends JPanel {
+public class JEditSerie extends JPanel {
 	private JTextField txtFieldTtulo;
 	private JSpinner spinner;
 	private JSlider slider;
@@ -42,7 +39,7 @@ public class JAddSerie extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JAddSerie(CardLayout card) {
+	public JEditSerie(CardLayout card, Serie s) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 388, 0 };
 		gridBagLayout.rowHeights = new int[] { 55, 170, 0, 0 };
@@ -59,15 +56,8 @@ public class JAddSerie extends JPanel {
 		add(panelSuperior, gbc_panelSuperior);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
 
-		txtFieldTtulo = new JTextField();
-		txtFieldTtulo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				txtFieldTtulo.setText("");
-			}
-		});
+		txtFieldTtulo = new JTextField(s.getTitulo());
 		txtFieldTtulo.setHorizontalAlignment(SwingConstants.CENTER);
-		txtFieldTtulo.setText("Inserte el título");
 		txtFieldTtulo.setFont(new Font("Oxygen", Font.PLAIN, 25));
 		panelSuperior.add(txtFieldTtulo, BorderLayout.CENTER);
 		txtFieldTtulo.setColumns(10);
@@ -94,7 +84,7 @@ public class JAddSerie extends JPanel {
 		panelCentral.add(lblAnho, gbc_lblAnho);
 
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(1970, 1895, 2019, 1));
+		spinner.setModel(new SpinnerNumberModel(s.getAnho(), 1895, 2019, 1));
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner.insets = new Insets(0, 0, 5, 0);
@@ -117,6 +107,15 @@ public class JAddSerie extends JPanel {
 		generos.add("Comedia");
 
 		comboBoxGenero = new JComboBox(generos.toArray());
+		for (int i = 0; i < generos.size(); i++) {
+			if (generos.get(i).equals(s.getGenero())) {
+				comboBoxGenero.setSelectedIndex(i);
+				break;
+			} else {
+				comboBoxGenero.setSelectedIndex(0);
+			}
+		}
+		comboBoxGenero.setSelectedItem(4);
 		GridBagConstraints gbc_comboBoxGenero = new GridBagConstraints();
 		gbc_comboBoxGenero.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxGenero.fill = GridBagConstraints.HORIZONTAL;
@@ -135,7 +134,7 @@ public class JAddSerie extends JPanel {
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
 		slider.setMajorTickSpacing(1);
-		slider.setValue(0);
+		slider.setValue(s.getEdad_rec());
 		GridBagConstraints gbc_slider = new GridBagConstraints();
 		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_slider.insets = new Insets(0, 0, 5, 0);
@@ -160,7 +159,7 @@ public class JAddSerie extends JPanel {
 		panelCentral.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		textFieldSinopsis = new JTextField();
+		textFieldSinopsis = new JTextField(s.getSinopsis());
 		panel.add(textFieldSinopsis, BorderLayout.CENTER);
 		textFieldSinopsis.setColumns(10);
 
@@ -175,7 +174,6 @@ public class JAddSerie extends JPanel {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				clear();
 				card.show(getParent(), JMainFrame.ADMIN);
 			}
 		});
@@ -185,7 +183,7 @@ public class JAddSerie extends JPanel {
 		panelInferior.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 
-		btnCaps = new JButton("Añadir capítulos");
+		btnCaps = new JButton("Editar capítulos");
 		btnCaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
@@ -204,36 +202,41 @@ public class JAddSerie extends JPanel {
 		});
 		panel_1.add(btnCaps);
 
-		JButton button = new JButton("Añadir");
-		button.addActionListener(new ActionListener() {
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
 						&& comboBoxGenero.getSelectedIndex() != 0) {
-					serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
-							(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
-							textFieldSinopsis.getText());
-					if (!btnCaps.isEnabled()) {
-					serie.setTemps(temps);
+					if (!s.getTitulo().equals(txtFieldTtulo.getText())
+							|| s.getAnho() != (Integer) spinner.getValue()
+							|| s.getEdad_rec() != slider.getValue()
+							|| !s.getGenero().equals((String) comboBoxGenero.getSelectedItem())
+							|| !s.getSinopsis().equals(textFieldSinopsis.getText())) {
+						serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
+								(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
+								textFieldSinopsis.getText());
+						if (!btnCaps.isEnabled()) {
+						serie.setTemps(temps);
+						}
+						// MODIFICAR SERIE EN BASE DE DATOS
+						card.show(getParent(), JMainFrame.ADMIN);
+					} else {
+						JOptionPane.showMessageDialog(getParent(),
+								"Debe modificar algún campo previamente, inténtelo de nuevo.", "Error",
+								JOptionPane.WARNING_MESSAGE);
 					}
-					// AÑADIR SERIE A BASE DE DATOS
-					card.show(getParent(), JMainFrame.ADMIN);
-					clear();
-				}  else {
-					JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
-							"Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
-		panel_1.add(button);
+		panel_1.add(btnGuardar);
 	}
 
-	public void clear() {
-		txtFieldTtulo.setText("");
-		spinner.setValue(1970);
-		comboBoxGenero.setSelectedIndex(0);
-		slider.setValue(0);
-		textFieldSinopsis.setText("");
-		btnCaps.setEnabled(true);
-	}
-
+//	public void clear() {
+//		txtFieldTtulo.setText("");
+//		spinner.setValue(1970);
+//		comboBoxGenero.setSelectedIndex(0);
+//		slider.setValue(0);
+//		textFieldSinopsis.setText("");
+//		btnCaps.setEnabled(true);
+//	}
 }

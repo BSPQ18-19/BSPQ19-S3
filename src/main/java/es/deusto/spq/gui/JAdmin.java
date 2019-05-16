@@ -28,6 +28,11 @@ public class JAdmin extends JPanel {
 		panel.setLayout(new GridLayout(2, 2, 0, 0));
 		
 		JButton btnUsers = new JButton("Usuarios");
+		btnUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cd.show(getParent(), JMainFrame.EDITSERIES);
+			}
+		});
 		panel.add(btnUsers);
 		
 		JButton btnPel = new JButton("Añadir película");

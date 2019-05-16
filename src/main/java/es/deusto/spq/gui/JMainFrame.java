@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import es.deusto.data.Perfil;
 import es.deusto.data.Perfil.ControlParental;
+import es.deusto.data.Serie;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
 
@@ -20,6 +21,7 @@ public class JMainFrame extends JFrame {
 	private static final long serialVersionUID = 8115163704957507722L;
 	private JPanel contentPane;
 	public static String usuario;
+	public Serie s = new Serie("holaa", 2018, "Acción", 14, 0, "Érase una vez...");
 
 	/**
 	 * Launch the application.
@@ -45,6 +47,7 @@ public class JMainFrame extends JFrame {
 	public static final String PARENTAL = "PARENTAL";
 	public static final String PELICULAS = "PELICULAS";
 	public static final String ADDSERIES = "ADDSERIES";
+	public static final String EDITSERIES = "EDITSERIES";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
@@ -106,6 +109,10 @@ public class JMainFrame extends JFrame {
 			//Ventana creación de series
 			JAddSerie serie = new JAddSerie(cardLayout);
 			contentPane.add(serie, ADDSERIES);
+			
+			//Ventana edición de series
+			JEditSerie serie1 = new JEditSerie(cardLayout, s);
+			contentPane.add(serie1, EDITSERIES);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
