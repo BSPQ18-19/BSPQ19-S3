@@ -60,6 +60,9 @@ public class JMainFrame extends JFrame {
 			}
 		});
 	}
+	/** Variable final para la ventana de gestionar usuarios */
+	public static final String GESTIONAR_USUARIOS = "GESTIONAR_USUARIOS";
+	
 	/** Variable final para la ventana del Login */
 	public static final String LOGIN = "LOGIN";
 	/** Variable final para la ventana del Registro */
@@ -146,6 +149,10 @@ public class JMainFrame extends JFrame {
 			/**Carga Panel de Película.*/
 			JPelicula jp= new JPelicula(cardLayout,peli,serviceLocator);
 			contentPane.add(jp,JP);
+			
+			/**Panel para gestionar los usuarios**/
+			JGestionarUsuarios gestionarUsuarios = new JGestionarUsuarios(cardLayout, serviceLocator);
+			contentPane.add(gestionarUsuarios, GESTIONAR_USUARIOS);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
