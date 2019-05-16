@@ -38,8 +38,8 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private Transaction tx = null;
 	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-	//	private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
-	//	public ArrayList<Perfil> p = new ArrayList<Perfil>();
+	// private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
+	// public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
 	public Rmi(String serverName) throws RemoteException {
 		super();
@@ -191,7 +191,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	@Override
 	public Perfil[] getPerfiles(String usuario) throws RemoteException {
 		ArrayList<Perfil> perfiles = new ArrayList<Perfil>();
-		//		String[] usuarios = null;
+		// String[] usuarios = null;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
@@ -231,63 +231,63 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 
-			//			ArrayList<String> nicks = new ArrayList<>();
+			// ArrayList<String> nicks = new ArrayList<>();
 			//
-			//			for (Perfil u : p) {
-			//				nicks.add(u.getNombreP());
-			//			}
+			// for (Perfil u : p) {
+			// nicks.add(u.getNombreP());
+			// }
 			//
-			//			usuarios = new String[nicks.size()];
+			// usuarios = new String[nicks.size()];
 			//
-			//			for (int i = 0; i < nicks.size(); i++) {
-			//				usuarios[i] = nicks.get(i);
-			//			}
+			// for (int i = 0; i < nicks.size(); i++) {
+			// usuarios[i] = nicks.get(i);
+			// }
 
 		} catch (Exception ex) {
 			System.err.println("* Exception: " + ex.getMessage());
 		}
 		return perfiles.toArray(new Perfil[perfiles.size()]);
 	}
-	
-		@Override
-		public void crearPerfil(String usuario, Perfil p) {
-				try {
-					tx.begin();
-					Cliente user = null;
-					for (Cliente c : clientes) {
-						if (c.getNick().equals(usuario)) {
-							user = c;
-						}	
-					}
-					
-					//user.perfiles.add(p);
-					List<Perfil> nuevo = user.perfiles;
+
+	@Override
+	public void crearPerfil(String usuario, Perfil p) {
+		try {
+			tx.begin();
+			Cliente user = null;
+			for (Cliente c : clientes) {
+				if (c.getNick().equals(usuario)) {
+					user = c;
+				}
+			}
+
+			// user.perfiles.add(p);
+			List<Perfil> nuevo = user.perfiles;
 //					for(Perfil x: nuevo) {
 //					JMainFrame.println(x.getNombreP());
 //					}
-					
-					JMainFrame.println("Creating profile: " + p);
-					pm.makePersistent(p);
-					tx.commit();
-				} finally {
-					if (tx.isActive()) {
-						tx.rollback();
-					}
-					pm.close();
-				}
-	
+
+			JMainFrame.println("Creating profile: " + p);
+			pm.makePersistent(p);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
 		}
 
-	public void cambiarControlParental(Perfil p)throws RemoteException {
+	}
+
+	public void cambiarControlParental(Perfil p) throws RemoteException {
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
 			Transaction tx = pm.currentTransaction();
 			try {
 				tx.begin();
-				if(p.getControlParental()==ControlParental.TRUE){
+				if (p.getControlParental() == ControlParental.TRUE) {
 					p.setControlParental(ControlParental.FALSE);
-				}else {
+				} else {
 					p.setControlParental(ControlParental.TRUE);
 				}
 				pm.makePersistent(p);
@@ -295,7 +295,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				tx.commit();
 			} catch (Exception ex) {
 
-			//	System.err.println("* Exception executing a query: " + ex.getMessage());
+				// System.err.println("* Exception executing a query: " + ex.getMessage());
 
 			} finally {
 				if (tx.isActive()) {
@@ -307,13 +307,13 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		} catch (Exception ex) {
 			System.err.println("* Exception: " + ex.getMessage());
 		}
-		
+
 	}
-		
+
 	@Override
 	public boolean getTipo(String usuario) throws RemoteException {
-		//false = usuario
-		//true = admin
+		// false = usuario
+		// true = admin
 		boolean tipo = false;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -327,7 +327,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				for (Cliente c : clientesQuery.executeList()) {
 					if (c.getNick().equals(usuario)) {
 						if (c.getTipo() == Modo.ADMIN) {
-						tipo = true;
+							tipo = true;
 						}
 					}
 				}
@@ -379,7 +379,6 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 //		}
 //	}
 
-
 	@Override
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException {
 		return buscarPelicula(genero, campoDeBusqueda, "Por defecto");
@@ -394,59 +393,52 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda, String modo) throws RemoteException {
 		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
 		String nombreTabla;
-		
+
 		nombreTabla = Pelicula.class.getName();
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
 			Transaction tx = pm.currentTransaction();
-			try
-			{
-			    tx.begin();
+			try {
+				tx.begin();
 
-			    @SuppressWarnings("rawtypes")
-				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
-			    @SuppressWarnings("unchecked")
-				List<Pelicula> contenidos = (List<Pelicula>)q.execute();
-			    Iterator<Pelicula> iter = contenidos.iterator();
-			    while (iter.hasNext())
-			    {
-			    	Pelicula p = iter.next();
-			    	if(p.getTitulo().contains(campoDeBusqueda) && p.getGenero().equalsIgnoreCase(genero)) {
-			    		if(modo.equalsIgnoreCase("Sinopsis vacía")) {
-			    			if(p.getSinopsis().equals("")) {
-			    				arrayList.add(p);
-			    			}
-			    		}else if(modo.equalsIgnoreCase("Título vacío")) {
-			    			if(p.getTitulo().equals("")) {
-			    				arrayList.add(p);
-			    			}
-			    		}else {
-			    			arrayList.add(p);
-			    		}
-			    		
-			    	}
-			    	
-			    }
+				@SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla);
+				@SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>) q.execute();
+				Iterator<Pelicula> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Pelicula p = iter.next();
+					if (p.getTitulo().contains(campoDeBusqueda) && p.getGenero().equalsIgnoreCase(genero)) {
+						if (modo.equalsIgnoreCase("Sinopsis vacía")) {
+							if (p.getSinopsis().equals("")) {
+								arrayList.add(p);
+							}
+						} else if (modo.equalsIgnoreCase("Título vacío")) {
+							if (p.getTitulo().equals("")) {
+								arrayList.add(p);
+							}
+						} else {
+							arrayList.add(p);
+						}
 
-			    
-			    tx.commit();
-			    //Si no se pone este for, no se inicializan las variables
-			    for(Contenido c: arrayList) {
-			    	c.toString();
-			    }
-			}
-			catch (Exception e) {
+					}
+
+				}
+
+				tx.commit();
+				// Si no se pone este for, no se inicializan las variables
+				for (Contenido c : arrayList) {
+					c.toString();
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			finally
-			{
-			    if (tx.isActive())
-			    {
-			        tx.rollback();
-			    }
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
 
-			    pm.close();
+				pm.close();
 			}
 		} catch (Exception e) {
 			System.err.println("* Exception: " + e.getMessage());
@@ -457,60 +449,53 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	@Override
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda, String modo) throws RemoteException {
 		ArrayList<Serie> arrayList = new ArrayList<Serie>();
-		
+
 		String nombreTabla;
-		
+
 		nombreTabla = Serie.class.getName();
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
 			Transaction tx = pm.currentTransaction();
-			try
-			{
-			    tx.begin();
+			try {
+				tx.begin();
 
-			    @SuppressWarnings("rawtypes")
-				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
-			    @SuppressWarnings("unchecked")
-				List<Serie> contenidos = (List<Serie>)q.execute();
-			    Iterator<Serie> iter = contenidos.iterator();
-			    while (iter.hasNext())
-			    {
-			    	Serie s = iter.next();
-			    	if(s.getTitulo().contains(campoDeBusqueda) && s.getGenero().equalsIgnoreCase(genero)) {
-			    		if(modo.equalsIgnoreCase("Sinopsis vacía")) {
-			    			if(s.getSinopsis().equals("")) {
-			    				arrayList.add(s);
-			    			}
-			    		}else if(modo.equalsIgnoreCase("Título vacío")) {
-			    			if(s.getTitulo().equals("")) {
-			    				arrayList.add(s);
-			    			}
-			    		}else {
-			    			arrayList.add(s);
-			    		}
-			    	}
-			    	
-			    }
+				@SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla);
+				@SuppressWarnings("unchecked")
+				List<Serie> contenidos = (List<Serie>) q.execute();
+				Iterator<Serie> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Serie s = iter.next();
+					if (s.getTitulo().contains(campoDeBusqueda) && s.getGenero().equalsIgnoreCase(genero)) {
+						if (modo.equalsIgnoreCase("Sinopsis vacía")) {
+							if (s.getSinopsis().equals("")) {
+								arrayList.add(s);
+							}
+						} else if (modo.equalsIgnoreCase("Título vacío")) {
+							if (s.getTitulo().equals("")) {
+								arrayList.add(s);
+							}
+						} else {
+							arrayList.add(s);
+						}
+					}
 
-			    
-			    tx.commit();
-			    //Si no se pone este for, no se inicializan las variables
-			    for(Contenido c: arrayList) {
-			    	c.toString();
-			    }
-			}
-			catch (Exception e) {
+				}
+
+				tx.commit();
+				// Si no se pone este for, no se inicializan las variables
+				for (Contenido c : arrayList) {
+					c.toString();
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			finally
-			{
-			    if (tx.isActive())
-			    {
-			        tx.rollback();
-			    }
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
 
-			    pm.close();
+				pm.close();
 			}
 		} catch (Exception e) {
 			System.err.println("* Exception: " + e.getMessage());
@@ -518,25 +503,28 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		return arrayList.toArray(new Serie[arrayList.size()]);
 	}
 
-	public void valorarPelicula(double val,Pelicula p) {
-	
+	public void valorarPelicula(double val, Pelicula p) {
+		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
+		String nombreTabla;
+		nombreTabla = Pelicula.class.getName();
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
 			Transaction tx = pm.currentTransaction();
 			try {
-				Query<Pelicula> query =  pm.newQuery(Pelicula.class,"titulo == \"Narnia\"");
-System.out.println(p.getTitulo());
-						Collection result = (Collection) query.execute();
+				@SuppressWarnings("rawtypes")
+				Query query = pm.newQuery("SELECT FROM " + nombreTabla);
+				tx.begin();
+				@SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>) query.execute();
+				Iterator<Pelicula> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Pelicula peli = iter.next();
+					peli.setValoracion(val);
+					pm.makePersistent(peli);
+					tx.commit();
+				}
 
-							Pelicula peli = (Pelicula) result.iterator().next();
-
-						query.close();
-
-						peli.setValoracion(val);
-						  pm.makePersistent(peli);
-						   tx.commit();
-						   
 			} finally {
 				if (tx.isActive()) {
 					tx.rollback();
@@ -547,7 +535,5 @@ System.out.println(p.getTitulo());
 			System.err.println("* Exception: " + ex.getMessage());
 		}
 
-		
-		
 	}
 }

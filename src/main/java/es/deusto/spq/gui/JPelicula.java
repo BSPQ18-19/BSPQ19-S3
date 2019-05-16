@@ -129,10 +129,11 @@ public class JPelicula extends JPanel {
 				int seleccion = JOptionPane.showOptionDialog(null, "¿Qué nota le pondrías a esta película?", "Valora ", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				System.out.println(seleccion);
 				//calculo valoracion
-				double val=(p.getValoracion()+seleccion)/(p.getNumvotos()+1);
+				double val=((p.getValoracion()*p.getNumvotos())+seleccion)/(p.getNumvotos()+1);
 				System.out.println("Valor final "+val);
 				try {
 					valorar(val, p);
+					lblValoracion.setText("Valoración media:" + val + "/5");
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,6 +151,7 @@ public class JPelicula extends JPanel {
 
 		System.out.println(serviceLocator);
 		IRmi s = serviceLocator.getService();
+		System.out.println(val);
 		s.valorarPelicula(val, p);
 
 	}
