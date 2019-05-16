@@ -19,8 +19,6 @@ public interface IRmi extends Remote {
 
 	public void crearPerfil(String usuario,Perfil p) throws RemoteException;
 	
-//	public void cambiarControlParental(Perfil p) throws RemoteException;
-	
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException;
 	
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException;
