@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
 
@@ -26,6 +27,11 @@ import java.awt.GridLayout;
 import javax.swing.JSlider;
 
 public class JEditSerie extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5337694821655679408L;
+	
 	private JTextField txtFieldTtulo;
 	private JSpinner spinner;
 	private JSlider slider;
@@ -183,21 +189,28 @@ public class JEditSerie extends JPanel {
 		panelInferior.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 
-		btnCaps = new JButton("Editar capítulos");
+		if (s.getTemps().isEmpty()) {
+			btnCaps = new JButton("Añadir capítulos");
+		} else {
+			btnCaps = new JButton("Editar capítulos");
+		}
 		btnCaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
-						&& comboBoxGenero.getSelectedIndex() != 0) {
-					ArrayList<Temporada> tes = JCrearCaps.getTemps();
-					if (tes != null) {
-						temps = tes;
-						btnCaps.setEnabled(false);
+				if (s.getTemps().isEmpty()) {
+					if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
+							&& comboBoxGenero.getSelectedIndex() != 0) {
+						ArrayList<Temporada> tes = JCrearCaps.getTemps();
+						if (tes != null) {
+							temps = tes;
+							btnCaps.setEnabled(false);
+						}
+					} else {
+						JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
+								"Campos incompletos", JOptionPane.WARNING_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(getParent(), "Rellene primero todos los campos por favor.",
-							"Campos incompletos", JOptionPane.WARNING_MESSAGE);
+					card.show(getParent(), JMainFrame.EDITEMPS);
 				}
-
 			}
 		});
 		panel_1.add(btnCaps);
@@ -207,16 +220,16 @@ public class JEditSerie extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
 						&& comboBoxGenero.getSelectedIndex() != 0) {
-					if (!s.getTitulo().equals(txtFieldTtulo.getText())
-							|| s.getAnho() != (Integer) spinner.getValue()
+					if (!s.getTitulo().equals(txtFieldTtulo.getText()) || s.getAnho() != (Integer) spinner.getValue()
 							|| s.getEdad_rec() != slider.getValue()
 							|| !s.getGenero().equals((String) comboBoxGenero.getSelectedItem())
 							|| !s.getSinopsis().equals(textFieldSinopsis.getText())) {
 						serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
 								(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
 								textFieldSinopsis.getText());
+						temps = JEditCaps.getTemps();
 						if (!btnCaps.isEnabled()) {
-						serie.setTemps(temps);
+							serie.setTemps(temps);
 						}
 						// MODIFICAR SERIE EN BASE DE DATOS
 						card.show(getParent(), JMainFrame.ADMIN);
@@ -228,15 +241,14 @@ public class JEditSerie extends JPanel {
 				}
 			}
 		});
+		
+		JButton btnNewButton = new JButton("Eliminar serie");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//BORRAR DE BD
+			}
+		});
+		panel_1.add(btnNewButton);
 		panel_1.add(btnGuardar);
 	}
-
-//	public void clear() {
-//		txtFieldTtulo.setText("");
-//		spinner.setValue(1970);
-//		comboBoxGenero.setSelectedIndex(0);
-//		slider.setValue(0);
-//		textFieldSinopsis.setText("");
-//		btnCaps.setEnabled(true);
-//	}
 }

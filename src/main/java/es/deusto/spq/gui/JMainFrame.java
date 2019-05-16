@@ -2,14 +2,17 @@ package es.deusto.spq.gui;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import es.deusto.data.Capitulo;
 import es.deusto.data.Perfil;
 import es.deusto.data.Perfil.ControlParental;
 import es.deusto.data.Serie;
+import es.deusto.data.Temporada;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
 
@@ -21,6 +24,7 @@ public class JMainFrame extends JFrame {
 	private static final long serialVersionUID = 8115163704957507722L;
 	private JPanel contentPane;
 	public static String usuario;
+	public ArrayList<Temporada> tempos = new ArrayList<Temporada>();
 	public Serie s = new Serie("holaa", 2018, "Acción", 14, 0, "Érase una vez...");
 
 	/**
@@ -48,6 +52,7 @@ public class JMainFrame extends JFrame {
 	public static final String PELICULAS = "PELICULAS";
 	public static final String ADDSERIES = "ADDSERIES";
 	public static final String EDITSERIES = "EDITSERIES";
+	public static final String EDITEMPS = "EDITEMPS";
 	public static final String PANEL_BUSQUEDA_USUARIO = "PANEL_BUSQUEDA_USUARIO";
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
@@ -55,6 +60,21 @@ public class JMainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public JMainFrame() {
+		//DATOS DE PRUEBA
+//		ArrayList<Capitulo> caps = new ArrayList<Capitulo>();
+//		Capitulo cap = new Capitulo("Hola", 123, "Holaaaa", 4.5);
+//		Capitulo cap2 = new Capitulo("Ha", 123, "Holaaaa", 3.5);
+//		caps.add(cap);
+//		caps.add(cap2);
+//		tempos.add(new Temporada(1));
+////		tempos.add(new Temporada(2));
+////		tempos.add(new Temporada(3));
+//		
+//		for(Temporada t : tempos) {
+//			t.setCaps(caps);
+//		}
+		
+		s.setTemps(tempos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocationRelativeTo(null);
@@ -113,6 +133,11 @@ public class JMainFrame extends JFrame {
 			//Ventana edición de series
 			JEditSerie serie1 = new JEditSerie(cardLayout, s);
 			contentPane.add(serie1, EDITSERIES);
+			
+			//Ventana edición de temporadas
+			JEditCaps t = new JEditCaps(cardLayout);
+			t.setSerie(s);
+			contentPane.add(t, EDITEMPS);
 
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
