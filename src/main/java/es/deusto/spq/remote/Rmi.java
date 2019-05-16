@@ -520,8 +520,44 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				Iterator<Pelicula> iter = contenidos.iterator();
 				while (iter.hasNext()) {
 					Pelicula peli = iter.next();
-					peli.setValoracion(val);
-					pm.makePersistent(peli);
+					
+						peli.setValoracion(val);
+						pm.makePersistent(peli);
+					tx.commit();
+				}
+
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+				pm.close();
+			}
+		} catch (Exception ex) {
+			System.err.println("* Exception: " + ex.getMessage());
+		}
+
+	}
+
+	@Override
+	public void valorarSerie(double val, Serie s) throws RemoteException {
+		ArrayList<Serie> arrayList = new ArrayList<Serie>();
+		String nombreTabla;
+		nombreTabla = Serie.class.getName();
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				@SuppressWarnings("rawtypes")
+				Query query = pm.newQuery("SELECT FROM " + nombreTabla);
+				tx.begin();
+				@SuppressWarnings("unchecked")
+				List<Serie> contenidos = (List<Serie>) query.execute();
+				Iterator<Serie> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Serie serie = iter.next();
+					serie.setVal(val);
+					pm.makePersistent(serie);
 					tx.commit();
 				}
 

@@ -56,19 +56,6 @@ public class JPelicula extends JPanel {
 		gbc_lblTitulo.gridy = 0;
 		add(lblTitulo, gbc_lblTitulo);
 
-		JButton btnAtras = new JButton("Atras");
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cardLayout.show(getParent(), JMainFrame.PANEL_BUSQUEDA_USUARIO);
-			}
-		});
-		GridBagConstraints gbc_btnAtras = new GridBagConstraints();
-		gbc_btnAtras.anchor = GridBagConstraints.EAST;
-		gbc_btnAtras.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAtras.gridx = 1;
-		gbc_btnAtras.gridy = 0;
-		add(btnAtras, gbc_btnAtras);
-
 		
 		
 		GridBagConstraints gbc_lblAño = new GridBagConstraints();

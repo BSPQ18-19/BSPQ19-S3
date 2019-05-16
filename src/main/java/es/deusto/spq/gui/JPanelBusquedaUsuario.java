@@ -103,7 +103,7 @@ public class JPanelBusquedaUsuario extends JPanel {
 	private void onContenidoClicked(Contenido c) {
 		if(c instanceof Serie) {
 			Serie serie = (Serie) c;
-			JSerie jSerie = new JSerie();
+			JSerie jSerie = new JSerie(serviceLocator);
 			jSerie.setSerie(serie);
 			JDialog dialog = new JDialog();
 			dialog.setSize(getSize());

@@ -22,6 +22,7 @@ public class Serie implements Serializable, Contenido {
 	private String genero;
 	private double val;
 	private String sinopsis;
+	private int numVotos;
 	
 	@Element(column="ID_SERIE")
 	public List<Temporada> temps;
@@ -29,13 +30,22 @@ public class Serie implements Serializable, Contenido {
 //	private ImageIcon portada;
 
 	
-	public Serie(String titulo, int anho, String genero, double val, String sinopsis) {
+	public Serie(String titulo, int anho, String genero, double val, String sinopsis,int numVotos) {
 		this.titulo = titulo;
 		this.anho = anho;
 		this.genero = genero;
 		this.val = val;
 		this.sinopsis = sinopsis;
+		this.numVotos=numVotos;
 		this.temps = new ArrayList<Temporada>();
+	}
+
+	public int getNumVotos() {
+		return numVotos;
+	}
+
+	public void setNumVotos(int numVotos) {
+		this.numVotos = numVotos;
 	}
 
 	public int getIdPel() {
