@@ -4,8 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-public class SerieTest {
+import com.github.javatlacati.contiperf.PerfTest;
+import com.github.javatlacati.contiperf.Required;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
+@PerfTest(invocations = 10)
+@Required(max = 50, average = 25, throughput = 4)
+public class SerieTest {
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	Serie s;
 
 	@Before

@@ -2,11 +2,15 @@ package es.deusto.data;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.github.javatlacati.contiperf.*;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
+import org.junit.*;
+
+@PerfTest(invocations = 10)
+@Required(max = 250, average = 125)
 public class CapituloTest {
-
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	Capitulo c;
 
 	@Before

@@ -13,6 +13,7 @@ import javax.jdo.Transaction;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 
 import es.deusto.data.Capitulo;
@@ -21,10 +22,14 @@ import es.deusto.data.Cliente.Modo;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
+import com.github.javatlacati.contiperf.*;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
-
+@PerfTest(invocations = 10)
+@Required(max = 1000, average = 500, throughput = 2)
 public class RmiTest {
-
+	
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	private static Rmi rmi;
 //	@Before
 //	public void setUp() {
@@ -151,6 +156,8 @@ public class RmiTest {
 	}
 	
 	@Test
+	@PerfTest(invocations = 100, threads = 10)
+    @Required(max = 4000, average = 1750)
 	public void testnoObtenerCliente() {
 		try {
 			boolean encontrado = false;

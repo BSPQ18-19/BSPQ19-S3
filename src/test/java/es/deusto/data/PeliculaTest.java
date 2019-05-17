@@ -3,10 +3,17 @@ package es.deusto.data;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-public class PeliculaTest {
+import com.github.javatlacati.contiperf.PerfTest;
+import com.github.javatlacati.contiperf.Required;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
+@PerfTest(invocations = 10)
+@Required(max = 50, average = 25, throughput = 4)
+public class PeliculaTest {
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	Pelicula p;
 	@Before
 	public void setUp(){

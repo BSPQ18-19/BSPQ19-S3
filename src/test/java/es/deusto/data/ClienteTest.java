@@ -6,13 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import com.github.javatlacati.contiperf.PerfTest;
+import com.github.javatlacati.contiperf.Required;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
 import es.deusto.data.Cliente.Modo;
 import es.deusto.data.Perfil.ControlParental;
 
+@PerfTest(invocations = 10)
+@Required(max = 50, average = 25)
 public class ClienteTest {
-	
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	Cliente c;
 	Perfil p;
 	List listA;
