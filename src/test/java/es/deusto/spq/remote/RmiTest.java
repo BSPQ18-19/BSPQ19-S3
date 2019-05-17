@@ -196,6 +196,45 @@ public class RmiTest {
 		}
 	}
 	
+	@Test
+	public void testEliminarPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas[0].setTitulo("a");
+			peliculas = rmi.eliminarPelicula("a");
+			assertTrue(peliculas.length>0);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
+	}
+	
+	@Test
+	public void testEditarPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas[0].setTitulo("a");
+			peliculas[0].setDuracion(2000);
+			peliculas = rmi.editarPelicula("", "a", "2001","","","","");
+			assertEquals(peliculas[0].getAnho(), 2001);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
+	}
+	
+	@Test
+	public void testAñadirPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas = rmi.añadirPelicula("", "a", "2001","","","","");
+			assertEquals(peliculas[0].getAnho(), 2001);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();

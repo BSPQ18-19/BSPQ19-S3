@@ -34,7 +34,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-	
+
 	private IMessagePrinter messagePrinter;
 
 	// private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
@@ -653,4 +653,271 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			messagePrinter.println("* Exception: " + e.getMessage(), TipoMensaje.ERROR);
 		}
 	}
+
+	
+	@Override
+	public Pelicula[] añadirPelicula(String idP, String campoDeBusqueda, String anyo, String duracion,
+			String genero, String edadRecom, String sinopsis) throws RemoteException {
+		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
+		String nombreTabla;
+		
+		nombreTabla = Pelicula.class.getName();
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try
+			{
+			    tx.begin();
+
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
+//			    @SuppressWarnings("unchecked")
+			    Pelicula peli = null;
+			    try
+			    {
+			    	peli = pm.getObjectById(Pelicula.class, campoDeBusqueda);
+			    }
+			    catch (javax.jdo.JDOObjectNotFoundException jdoObjectNotFoundException)
+			    {
+			     	messagePrinter.println("Exception launched: " + jdoObjectNotFoundException.getMessage());
+			    }
+			    
+				@SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>)q.execute();
+			    Iterator<Pelicula> iter = contenidos.iterator();
+			    boolean make = true;
+			    while (iter.hasNext())
+			    {
+			    	Pelicula p = iter.next();
+			    	if(campoDeBusqueda == p.getTitulo()){
+			    		make=false;
+			    	}
+			    	
+			    }
+			    if(make){
+			    	try
+			    	{
+			    		peli.setAnho(Integer.parseInt(anyo));
+			    	}
+			    	catch(NumberFormatException e)
+			    	{
+			    		System.out.println("NumberFormatException: " + e.getMessage());
+			    	}
+			    	try
+			    	{
+			    		peli.setDuracion(Long.valueOf(duracion));
+			    	}
+			    	catch(NumberFormatException e)
+			    	{
+			    		System.out.println("NumberFormatException: " + e.getMessage());
+			    	}
+			    	peli.setGenero(genero);
+			    	try
+			    	{
+			    		peli.setEdad_rec(Integer.parseInt(edadRecom));
+			    	}
+			    	catch(NumberFormatException e)
+			    	{
+			    		System.out.println("NumberFormatException: " + e.getMessage());
+			    	}
+			    	peli.setSinopsis(sinopsis);
+				    contenidos.add(peli);
+			    }else{
+			    	
+			    }
+			    
+			    tx.commit();
+			    //Si no se pone este for, no se inicializan las variables
+			    for(Contenido c: arrayList) {
+			    	c.toString();
+			    }
+			    
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally
+			{
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+
+			    pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
+		return arrayList.toArray(new Pelicula[arrayList.size()]);
+	}
+	
+	@Override
+	public Pelicula[] editarPelicula(String idP, String campoDeBusqueda, String anyo, String duracion,
+			String genero, String edadRecom, String sinopsis) throws RemoteException {
+		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
+		String nombreTabla;
+		
+		nombreTabla = Pelicula.class.getName();
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try
+			{
+			    tx.begin();
+
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
+//			    @SuppressWarnings("unchecked")
+			    Pelicula peli = null;
+			    try
+			    {
+			    	peli = pm.getObjectById(Pelicula.class, campoDeBusqueda);
+			    }
+			    catch (javax.jdo.JDOObjectNotFoundException jdoObjectNotFoundException)
+			    {
+			    	messagePrinter.println("Exception launched: " + jdoObjectNotFoundException.getMessage());
+			    }
+			    
+				@SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>)q.execute();
+			    Iterator<Pelicula> iter = contenidos.iterator();
+			   while (iter.hasNext())
+			    {
+			    	Pelicula p = iter.next();
+			    	if(campoDeBusqueda == p.getTitulo()){
+			    		if(anyo != null){
+					    	try
+					    	{
+					    		peli.setAnho(Integer.parseInt(anyo));
+					    	}
+					    	catch(NumberFormatException e)
+					    	{
+					    		System.out.println("NumberFormatException: " + e.getMessage());
+					    	}
+				    	}
+				    	if(duracion != null){
+					    	try
+					    	{
+					    		peli.setDuracion(Long.valueOf(duracion));
+					    	}
+					    	catch(NumberFormatException e)
+					    	{
+					    		System.out.println("NumberFormatException: " + e.getMessage());
+					    	}
+				    	}
+				    	if(genero != null){
+				    		peli.setGenero(genero);
+				    	}
+				    	if(edadRecom != null){
+					    	try
+					    	{
+					    		peli.setEdad_rec(Integer.parseInt(edadRecom));
+					    	}
+					    	catch(NumberFormatException e)
+					    	{
+					    		System.out.println("NumberFormatException: " + e.getMessage());
+					    	}
+				    	}
+				    	if(sinopsis != null){
+				    		peli.setSinopsis(sinopsis);
+				    	}
+					    contenidos.add(peli);
+			    	}
+			    	
+			    }
+			   
+			    
+			    tx.commit();
+			    //Si no se pone este for, no se inicializan las variables
+			    for(Contenido c: arrayList) {
+			    	c.toString();
+			    }
+			    
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally
+			{
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+
+			    pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
+		return arrayList.toArray(new Pelicula[arrayList.size()]);
+	}
+	
+	@Override
+	public Pelicula[] eliminarPelicula(String campoDeBusqueda) throws RemoteException {
+		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
+		String nombreTabla;
+		
+		nombreTabla = Pelicula.class.getName();
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try
+			{
+			    tx.begin();
+
+			    @SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + nombreTabla );
+//			    @SuppressWarnings("unchecked")
+			    Pelicula peli = null;
+			    try
+			    {
+			    	peli = pm.getObjectById(Pelicula.class, campoDeBusqueda);
+			    }
+			    catch (javax.jdo.JDOObjectNotFoundException jdoObjectNotFoundException)
+			    {
+			    	messagePrinter.println("Exception launched: " + jdoObjectNotFoundException.getMessage());
+			    }
+			    
+				@SuppressWarnings("unchecked")
+				List<Pelicula> contenidos = (List<Pelicula>)q.execute();
+			    Iterator<Pelicula> iter = contenidos.iterator();
+			    boolean make = false;
+			    while (iter.hasNext())
+			    {
+			    	Pelicula p = iter.next();
+			    	if(campoDeBusqueda == p.getTitulo()){
+			    		iter.remove();
+			    	}
+			    	
+			    }
+			   
+			    
+			    tx.commit();
+			    //Si no se pone este for, no se inicializan las variables
+			    for(Contenido c: arrayList) {
+			    	c.toString();
+			    }
+			    
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally
+			{
+			    if (tx.isActive())
+			    {
+			        tx.rollback();
+			    }
+
+			    pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
+		return arrayList.toArray(new Pelicula[arrayList.size()]);
+	}
+	
 }
