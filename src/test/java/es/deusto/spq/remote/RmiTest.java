@@ -1,6 +1,7 @@
 package es.deusto.spq.remote;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -199,7 +200,7 @@ public class RmiTest {
 	@Test
 	public void testEliminarPelicula(){
 		try {
-			Pelicula[] peliculas = null;
+			Pelicula[] peliculas = new Pelicula[10];
 			peliculas[0].setTitulo("a");
 			peliculas = rmi.eliminarPelicula("a");
 			assertTrue(peliculas.length>0);
@@ -212,7 +213,7 @@ public class RmiTest {
 	@Test
 	public void testEditarPelicula(){
 		try {
-			Pelicula[] peliculas = null;
+			Pelicula[] peliculas = new Pelicula[10];
 			peliculas[0].setTitulo("a");
 			peliculas[0].setDuracion(2000);
 			peliculas = rmi.editarPelicula("a", "2001","","","","");
@@ -226,7 +227,7 @@ public class RmiTest {
 	@Test
 	public void testAñadirPelicula(){
 		try {
-			Pelicula[] peliculas = null;
+			Pelicula[] peliculas = new Pelicula[10];
 			peliculas = rmi.añadirPelicula("pelicula", "2001","200","18","Drama","aaa");
 			assertEquals(peliculas[0].getTitulo(), "pelicula");
 			assertEquals(peliculas[0].getAnho(), 2001);
@@ -235,6 +236,24 @@ public class RmiTest {
 		}
 		
 	}
+	
+	@Test
+	public void testEditarUsuarios() {
+		try {
+			Cliente[] usuarios = rmi.buscarUsuarios(USER_TEST);
+			Cliente c = null;
+			for (Cliente u : usuarios) {
+				c = u;
+			}
+			rmi.editarUsuarios(c.getNick(), false);
+			assertFalse(c.isHabilitado());
+			rmi.editarUsuarios(c.getNick(), true);
+			assertTrue(c.isHabilitado());
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
