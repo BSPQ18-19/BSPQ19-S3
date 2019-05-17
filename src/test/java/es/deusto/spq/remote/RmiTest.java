@@ -245,8 +245,8 @@ public class RmiTest {
 		try {
 			boolean a = rmi.getTipo(USER_TEST);
 			assertFalse(a);
-			a = rmi.getTipo(USER_TEST_ADMIN);
-			assertTrue(a);
+			boolean b = rmi.getTipo(USER_TEST_ADMIN);
+			assertTrue(b);
 		} catch (RemoteException e) {
 			fail(e.toString());
 		}
