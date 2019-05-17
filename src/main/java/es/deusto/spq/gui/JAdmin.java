@@ -52,6 +52,7 @@ public class JAdmin extends JPanel {
 		panel.add(btnSer);
 		
 		JButton btnConf = new JButton("Ajustes de la cuenta");
+		btnConf.setEnabled(false);
 		btnConf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cd.show(getParent(), JMainFrame.PARENTAL);
