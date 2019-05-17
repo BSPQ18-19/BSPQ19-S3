@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['serie_2ejava',['Serie.java',['../_serie_8java.html',1,'']]],
-  ['serietest_2ejava',['SerieTest.java',['../_serie_test_8java.html',1,'']]],
-  ['servicelocator_2ejava',['ServiceLocator.java',['../_service_locator_8java.html',1,'']]]
+  ['readme_2emd',['Readme.md',['../_readme_8md.html',1,'']]],
+  ['rmi_2ejava',['Rmi.java',['../_rmi_8java.html',1,'']]],
+  ['rmitest_2ejava',['RmiTest.java',['../_rmi_test_8java.html',1,'']]]
 ];

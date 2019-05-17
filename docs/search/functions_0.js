@@ -5,6 +5,10 @@ var searchData=
   ['addbusquedalistener',['addBusquedaListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_barra_busqueda.html#af4c3a2c12b2dfa56892352e98e938482',1,'es.deusto.spq.gui.JBarraBusqueda.addBusquedaListener()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_barra_busqueda_admin.html#a03ac0c2807d6051e04cbeeb4cdc2222e',1,'es.deusto.spq.gui.JBarraBusquedaAdmin.addBusquedaListener()']]],
   ['addeditarlistener',['addEditarListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_peliculas.html#aad0924b7714ab41e70510b6543d95e0d',1,'es.deusto.spq.gui.JEAPeliculas.addEditarListener()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_series.html#afa7eff346c141334dbd39095c4e9ecbc',1,'es.deusto.spq.gui.JEASeries.addEditarListener()']]],
   ['addeliminarlistener',['addEliminarListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_peliculas.html#a9f3140141283033c48e8ce4be8aa1b5b',1,'es::deusto::spq::gui::JEAPeliculas']]],
+  ['addgestionarusuariolistener',['addGestionarUsuarioListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_gestionar_usuarios.html#adbd7e565d0ae4cd17c3f4a9a860256a2',1,'es::deusto::spq::gui::JGestionarUsuarios']]],
+  ['addmouselistener',['addMouseListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_portada.html#af9b28ca613048230e3ce2bb7f9365abc',1,'es::deusto::spq::gui::JPortada']]],
+  ['addoncontenidoclicked',['addOnContenidoClicked',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_contenedor_resultados_busqueda.html#a4dc682ee1600954127848a95867a9160',1,'es::deusto::spq::gui::JContenedorResultadosBusqueda']]],
+  ['anyadircliente',['anyadirCliente',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_gestionar_usuarios.html#a45bbf69746c0e2b9b58f4289540cc953',1,'es::deusto::spq::gui::JGestionarUsuarios']]],
   ['anyadircontenido',['anyadirContenido',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_contenedor_resultados_busqueda.html#a0031dc683d5f9bce5166f2ece2ab533c',1,'es::deusto::spq::gui::JContenedorResultadosBusqueda']]],
   ['anyadirtemporada',['anyadirTemporada',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_temporada.html#aa5deb8c6a9bdfa284de96fd80a15bcac',1,'es::deusto::spq::gui::JTemporada']]]
 ];

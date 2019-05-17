@@ -522,6 +522,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					Pelicula peli = iter.next();
 
 					peli.setValoracion(val);
+					peli.setNumvotos(peli.getNumvotos()+1);
 					pm.makePersistent(peli);
 					tx.commit();
 				}
@@ -556,6 +557,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				Iterator<Serie> iter = contenidos.iterator();
 				while (iter.hasNext()) {
 					Serie serie = iter.next();
+					serie.setNumVotos(serie.getNumVotos()+1);
 					serie.setVal(val);
 					pm.makePersistent(serie);
 					tx.commit();
