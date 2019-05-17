@@ -1,8 +1,6 @@
 package es.deusto.spq.gui;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 import es.deusto.data.Contenido;
 import es.deusto.data.Pelicula;
@@ -30,9 +28,9 @@ public class JPanelBusquedaAdmin extends JPanel {
 	 */
 	private static final long serialVersionUID = 8279609532633434074L;
 
-	private DefaultListModel<JContenido> defaultListModel;
-	private JList<JContenido> list;
-	private JContenido a = new JContenido();
+	private DefaultListModel<JPortada> defaultListModel;
+	private JList<JPortada> list;
+	
 
 	/**
 	 * Create the panel.
@@ -100,33 +98,32 @@ public class JPanelBusquedaAdmin extends JPanel {
 			public void onBuscarAdmin(String genero, String campoDeBusqueda, boolean isPelicula, String modo) {
 				Pelicula[] pelis;
 				Serie[] series;
-				ArrayList<JContenido> contenidos = new ArrayList<>();
 				try {
 					if (isPelicula) {
 						pelis = serviceLocator.getService().buscarPelicula(genero, campoDeBusqueda, modo);
-
-						for (Pelicula p : pelis) {
-							JContenido a = new JContenido();
-							a.setPelicula(p);
-							contenidos.add(a);
-						}
+						contenedorResultadosBusqueda.anyadirContenido(pelis);
 					} else {
 						series = serviceLocator.getService().buscarSerie(genero, campoDeBusqueda, modo);
-
-						for (Serie s : series) {
-							JContenido a = new JContenido();
-							System.out.println(s.getTitulo());
-							a.setSerie(s);
-							contenidos.add(a);
-						}
+						contenedorResultadosBusqueda.anyadirContenido(series);
 					}
-					for (JContenido contenido : contenidos) {
-						//contenedorResultadosBusqueda.anyadirContenido(contenido);	
-					}
+					
+						
+					
 
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+			}
+		});
+		
+		contenedorResultadosBusqueda.addOnContenidoClicked(new ContenidoClickedListener() {
+			
+			@Override
+			public void onContenidoClicked(Contenido c) {
+				if (c instanceof Serie) {
+				cardLayout.show(JPanelBusquedaAdmin.this.getParent(), JMainFrame.EDITSERIES);
+				JMainFrame.serie1.setDatos((Serie) c);
 				}
 			}
 		});

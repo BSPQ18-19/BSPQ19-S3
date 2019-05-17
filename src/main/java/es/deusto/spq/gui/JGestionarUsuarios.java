@@ -114,12 +114,13 @@ public class JGestionarUsuarios extends JPanel {
 		            int index = list.locationToIndex(arg0.getPoint());
 		            if(index != -1) {
 		            	Cliente cliente = defaultListModel.get(index);
+		            	boolean valorOriginal = cliente.isHabilitado();
 		            	Cliente c = JEditarUsuario.editar(cliente, JGestionarUsuarios.this);
 		            	if(c != null) {
 		            		list.revalidate();
-		            		if (c.isHabilitado() == false) {
+		            		if(c.isHabilitado() != valorOriginal) {
 		            			try {
-									serviceLocator.getService().eliminarUsuarios(c.getNick());
+									serviceLocator.getService().editarUsuarios(c.getNick(), c.isHabilitado());
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

@@ -169,6 +169,6 @@ public interface IRmi extends Remote {
 	 * @param n nick del usuario que se busca
 	 * @throws RemoteException
 	 */
-	public void eliminarUsuarios(String n) throws RemoteException;
+	public void editarUsuarios(String n, boolean habilitar) throws RemoteException;
 
 }

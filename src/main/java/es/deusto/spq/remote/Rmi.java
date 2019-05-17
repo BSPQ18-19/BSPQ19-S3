@@ -6,15 +6,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
-
-import org.apache.log4j.Logger;
-import org.datanucleus.store.types.wrappers.Collection;
 
 import es.deusto.data.Cliente;
 import es.deusto.data.Cliente.Modo;
@@ -125,8 +121,10 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			JMainFrame.println("login(String " + usuario + ", String " + contrasenya + ")");
 
 			for (Cliente cl : clientes) {
-				if (cl.getNick().equals(usuario)) {
-					b = contrasenya.contentEquals(cl.getPass());
+				if (cl.isHabilitado()) {
+					if (cl.getNick().equals(usuario)) {
+						b = contrasenya.contentEquals(cl.getPass());
+					}
 				}
 			}
 			JMainFrame.println("\t" + b);
@@ -620,7 +618,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	}
 
 	@Override
-	public void eliminarUsuarios(String n) throws RemoteException {
+	public void editarUsuarios(String n, boolean habilitado) throws RemoteException {
 		Cliente user = null;
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -628,25 +626,24 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			Transaction tx = pm.currentTransaction();
 			try {
 				tx = pm.currentTransaction();
-				@SuppressWarnings("rawtypes")
+				tx.begin();
 				Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName());
-				@SuppressWarnings("unchecked")
-				
 				List<Cliente> contenidos = (List<Cliente>) q.execute();
 				Iterator<Cliente> iter = contenidos.iterator();
 				while (iter.hasNext()) {
 					Cliente s = iter.next();
-					if (s.getNick().contains(n)) {
-						user = new Cliente(s);
+					if (s.getNick().equals(n)) {
+						user = s;
+						System.out.println("Hola");
+						user.setHabilitado(habilitado);
+						pm.makePersistent(user);
+						System.out.println("adios");
+						break;
 					}
 				}
-				
-				System.out.println("AA");
-				pm.deletePersistent(user);
-				System.out.println("BB");
-				
+
 				tx.commit();
-				
+
 			} catch (Exception e) {
 				if (tx.isActive()) {
 					tx.rollback();
