@@ -164,7 +164,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 						m = Modo.ADMIN;
 						user = new Cliente(usuario, pass, nick, m);
 					}
-					perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
+					if(m == Modo.USER) {
+						perfil = new Perfil(nick + "PerfilPrincipal", fecha, cp);
+					}
 					user.perfiles.add(perfil);
 					clientes.add(user);
 					messagePrinter.println("Creating user: " + user);
@@ -252,13 +254,19 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	public void crearPerfil(String usuario, Perfil p) {
 		try {
 			tx.begin();
+			
+			Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName());
+			@SuppressWarnings("unchecked")
+			List<Cliente> clientes = (List<Cliente>) q.execute();
 			Cliente user = null;
 			for (Cliente c : clientes) {
+				System.out.println("crear perfil bucle");
 				if (c.getNick().equals(usuario)) {
 					user = c;
+					break;
 				}
 			}
-
+			user.toString();
 			// user.perfiles.add(p);
 			List<Perfil> nuevo = user.perfiles;
 			// for(Perfil x: nuevo) {

@@ -155,6 +155,7 @@ public class RmiTest {
 	}
 	
 	@Test
+	@Required(max = 1000, average = 500, throughput = 1)
 	public void testObtenerCliente() {
 		try {
 			boolean encontrado = false;
@@ -252,7 +253,7 @@ public class RmiTest {
 	}
 	
 	@Test
-    @Required(max = 4000, average = 2000)
+    @Required(max = 4000, average = 4000)
 	public void testEditarUsuarios() {
 		try {
 			Cliente[] usuarios = rmi.buscarUsuarios(USER_TEST);
