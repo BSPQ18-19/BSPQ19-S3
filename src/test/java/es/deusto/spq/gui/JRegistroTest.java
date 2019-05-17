@@ -23,7 +23,7 @@ public class JRegistroTest {
 	
 	@Test
 	@PerfTest(invocations = 10)
-	@Required(max = 250, average = 50, throughput = 4)
+	@Required(max = 400, average = 50, throughput = 4)
 	public void testconfirmarContraseñano() {
 		char[] a = { 'a', 'b', 'c' };
 		char[] b = { 'a', 'd', 'c', 'e' };
