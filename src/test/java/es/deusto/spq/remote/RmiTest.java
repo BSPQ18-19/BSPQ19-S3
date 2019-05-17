@@ -195,7 +195,7 @@ public class RmiTest {
 			fail(e.toString());
 		}
 	}
-	
+	@Ignore
 	@Test
 	public void testEliminarPelicula(){
 		try {
@@ -208,7 +208,7 @@ public class RmiTest {
 		}
 		
 	}
-	
+	@Ignore
 	@Test
 	public void testEditarPelicula(){
 		try {
@@ -222,7 +222,7 @@ public class RmiTest {
 		}
 		
 	}
-	
+	@Ignore
 	@Test
 	public void testAñadirPelicula(){
 		try {
