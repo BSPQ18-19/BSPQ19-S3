@@ -164,9 +164,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 						m = Modo.ADMIN;
 						user = new Cliente(usuario, pass, nick, m);
 					}
-					if(m == Modo.USER) {
-						perfil = new Perfil(nick + "PerfilPrincipal", fecha, cp);
-					}
+					perfil = new Perfil(nick + "PerfilPrincipal", fecha, cp);
 					user.perfiles.add(perfil);
 					clientes.add(user);
 					messagePrinter.println("Creating user: " + user);

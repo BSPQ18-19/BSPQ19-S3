@@ -101,6 +101,7 @@ public class RmiTest {
 			rmi = new Rmi(messagePrinter);
 			rmi.registrarse(USUARIO_DE_TEST, USER_TEST, USER_TEST, FECHA, Cliente.Modo.USER.ordinal());
 			rmi.registrarse(USUARIO_ADMIN_DE_TEST, USER_TEST_ADMIN, USER_TEST_ADMIN, FECHA, Cliente.Modo.ADMIN.ordinal());
+			System.out.println("REgistrado---------------------------------------------------------------------");
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
