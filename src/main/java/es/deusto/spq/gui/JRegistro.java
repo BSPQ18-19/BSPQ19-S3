@@ -274,7 +274,7 @@ public class JRegistro extends JPanel {
 
 	}
 
-	public boolean confirmarContaseña(char[] j1, char[] j2) {
+	public static boolean confirmarContaseña(char[] j1, char[] j2) {
 
 		boolean valor = true;
 		int puntero = 0;

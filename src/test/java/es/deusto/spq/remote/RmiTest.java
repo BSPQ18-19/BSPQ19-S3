@@ -1,6 +1,10 @@
 package es.deusto.spq.remote;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -10,20 +14,22 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
+import com.github.javatlacati.contiperf.PerfTest;
+import com.github.javatlacati.contiperf.Required;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
+
 import es.deusto.data.Capitulo;
 import es.deusto.data.Cliente;
-import es.deusto.data.Cliente.Modo;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
-import com.github.javatlacati.contiperf.*;
-import com.github.javatlacati.contiperf.junit.ContiPerfRule;
+import es.deusto.spq.IMessagePrinter;
+import es.deusto.spq.TipoMensaje;
 
 @PerfTest(invocations = 10)
 @Required(max = 1000, average = 500, throughput = 2)
@@ -78,7 +84,19 @@ public class RmiTest {
 	@BeforeClass
 	public static void setUp() {
 		try {
-			rmi = new Rmi("name");
+			IMessagePrinter messagePrinter = new IMessagePrinter() {
+				
+				@Override
+				public void println(String mensaje) {
+					
+				}
+				
+				@Override
+				public void println(String s, TipoMensaje tipo) {
+					
+				}
+			};
+			rmi = new Rmi(messagePrinter);
 			rmi.registrarse(USUARIO_DE_TEST, USER_TEST, USER_TEST, FECHA, Cliente.Modo.USER.ordinal());
 			rmi.registrarse(USUARIO_ADMIN_DE_TEST, USER_TEST_ADMIN, USER_TEST_ADMIN, FECHA, Cliente.Modo.ADMIN.ordinal());
 		} catch (RemoteException e1) {
@@ -157,7 +175,7 @@ public class RmiTest {
 	
 	@Test
 	@PerfTest(invocations = 100, threads = 10)
-    @Required(max = 4000, average = 1750)
+    @Required(max = 10000, average = 5000)
 	public void testnoObtenerCliente() {
 		try {
 			boolean encontrado = false;
@@ -176,6 +194,46 @@ public class RmiTest {
 		} catch (RemoteException e) {
 			fail(e.toString());
 		}
+	}
+	
+	@Test
+	public void testEliminarPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas[0].setTitulo("a");
+			peliculas = rmi.eliminarPelicula("a");
+			assertTrue(peliculas.length>0);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
+	}
+	
+	@Test
+	public void testEditarPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas[0].setTitulo("a");
+			peliculas[0].setDuracion(2000);
+			peliculas = rmi.editarPelicula("a", "2001","","","","");
+			assertEquals(peliculas[0].getAnho(), 2001);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
+	}
+	
+	@Test
+	public void testAñadirPelicula(){
+		try {
+			Pelicula[] peliculas = null;
+			peliculas = rmi.añadirPelicula("pelicula", "2001","200","18","Drama","aaa");
+			assertEquals(peliculas[0].getTitulo(), "pelicula");
+			assertEquals(peliculas[0].getAnho(), 2001);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
+		
 	}
 	
 	public static void main(String[] args) {

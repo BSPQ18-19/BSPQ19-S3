@@ -174,7 +174,7 @@ public class JMainFrame extends JFrame {
 			contentPane.add(panelBusquedaAdmin, PANEL_BUSQUEDA_ADMIN);
 			
 			/**Carga Panel de Películas.*/
-			JEAPeliculas pelis = new JEAPeliculas(cardLayout);
+			JEAPeliculas2 pelis = new JEAPeliculas2(cardLayout, serviceLocator);
 			contentPane.add(pelis, PELICULAS);
 
 			//Ventana creación de series

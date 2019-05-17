@@ -1,8 +1,6 @@
 language: java
 os: xenial
 jdk:
-  - openjdk11
-  - openjdk10
   - openjdk8
 services:
   - mysql

@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-public class JMainFrame extends JFrame {
+public class JMainFrame extends JFrame implements IMessagePrinter{
 
 	private static final String HOST = "127.0.0.1";
 	private static final String PORT = "1099";
@@ -48,15 +48,15 @@ public class JMainFrame extends JFrame {
 					String name = "//" + HOST + ":" + PORT + "/" + SERVER_NAME;
 
 					try {		
-						IRmi objServer = new Rmi(name);
+						IRmi objServer = new Rmi(frame);
 						Naming.rebind(name, objServer);
-						println("* Server '" + name + "' active and waiting...");
+						frame.println("* Server '" + name + "' active and waiting...", TipoMensaje.INFO);
 					} catch (Exception e) {
-						println("- Exception running the server: " + e.getMessage());
+						frame.println("- Exception running the server: " + e.getMessage(), TipoMensaje.ERROR);
 //						for(StackTraceElement trace:e.getStackTrace()) {
 //							println(trace.toString());
 //						}
-						println(e.toString());
+						frame.println(e.toString(), TipoMensaje.ERROR);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,7 +74,7 @@ public class JMainFrame extends JFrame {
 	}
 	private static Logger logger = null;
 	
-	public static Logger getLogger() {
+	private static Logger getLogger() {
 		if(logger == null) {
 			BasicConfigurator.configure();
 			logger = Logger.getLogger(JMainFrame.class);
@@ -105,9 +105,18 @@ public class JMainFrame extends JFrame {
 		scrollPane.setViewportView(textArea);
 	}
 	
-	public static void println(String mensaje) {
+	public void println(String mensaje) {
+		println(mensaje, TipoMensaje.INFO);
+	}
+	
+	public void println(String mensaje, TipoMensaje tipoMensaje) {
 		ventana.textArea.setText(ventana.textArea.getText()+mensaje+"\n");
-		getLogger().info(mensaje);
+		if(tipoMensaje.equals(TipoMensaje.INFO)) {
+			getLogger().info(mensaje);
+		}else {
+			getLogger().error(mensaje);
+		}
+		
 	}
 
 }

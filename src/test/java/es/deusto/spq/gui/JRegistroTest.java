@@ -11,29 +11,23 @@ import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
 public class JRegistroTest {
 	@Rule public ContiPerfRule rule = new ContiPerfRule();
-	JRegistro j;
-
-	@Before
-	public void setUp() {
-		j = new JRegistro(null, null);
-	}
 
 	@Test
 	@PerfTest(invocations = 10)
-	@Required(max = 75, average = 50, throughput = 4)
+	@Required(max = 100, average = 50, throughput = 4)
 	public void testconfirmarContraseña() {
 		char[] a = { 'a', 'b', 'c' };
 		char[] b = { 'a', 'b', 'c' };
-		assertTrue(j.confirmarContaseña(a, b));
+		assertTrue(JRegistro.confirmarContaseña(a, b));
 	}
 	
 	@Test
 	@PerfTest(invocations = 10)
-	@Required(max = 50, average = 25, throughput = 4)
+	@Required(max = 100, average = 50, throughput = 4)
 	public void testconfirmarContraseñano() {
 		char[] a = { 'a', 'b', 'c' };
 		char[] b = { 'a', 'd', 'c', 'e' };
-		assertFalse(j.confirmarContaseña(a, b));
+		assertFalse(JRegistro.confirmarContaseña(a, b));
 	}
 
 }

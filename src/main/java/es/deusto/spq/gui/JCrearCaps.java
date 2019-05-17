@@ -47,7 +47,7 @@ public class JCrearCaps extends JDialog {
 	public JCrearCaps() {
 
 		setBounds(100, 100, 450, 300);
-
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		{
 			JPanel buttonPane = new JPanel();
@@ -67,6 +67,11 @@ public class JCrearCaps extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
