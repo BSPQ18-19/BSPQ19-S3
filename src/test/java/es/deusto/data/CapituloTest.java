@@ -11,7 +11,7 @@ public class CapituloTest {
 
 	@Before
 	public void setUp() {
-		c = new Capitulo("Narnia", 80, 7, "Un armario en Narnia", 3.1);
+		c = new Capitulo("Narnia", 80, "Un armario en Narnia", 3.1);
 	}
 
 	@Test
@@ -24,12 +24,6 @@ public class CapituloTest {
 	public void testgetDuracion() {
 
 		assertEquals(80, c.getDuracion());
-
-	}
-	@Test
-	public void testgetEdadRec() {
-
-		assertEquals(7, c.getEdad_rec());
 
 	}
 	@Test
@@ -54,12 +48,6 @@ public class CapituloTest {
 	public void testsetDuracion() {
 		c.setDuracion(40);
 		assertEquals(c.getDuracion(), 40);
-		
-	}
-	@Test
-	public void testsetEdadRec() {
-		c.setEdad_rec(3);
-		assertEquals(c.getEdad_rec(), 3);
 		
 	}
 	@Test

@@ -24,7 +24,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import es.deusto.data.Perfil;
-import es.deusto.data.Perfil.ControlParental;
 import es.deusto.spq.remote.IRmi;
 import es.deusto.spq.remote.ServiceLocator;
 

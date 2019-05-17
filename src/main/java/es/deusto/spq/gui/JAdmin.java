@@ -30,7 +30,7 @@ public class JAdmin extends JPanel {
 		JButton btnUsers = new JButton("Usuarios");
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cd.show(getParent(), JMainFrame.EDITSERIES);
+				cd.show(getParent(), JMainFrame.GESTIONAR_USUARIOS);
 			}
 		});
 		panel.add(btnUsers);

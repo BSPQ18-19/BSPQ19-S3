@@ -10,48 +10,53 @@ public class SerieTest {
 
 	@Before
 	public void setUp() {
-		s = new Serie("Red", 2002, "Drama", 8, "Hola");
+		s = new Serie("Red", 2002, "Drama", 8, 1, "Hola", 0);
 	}
 
 	// getters
 	@Test
 	public void testgetTitulo() {
-		assertEquals("Red",s.getTitulo() );
+		assertEquals("Red", s.getTitulo());
 	}
+
 	@Test
 	public void testgetAnho() {
-		assertEquals(2002,s.getAnho() );
+		assertEquals(2002, s.getAnho());
 	}
+
 	@Test
 	public void testgetGenero() {
-		assertEquals("Drama",s.getGenero() );
+		assertEquals("Drama", s.getGenero());
 	}
+
 //	@Test
 //	public void testgetVal() {
 //		assertEquals(8,s.getVal() );
 //	}
 	@Test
 	public void testgetSinopsis() {
-		assertEquals("Hola",s.getSinopsis() );
+		assertEquals("Hola", s.getSinopsis());
 	}
-	
-	
-	//setters
+
+	// setters
 	@Test
 	public void testsetTitulo() {
 		s.setTitulo("Adios");
-		assertEquals("Adios",s.getTitulo() );
+		assertEquals("Adios", s.getTitulo());
 	}
+
 	@Test
 	public void testsetAnho() {
 		s.setAnho(2004);
-		assertEquals(2004,s.getAnho() );
+		assertEquals(2004, s.getAnho());
 	}
+
 	@Test
 	public void testsetGenero() {
 		s.setGenero("Terror");
-		assertEquals("Terror",s.getGenero() );
+		assertEquals("Terror", s.getGenero());
 	}
+
 //	@Test
 //	public void testsetVal() {
 //		s.setVal(4);
@@ -60,12 +65,12 @@ public class SerieTest {
 	@Test
 	public void testsetSinopsis() {
 		s.setSinopsis("Si");
-		assertEquals("Si",s.getSinopsis() );
+		assertEquals("Si", s.getSinopsis());
 	}
-	
+
 	@Test
 	public void testgetPortada() {
 		s.setPortada(null);
-		assertTrue(s.getPortada()==null);
+		assertTrue(s.getPortada() == null);
 	}
 }

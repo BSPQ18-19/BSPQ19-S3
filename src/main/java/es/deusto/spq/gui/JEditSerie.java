@@ -226,7 +226,7 @@ public class JEditSerie extends JPanel {
 							|| !s.getSinopsis().equals(textFieldSinopsis.getText())) {
 						serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
 								(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
-								textFieldSinopsis.getText());
+								textFieldSinopsis.getText(), 0);
 						temps = JEditCaps.getTemps();
 						if (!btnCaps.isEnabled()) {
 							serie.setTemps(temps);

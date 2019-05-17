@@ -25,7 +25,7 @@ public class JEditCaps extends JPanel {
 	 */
 	private static final long serialVersionUID = -7005907198791608715L;
 	private JLabel lblTtulo;
-	private JTemporada temporada;
+	private JTableTemps temporada;
 	private static ArrayList<Temporada> t;
 
 	/**
@@ -48,7 +48,7 @@ public class JEditCaps extends JPanel {
 		gbc_lblTtulo.gridy = 0;
 		add(lblTtulo, gbc_lblTtulo);
 		
-		temporada = new JTemporada();
+		temporada = new JTableTemps();
 		GridBagConstraints gbc_temporada = new GridBagConstraints();
 		gbc_temporada.gridwidth = 2;
 		gbc_temporada.fill = GridBagConstraints.BOTH;

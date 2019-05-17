@@ -10,7 +10,7 @@ public class PeliculaTest {
 	Pelicula p;
 	@Before
 	public void setUp(){
-		p= new Pelicula("Peli", 1998, 80, "Drama", 3, "Hola", 5);
+		p= new Pelicula("Peli", 1998, 80, "Drama", 3, "Hola", 5,1);
 	}
 	//getters
 	@Test
@@ -19,7 +19,7 @@ public class PeliculaTest {
 	}
 	@Test
 	public void testgetAnho() {
-		assertEquals(1998, p.getAño());
+		assertEquals(1998, p.getAnho());
 	}
 	@Test
 	public void testgetDuracion() {
@@ -50,8 +50,8 @@ public class PeliculaTest {
 	}
 	@Test
 	public void testsetAnho() {
-		p.setAño(2000);
-		assertEquals(2000, p.getAño());
+		p.setAnho(2000);
+		assertEquals(2000, p.getAnho());
 	}
 	@Test
 	public void testsetDuracion() {

@@ -78,7 +78,7 @@ public class JContenido extends JPanel {
 	
 	public void setPelicula(Pelicula peli) {
 		this.peli = peli; 
-		lblTitulo.setText(peli.getTitulo() + " (" + peli.getAño() +") " + "// Valoración: " + peli.getValoracion());
+		lblTitulo.setText(peli.getTitulo() + " (" + peli.getAnho() +") " + "// Valoración: " + peli.getValoracion());
 		lblGenero.setText(peli.getGenero());
 	}
 

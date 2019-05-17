@@ -211,7 +211,7 @@ public class JAddSerie extends JPanel {
 						&& comboBoxGenero.getSelectedIndex() != 0) {
 					serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
 							(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
-							textFieldSinopsis.getText());
+							textFieldSinopsis.getText(), 0);
 					if (!btnCaps.isEnabled()) {
 					serie.setTemps(temps);
 					}
