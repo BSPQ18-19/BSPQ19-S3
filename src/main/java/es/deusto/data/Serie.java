@@ -20,6 +20,7 @@ public class Serie implements Serializable, Contenido {
 	private String titulo;
 	private int anho;
 	private String genero;
+	private int edad_rec;
 	private double val;
 	private String sinopsis;
 	private int numVotos;
@@ -30,11 +31,12 @@ public class Serie implements Serializable, Contenido {
 //	private ImageIcon portada;
 
 	
-	public Serie(String titulo, int anho, String genero, double val, String sinopsis,int numVotos) {
+	public Serie(String titulo, int anho, String genero, int edad_rec, double val, String sinopsis, int numVotos) {
 		this.titulo = titulo;
 		this.anho = anho;
 		this.genero = genero;
 		this.val = val;
+		this.edad_rec = edad_rec;
 		this.sinopsis = sinopsis;
 		this.numVotos=numVotos;
 		this.temps = new ArrayList<Temporada>();
@@ -80,6 +82,14 @@ public class Serie implements Serializable, Contenido {
 		this.genero = genero;
 	}
 
+	public int getEdad_rec() {
+		return edad_rec;
+	}
+
+	public void setEdad_Rec(int edad_rec) {
+		this.edad_rec = edad_rec;
+	}
+	
 	public double getVal() {
 		return val;
 	}

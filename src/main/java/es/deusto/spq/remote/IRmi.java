@@ -3,6 +3,7 @@ package es.deusto.spq.remote;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import es.deusto.data.Cliente;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Serie;
@@ -77,6 +78,7 @@ public interface IRmi extends Remote {
 	 * @see RemoteException
 	 */
 	public void crearPerfil(String usuario, Perfil p) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza para obtener un listado de peliculas según el filtro
 	 * 
@@ -87,6 +89,7 @@ public interface IRmi extends Remote {
 	 * @return List Lista de peliculas
 	 */
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza para obtener un listado de Series según el filtro
 	 * 
@@ -97,6 +100,7 @@ public interface IRmi extends Remote {
 	 * @return List Lista de Series
 	 */
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza para cambiar el control parental de un perfil
 	 * 
@@ -105,6 +109,7 @@ public interface IRmi extends Remote {
 	 * @see RemoteException
 	 */
 	public void cambiarControlParental(Perfil p) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza para obtener un listado de peliculas según el filtro(Administrador)
 	 * 
@@ -116,6 +121,7 @@ public interface IRmi extends Remote {
 	 * @return List Lista de peliculas
 	 */
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda, String modo) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza para obtener un listado de Series según el filtro(Administrador)
 	 * 
@@ -127,6 +133,7 @@ public interface IRmi extends Remote {
 	 * @return List Lista de Series
 	 */
 	public Serie[] buscarSerie(String genero, String campoDeBusqueda, String modo) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza valorar una Película
 	 * 
@@ -136,6 +143,16 @@ public interface IRmi extends Remote {
 	 * @see RemoteException
 	 */
 	public void valorarPelicula(double val, Pelicula p) throws RemoteException;
+	
+	/**
+	 * Este metodo se utiliza para obtener un listado de usuarios
+	 * 
+	 * @param nombre el nombre que se busca
+	 * @return un array de {@link Cliente}
+	 * @throws RemoteException
+	 */
+	public Cliente[] buscarUsuarios(String nombre) throws RemoteException;
+	
 	/**
 	 * Este metodo se utiliza valorar una Serie
 	 * 
@@ -144,6 +161,14 @@ public interface IRmi extends Remote {
 	 * @exception RemoteException
 	 * @see RemoteException
 	 */
-
 	public void valorarSerie(double val, Serie s) throws RemoteException;
+	
+	/**
+	 * Este metodo se utiliza para deshabilitar un usuario
+	 * 
+	 * @param n nick del usuario que se busca
+	 * @throws RemoteException
+	 */
+	public void editarUsuarios(String n, boolean habilitar) throws RemoteException;
+
 }

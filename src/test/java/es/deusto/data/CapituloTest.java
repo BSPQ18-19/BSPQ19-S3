@@ -2,16 +2,20 @@ package es.deusto.data;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.github.javatlacati.contiperf.*;
+import com.github.javatlacati.contiperf.junit.ContiPerfRule;
 
+import org.junit.*;
+
+@PerfTest(invocations = 10)
+@Required(max = 250, average = 125)
 public class CapituloTest {
-
+	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	Capitulo c;
 
 	@Before
 	public void setUp() {
-		c = new Capitulo("Narnia", 80, 7, "Un armario en Narnia", 3.1);
+		c = new Capitulo("Narnia", 80, "Un armario en Narnia", 3.1);
 	}
 
 	@Test
@@ -24,12 +28,6 @@ public class CapituloTest {
 	public void testgetDuracion() {
 
 		assertEquals(80, c.getDuracion());
-
-	}
-	@Test
-	public void testgetEdadRec() {
-
-		assertEquals(7, c.getEdad_rec());
 
 	}
 	@Test
@@ -54,12 +52,6 @@ public class CapituloTest {
 	public void testsetDuracion() {
 		c.setDuracion(40);
 		assertEquals(c.getDuracion(), 40);
-		
-	}
-	@Test
-	public void testsetEdadRec() {
-		c.setEdad_rec(3);
-		assertEquals(c.getEdad_rec(), 3);
 		
 	}
 	@Test

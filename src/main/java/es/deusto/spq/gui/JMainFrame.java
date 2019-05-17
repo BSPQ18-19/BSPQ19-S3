@@ -2,14 +2,18 @@ package es.deusto.spq.gui;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import es.deusto.data.Capitulo;
 import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Perfil.ControlParental;
+import es.deusto.data.Serie;
+import es.deusto.data.Temporada;
 import es.deusto.spq.remote.ServiceLocator;
 import javax.swing.JLabel;
 import es.deusto.spq.remote.*;
@@ -44,8 +48,15 @@ public class JMainFrame extends JFrame {
 	/** Panel principal */
 	private JPanel contentPane;
 	public static String usuario;
+	//public static Serie s;
+	
+	//PRUEBAS
+	//public ArrayList<Temporada> tempos = new ArrayList<Temporada>();
+	public Serie s = new Serie("holaa", 2018, "Acción", 14, 0, "Érase una vez...", 0);
+
 	//public static Pelicula peli;
 	//=new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
+
 	/**
 	 * Launch the application.
 	 */
@@ -77,6 +88,12 @@ public class JMainFrame extends JFrame {
 	public static final String PARENTAL = "PARENTAL";
 	/** Variable final para la ventana de las Películas*/
 	public static final String PELICULAS = "PELICULAS";
+	/** Variable final para la ventana de creación de series*/
+	public static final String ADDSERIES = "ADDSERIES";
+	/** Variable final para la ventana de edición de series*/
+	public static final String EDITSERIES = "EDITSERIES";
+	/** Variable final para la ventana de ediciíon de temporadas y capítulos*/
+	public static final String EDITEMPS = "EDITEMPS";
 	/** Variable final para la ventana de Películas */
 	public static final String JP = "JP";
 	/** Variable final para la ventana del las Series*/
@@ -86,11 +103,29 @@ public class JMainFrame extends JFrame {
 	/** Variable final para la ventana del Panel de busqueda para el Admin  */
 	public static final String PANEL_BUSQUEDA_ADMIN = "PANEL_BUSQUEDA_ADMIN";
 	/** Variable final para la ventana del Perfil */
-	public static Perfil p =new Perfil("Satndar","1-3-1990", ControlParental.FALSE);
+	public static Perfil p =new Perfil("Standar","1-3-1990", ControlParental.FALSE);
 	//public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
+	
+	public static JEditSerie serie1;
+	public static JEditCaps t;
 	
 	/**Create the frame.*/
 	public JMainFrame() {
+		//DATOS DE PRUEBA
+//		ArrayList<Capitulo> caps = new ArrayList<Capitulo>();
+//		Capitulo cap = new Capitulo("Hola", 123, "Holaaaa", 4.5);
+//		Capitulo cap2 = new Capitulo("Ha", 123, "Holaaaa", 3.5);
+//		caps.add(cap);
+//		caps.add(cap2);
+//		tempos.add(new Temporada(1));
+////		tempos.add(new Temporada(2));
+////		tempos.add(new Temporada(3));
+//		
+//		for(Temporada t : tempos) {
+//			t.setCaps(caps);
+//		}	
+//		s.setTemps(tempos);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
 		setLocationRelativeTo(null);
@@ -141,16 +176,23 @@ public class JMainFrame extends JFrame {
 			/**Carga Panel de Películas.*/
 			JEAPeliculas pelis = new JEAPeliculas(cardLayout);
 			contentPane.add(pelis, PELICULAS);
+
+			//Ventana creación de series
+			JAddSerie serie = new JAddSerie(cardLayout, serviceLocator);
+			contentPane.add(serie, ADDSERIES);
 			
-			/**Carga Panel de Series.*/
-			JEASeries series = new JEASeries(cardLayout);
-			contentPane.add(series, SERIES);
+			//Ventana edición de series
+			serie1 = new JEditSerie(cardLayout, serviceLocator);
+			contentPane.add(serie1, EDITSERIES);
 			
-			/**Carga Panel de Película.*/
+			//Ventana edición de temporadas y capítulos
+			t = new JEditCaps(cardLayout);
+			contentPane.add(t, EDITEMPS);
 			
-			/**Panel para gestionar los usuarios**/
+			//Panel para gestionar los usuarios
 			JGestionarUsuarios gestionarUsuarios = new JGestionarUsuarios(cardLayout, serviceLocator);
 			contentPane.add(gestionarUsuarios, GESTIONAR_USUARIOS);
+
 		} else {
 			JLabel lblNoHaSido = new JLabel("No ha sido posible conectarse con el servidor");
 			contentPane.add(lblNoHaSido);

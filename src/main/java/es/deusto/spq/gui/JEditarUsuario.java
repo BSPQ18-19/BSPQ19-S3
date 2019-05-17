@@ -1,6 +1,7 @@
 package es.deusto.spq.gui;
 
 import es.deusto.data.Cliente;
+import es.deusto.data.Cliente.Modo;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -94,10 +95,11 @@ public class JEditarUsuario extends JDialog {
 		dialog.setSize(460, 300);
 		dialog.setLocationRelativeTo(c);
 		dialog.setModal(true);
+		dialog.setCliente(cliente);
+		dialog.setVisible(true);
 		if(dialog.aceptar) {
 			return dialog.getCliente();
 		}
 		return null;
 	}
-
 }

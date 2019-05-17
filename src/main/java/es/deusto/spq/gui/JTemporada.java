@@ -21,7 +21,7 @@ public class JTemporada extends JPanel {
 	private static final long serialVersionUID = 5697954703538447575L;
 	private JTabbedPane tabbedPane;
 	
-	private static final String[] nombreColumnas = new String[] {"Título", "Duración", "Edad recomendada", "Descripción", "Valoración"};
+	private static final String[] nombreColumnas = new String[] {"Título", "Duración", "Descripción", "Valoración"};
 	/**
 	 * Create the panel.
 	 */
@@ -42,9 +42,8 @@ public class JTemporada extends JPanel {
 			Object fila[] = datos[i];
 			fila[0] = c.getTitulo();
 			fila[1] = c.getDuracion();
-			fila[2] = c.getEdad_rec();
-			fila[3] = c.getDescr();
-			fila[4] = c.getValoracion();
+			fila[2] = c.getDescr();
+			fila[3] = c.getValoracion();
 			
 			
 		}
@@ -68,7 +67,7 @@ public class JTemporada extends JPanel {
 	public static void main(String[] args) {
 		Temporada temporada = new Temporada(1,1);
 		List<Capitulo> listaCaps = temporada.getCaps();
-		listaCaps.add(new Capitulo("Cap1", 1, 0, "descr", 10));
+		listaCaps.add(new Capitulo("Cap1", 1, "descr", 10));
 		
 		
 		JFrame frame = new JFrame();
@@ -81,5 +80,4 @@ public class JTemporada extends JPanel {
 		frame.setVisible(true);
 				
 	}
-
 }

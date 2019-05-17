@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import es.deusto.spq.remote.IRmi;
@@ -63,6 +64,7 @@ public class JMainFrame extends JFrame {
 			}
 		});
 	}
+	
 
 	private static JMainFrame ventana = new JMainFrame();
 	
@@ -70,7 +72,15 @@ public class JMainFrame extends JFrame {
 		return ventana;
 		
 	}
-	final static Logger logger = Logger.getLogger(JMainFrame.class);
+	private static Logger logger = null;
+	
+	public static Logger getLogger() {
+		if(logger == null) {
+			BasicConfigurator.configure();
+			logger = Logger.getLogger(JMainFrame.class);
+		}
+		return logger;
+	}
 
 	/**
 	 * Create the frame.
@@ -97,7 +107,7 @@ public class JMainFrame extends JFrame {
 	
 	public static void println(String mensaje) {
 		ventana.textArea.setText(ventana.textArea.getText()+mensaje+"\n");
-		logger.info(ventana.textArea.getText());
+		getLogger().info(mensaje);
 	}
 
 }

@@ -21,9 +21,15 @@ Readme HBN
 
  - [x] Cuentas de administradores y usuarios creadas
  - [x] Películas y series creadas
- - [ ] Diferentes perfiles de usuario
+ - [x] Diferentes perfiles de usuario
  - [x] Funcionalidades de inicio de sesión y registro añadidas
  - [X] BD creada
+ - [x] Temporadas y Capitulos creados
+ - [x] Gestión de Series y Películas
+ - [x] Gestión de Usuarios
+ - [x] Valoración de Películas y Series
+ - [x] Busqueda personalizada para el Administrador y Usuario
+ - [x] Control Parental
 
 ## Instalación
 **Pasos previos:**
@@ -51,7 +57,7 @@ $ mvn datanucleus:schema-create
 
 En el servidor:
 
-1. Ejercutar el *registry.bat* del *ServidorHBN*
+1. Ejercutar el *registry.bat* del *HBN*
 2. Ejecutar ```mvn exec:java -Pserver```
 
 En el cliente:
@@ -59,7 +65,7 @@ En el cliente:
 3. Ejecutar ```mvn exec:java -Pclient```
   
 ### Versión
-v1.0
+v3.0
 
    [Eclipse IDE]: <https://www.eclipse.org/ide/>
    [Java]: <https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html> 
