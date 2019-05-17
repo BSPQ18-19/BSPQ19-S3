@@ -107,7 +107,7 @@ public class JMainFrame extends JFrame {
 	
 	public static void println(String mensaje) {
 		ventana.textArea.setText(ventana.textArea.getText()+mensaje+"\n");
-		getLogger().info(ventana.textArea.getText());
+		getLogger().info(mensaje);
 	}
 
 }
