@@ -175,19 +175,19 @@ public class JMainFrame extends JFrame {
 			contentPane.add(pelis, PELICULAS);
 
 			//Ventana creación de series
-			JAddSerie serie = new JAddSerie(cardLayout);
+			JAddSerie serie = new JAddSerie(cardLayout, serviceLocator);
 			contentPane.add(serie, ADDSERIES);
 			
 			//Ventana edición de series
-			JEditSerie serie1 = new JEditSerie(cardLayout, s);
+			JEditSerie serie1 = new JEditSerie(cardLayout, serviceLocator, s);
 			contentPane.add(serie1, EDITSERIES);
 			
-			//Ventana edición de temporadas
+			//Ventana edición de temporadas y capítulos
 			JEditCaps t = new JEditCaps(cardLayout);
 			t.setSerie(s);
 			contentPane.add(t, EDITEMPS);
 			
-			/**Panel para gestionar los usuarios**/
+			//Panel para gestionar los usuarios
 			JGestionarUsuarios gestionarUsuarios = new JGestionarUsuarios(cardLayout, serviceLocator);
 			contentPane.add(gestionarUsuarios, GESTIONAR_USUARIOS);
 

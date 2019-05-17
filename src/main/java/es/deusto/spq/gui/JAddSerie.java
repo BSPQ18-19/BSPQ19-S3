@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
+import es.deusto.spq.remote.ServiceLocator;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -29,6 +30,13 @@ import java.awt.GridLayout;
 import javax.swing.JSlider;
 
 public class JAddSerie extends JPanel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5418031093786840204L;
+	
+	private ServiceLocator serviceLocator;
 	private JTextField txtFieldTtulo;
 	private JSpinner spinner;
 	private JSlider slider;
@@ -42,7 +50,8 @@ public class JAddSerie extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JAddSerie(CardLayout card) {
+	public JAddSerie(CardLayout card, ServiceLocator serviceLocator) {
+		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 388, 0 };
 		gridBagLayout.rowHeights = new int[] { 55, 170, 0, 0 };

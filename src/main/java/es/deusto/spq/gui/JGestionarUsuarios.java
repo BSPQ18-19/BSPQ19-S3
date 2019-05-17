@@ -117,6 +117,14 @@ public class JGestionarUsuarios extends JPanel {
 		            	Cliente c = JEditarUsuario.editar(cliente, JGestionarUsuarios.this);
 		            	if(c != null) {
 		            		list.revalidate();
+		            		if (c.isHabilitado() == false) {
+		            			try {
+									serviceLocator.getService().eliminarUsuarios(c.getNick());
+								} catch (RemoteException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+		            		}
 		            	}
 		            }
 		        }

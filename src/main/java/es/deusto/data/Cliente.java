@@ -38,6 +38,14 @@ public class Cliente implements Serializable{
 		this.perfiles = new ArrayList<Perfil>();
 	}
 	
+	public Cliente(Cliente c) {
+		this.nombre = c.nombre;
+		this.pass = c.pass;
+		this.nick = c.nick;
+		this.tipo = c.tipo;
+		this.perfiles = c.getPerfiles();
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

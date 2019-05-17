@@ -53,42 +53,44 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		return serverName;
 	}
 
-//	protected void finalize() throws Throwable {
-//		if (tx.isActive()) {
-//			tx.rollback();
-//		}
-//		pm.close();
-//	}
+	// protected void finalize() throws Throwable {
+	// if (tx.isActive()) {
+	// tx.rollback();
+	// }
+	// pm.close();
+	// }
 
-//	@SuppressWarnings("unused")
-//	private Cliente getCliente(String usuario, String contrasenya) {
-//		Cliente clienteCorrecto = null;
-//		try {
-//			tx.begin();
-//			JMainFrame.println("Retrieving Extent for Messages");
-//			Extent<Cliente> e = pm.getExtent(Cliente.class, true);
-//			Iterator<Cliente> iter = e.iterator();
-//			boolean seguir = true;
-//			while (iter.hasNext() && seguir) {
-//				Cliente cliente = iter.next();
-//
-//				if (cliente.getNick().equals(usuario) && cliente.getPass().contentEquals(contrasenya)) {
-//					seguir = false;
-//					clienteCorrecto = cliente;
-//				}
-//			}
-//			tx.commit();
-//		} catch (Exception e) {
-//			JMainFrame.println("Exception thrown during retrieval of Extent : " + e.getMessage());
-//		} finally {
-//			if (tx.isActive()) {
-//				tx.rollback();
-//			}
-//			pm.close();
-//		}
-//
-//		return clienteCorrecto;
-//	}
+	// @SuppressWarnings("unused")
+	// private Cliente getCliente(String usuario, String contrasenya) {
+	// Cliente clienteCorrecto = null;
+	// try {
+	// tx.begin();
+	// JMainFrame.println("Retrieving Extent for Messages");
+	// Extent<Cliente> e = pm.getExtent(Cliente.class, true);
+	// Iterator<Cliente> iter = e.iterator();
+	// boolean seguir = true;
+	// while (iter.hasNext() && seguir) {
+	// Cliente cliente = iter.next();
+	//
+	// if (cliente.getNick().equals(usuario) &&
+	// cliente.getPass().contentEquals(contrasenya)) {
+	// seguir = false;
+	// clienteCorrecto = cliente;
+	// }
+	// }
+	// tx.commit();
+	// } catch (Exception e) {
+	// JMainFrame.println("Exception thrown during retrieval of Extent : " +
+	// e.getMessage());
+	// } finally {
+	// if (tx.isActive()) {
+	// tx.rollback();
+	// }
+	// pm.close();
+	// }
+	//
+	// return clienteCorrecto;
+	// }
 
 	@Override
 	public boolean login(String usuario, String contrasenya) {
@@ -262,9 +264,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 			// user.perfiles.add(p);
 			List<Perfil> nuevo = user.perfiles;
-//					for(Perfil x: nuevo) {
-//					JMainFrame.println(x.getNombreP());
-//					}
+			// for(Perfil x: nuevo) {
+			// JMainFrame.println(x.getNombreP());
+			// }
 
 			JMainFrame.println("Creating profile: " + p);
 			pm.makePersistent(p);
@@ -349,35 +351,36 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 		}
 		return tipo;
 	}
-//	public static void main(String[] args) {
-//		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		Transaction tx=pm.currentTransaction();
-//		try
-//		{
-//		    tx.begin();
-//		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
-//		    Serie s = new Serie("s", 1, "Drama", 1, "");
-//		    pm.makePersistent(p);
-//		    pm.makePersistent(s);
-//		    tx.commit();
-//		}
-//		finally
-//		{
-//		    if (tx.isActive())
-//		    {
-//		        tx.rollback();
-//		    }
-//		    pm.close();
-//		}
-//		try {
-//			Rmi rmi = new Rmi("");
-//			Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
-//			System.out.println(java.util.Arrays.toString(resultado));
-//		} catch (RemoteException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// public static void main(String[] args) {
+	// PersistenceManagerFactory pmf =
+	// JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+	// PersistenceManager pm = pmf.getPersistenceManager();
+	// Transaction tx=pm.currentTransaction();
+	// try
+	// {
+	// tx.begin();
+	// Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
+	// Serie s = new Serie("s", 1, "Drama", 1, "");
+	// pm.makePersistent(p);
+	// pm.makePersistent(s);
+	// tx.commit();
+	// }
+	// finally
+	// {
+	// if (tx.isActive())
+	// {
+	// tx.rollback();
+	// }
+	// pm.close();
+	// }
+	// try {
+	// Rmi rmi = new Rmi("");
+	// Contenido[] resultado = rmi.buscarPelicula("Drama", "t");
+	// System.out.println(java.util.Arrays.toString(resultado));
+	// } catch (RemoteException e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	@Override
 	public Pelicula[] buscarPelicula(String genero, String campoDeBusqueda) throws RemoteException {
@@ -520,9 +523,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				Iterator<Pelicula> iter = contenidos.iterator();
 				while (iter.hasNext()) {
 					Pelicula peli = iter.next();
-					
-						peli.setValoracion(val);
-						pm.makePersistent(peli);
+
+					peli.setValoracion(val);
+					pm.makePersistent(peli);
 					tx.commit();
 				}
 
@@ -576,49 +579,82 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	@Override
 	public Cliente[] buscarUsuarios(String nombre) throws RemoteException {
 		ArrayList<Cliente> arrayList = new ArrayList<Cliente>();
-		
+
 		try {
 			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 			PersistenceManager pm = pmf.getPersistenceManager();
 			Transaction tx = pm.currentTransaction();
-			try
-			{
-			    tx.begin();
+			try {
+				tx.begin();
 
-			    @SuppressWarnings("rawtypes")
-				Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName() );
-			    @SuppressWarnings("unchecked")
-				List<Cliente> contenidos = (List<Cliente>)q.execute();
-			    Iterator<Cliente> iter = contenidos.iterator();
-			    while (iter.hasNext())
-			    {
-			    	Cliente s = iter.next();
-			    	if(s.getNick().contains(nombre)) {
-			    		arrayList.add(s);
-			    	}
-			    }
+				@SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName());
+				@SuppressWarnings("unchecked")
+				List<Cliente> contenidos = (List<Cliente>) q.execute();
+				Iterator<Cliente> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Cliente s = iter.next();
+					if (s.getNick().contains(nombre)) {
+						arrayList.add(s);
+					}
+				}
 
-			    tx.commit();
-			    //Si no se pone este for, no se inicializan las variables
-			    for(Cliente c: arrayList) {
-			    	c.toString();
-			    }
-			}
-			catch (Exception e) {
+				tx.commit();
+				// Si no se pone este for, no se inicializan las variables
+				for (Cliente c : arrayList) {
+					c.toString();
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			finally
-			{
-			    if (tx.isActive())
-			    {
-			        tx.rollback();
-			    }
+			} finally {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
 
-			    pm.close();
+				pm.close();
 			}
 		} catch (Exception e) {
 			System.err.println("* Exception: " + e.getMessage());
 		}
 		return arrayList.toArray(new Cliente[arrayList.size()]);
+	}
+
+	@Override
+	public void eliminarUsuarios(String n) throws RemoteException {
+		Cliente user = null;
+		try {
+			PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+			PersistenceManager pm = pmf.getPersistenceManager();
+			Transaction tx = pm.currentTransaction();
+			try {
+				tx = pm.currentTransaction();
+				@SuppressWarnings("rawtypes")
+				Query q = pm.newQuery("SELECT FROM " + Cliente.class.getName());
+				@SuppressWarnings("unchecked")
+				
+				List<Cliente> contenidos = (List<Cliente>) q.execute();
+				Iterator<Cliente> iter = contenidos.iterator();
+				while (iter.hasNext()) {
+					Cliente s = iter.next();
+					if (s.getNick().contains(n)) {
+						user = new Cliente(s);
+					}
+				}
+				
+				System.out.println("AA");
+				pm.deletePersistent(user);
+				System.out.println("BB");
+				
+				tx.commit();
+				
+			} catch (Exception e) {
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+				pm.close();
+			}
+		} catch (Exception e) {
+			System.err.println("* Exception: " + e.getMessage());
+		}
 	}
 }

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import es.deusto.data.Serie;
 import es.deusto.data.Temporada;
+import es.deusto.spq.remote.ServiceLocator;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ public class JEditSerie extends JPanel {
 	 */
 	private static final long serialVersionUID = -5337694821655679408L;
 	
+	private ServiceLocator serviceLocator;
 	private JTextField txtFieldTtulo;
 	private JSpinner spinner;
 	private JSlider slider;
@@ -45,7 +47,8 @@ public class JEditSerie extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JEditSerie(CardLayout card, Serie s) {
+	public JEditSerie(CardLayout card, ServiceLocator serviceLocator, Serie s) {
+		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 388, 0 };
 		gridBagLayout.rowHeights = new int[] { 55, 170, 0, 0 };

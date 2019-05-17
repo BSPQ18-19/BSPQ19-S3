@@ -110,7 +110,6 @@ public class JCliente extends JPanel {
 		gbc_chckbxHabilitado.gridx = 0;
 		gbc_chckbxHabilitado.gridy = 4;
 		add(chckbxHabilitado, gbc_chckbxHabilitado);
-
 	}
 	
 	private Cliente cliente = null;
