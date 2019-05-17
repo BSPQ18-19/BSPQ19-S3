@@ -21,7 +21,7 @@ public class JTemporada extends JPanel {
 	private static final long serialVersionUID = 5697954703538447575L;
 	private JTabbedPane tabbedPane;
 	
-	private static final String[] nombreColumnas = new String[] {"Título", "Duración", "Edad recomendada", "Descripción", "Valoración"};
+	private static final String[] nombreColumnas = new String[] {"Título", "Duración", "Descripción", "Valoración"};
 	/**
 	 * Create the panel.
 	 */

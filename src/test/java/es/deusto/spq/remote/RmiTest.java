@@ -180,6 +180,13 @@ public class RmiTest {
 		    tx.begin();
 		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1, 1);
 		    Serie serie = new Serie("s", 1, "Drama", 1, 0, "", 1);
+		    List<Temporada> temporadas= serie.getTemps();
+		    Temporada t = new Temporada(1, 2002);
+		    List<Capitulo> caps = t.getCaps();
+		    caps.add(new Capitulo("Titulo del capitulo", 1, "Descripcion", 0));
+		    temporadas.add(t);
+		    t.setCaps(caps);
+		    serie.setTemps(temporadas);
 		    pm.makePersistent(p);
 		    pm.makePersistent(serie);
 		    tx.commit();
