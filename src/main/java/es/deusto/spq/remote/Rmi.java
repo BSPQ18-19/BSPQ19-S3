@@ -19,7 +19,9 @@ import es.deusto.data.Pelicula;
 import es.deusto.data.Perfil;
 import es.deusto.data.Serie;
 import es.deusto.data.Perfil.ControlParental;
+import es.deusto.spq.IMessagePrinter;
 import es.deusto.spq.JMainFrame;
+import es.deusto.spq.TipoMensaje;
 
 public class Rmi extends UnicastRemoteObject implements IRmi {
 
@@ -27,26 +29,23 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	 * 
 	 */
 	private static final long serialVersionUID = 7373884561963536199L;
-	private String serverName;
 
 	private PersistenceManagerFactory pmf;
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 	ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	
+	private IMessagePrinter messagePrinter;
 
 	// private HashMap<String, Cliente> hashMap = new HashMap<String, Cliente>();
 	// public ArrayList<Perfil> p = new ArrayList<Perfil>();
 
-	public Rmi(String serverName) throws RemoteException {
+	public Rmi(IMessagePrinter messagePrinter) throws RemoteException {
 		super();
+		this.messagePrinter = messagePrinter;
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
-		this.serverName = serverName;
-	}
-
-	public String getName() {
-		return serverName;
 	}
 
 	// protected void finalize() throws Throwable {
@@ -61,7 +60,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	// Cliente clienteCorrecto = null;
 	// try {
 	// tx.begin();
-	// JMainFrame.getLogger().info("Retrieving Extent for Messages");
+	// messagePrinter.println("Retrieving Extent for Messages");
 	// Extent<Cliente> e = pm.getExtent(Cliente.class, true);
 	// Iterator<Cliente> iter = e.iterator();
 	// boolean seguir = true;
@@ -76,7 +75,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	// }
 	// tx.commit();
 	// } catch (Exception e) {
-	// JMainFrame.getLogger().info("Exception thrown during retrieval of Extent : " +
+	// messagePrinter.println("Exception thrown during retrieval of Extent : " +
 	// e.getMessage());
 	// } finally {
 	// if (tx.isActive()) {
@@ -109,7 +108,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				tx.commit();
 			} catch (Exception ex) {
 
-				JMainFrame.getLogger().error("* Exception executing a query: " + ex.getMessage());
+				messagePrinter.println("* Exception executing a query: " + ex.getMessage(), TipoMensaje.ERROR);
 
 			} finally {
 				if (tx.isActive()) {
@@ -118,7 +117,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 				pm.close();
 			}
-			JMainFrame.getLogger().info("login(String " + usuario + ", String " + contrasenya + ")");
+			messagePrinter.println("login(String " + usuario + ", String " + contrasenya + ")");
 
 			for (Cliente cl : clientes) {
 				if (cl.isHabilitado()) {
@@ -127,9 +126,9 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					}
 				}
 			}
-			JMainFrame.getLogger().info("\t" + b);
+			messagePrinter.println("\t" + b);
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 		return b;
 	}
@@ -141,7 +140,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			Transaction tx = pm.currentTransaction();
 			try {
 				tx.begin();
-				JMainFrame.getLogger().info("Comprobando que el usuario no existía previamente '" + nick + "'");
+				messagePrinter.println("Comprobando que el usuario no existía previamente '" + nick + "'");
 				Cliente user = null;
 				Perfil perfil = null;
 				Modo m;
@@ -150,13 +149,13 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				try {
 					user = pm.getObjectById(Cliente.class, nick);
 				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-					JMainFrame.getLogger().info("Exception launched: " + jonfe.getMessage());
+					messagePrinter.println("Exception launched: " + jonfe.getMessage());
 				}
-				JMainFrame.getLogger().info("User: " + user);
+				messagePrinter.println("User: " + user);
 				if (user != null) {
-					JMainFrame.getLogger().info("Setting password user: " + user);
+					messagePrinter.println("Setting password user: " + user);
 					user.setPass(pass);
-					JMainFrame.getLogger().info("Password set user: " + user);
+					messagePrinter.println("Password set user: " + user);
 				} else {
 					if (tipo == 0) {
 						m = Modo.USER;
@@ -168,11 +167,11 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					perfil = new Perfil(usuario + "PerfilPrincipal", fecha, cp);
 					user.perfiles.add(perfil);
 					clientes.add(user);
-					JMainFrame.getLogger().info("Creating user: " + user);
+					messagePrinter.println("Creating user: " + user);
 					pm.makePersistent(user);
-					JMainFrame.getLogger().info("User created: " + user);
+					messagePrinter.println("User created: " + user);
 				}
-				JMainFrame.getLogger().info("Creating profile: " + perfil);
+				messagePrinter.println("Creating profile: " + perfil);
 				pm.makePersistent(perfil);
 				tx.commit();
 
@@ -183,7 +182,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 
 	}
@@ -221,7 +220,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				tx.commit();
 			} catch (Exception ex) {
 
-				JMainFrame.getLogger().error("* Exception executing a query: " + ex.getMessage());
+				messagePrinter.println("* Exception executing a query: " + ex.getMessage(), TipoMensaje.ERROR);
 
 			} finally {
 				if (tx.isActive()) {
@@ -244,7 +243,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			// }
 
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 		return perfiles.toArray(new Perfil[perfiles.size()]);
 	}
@@ -263,10 +262,10 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			// user.perfiles.add(p);
 			List<Perfil> nuevo = user.perfiles;
 			// for(Perfil x: nuevo) {
-			// JMainFrame.getLogger().info(x.getNombreP());
+			// messagePrinter.println(x.getNombreP());
 			// }
 
-			JMainFrame.getLogger().info("Creating profile: " + p);
+			messagePrinter.println("Creating profile: " + p);
 			pm.makePersistent(p);
 			tx.commit();
 		} finally {
@@ -291,11 +290,11 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					p.setControlParental(ControlParental.TRUE);
 				}
 				pm.makePersistent(p);
-				JMainFrame.getLogger().info("Control Parental actualizado");
+				messagePrinter.println("Control Parental actualizado");
 				tx.commit();
 			} catch (Exception ex) {
 
-				// JMainFrame.getLogger().error("* Exception executing a query: " + ex.getMessage());
+				// messagePrinter.println("* Exception executing a query: " + ex.getMessage(), TipoMensaje.ERROR);
 
 			} finally {
 				if (tx.isActive()) {
@@ -305,7 +304,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 
 	}
@@ -335,7 +334,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				tx.commit();
 			} catch (Exception ex) {
 
-				JMainFrame.getLogger().error("* Exception executing a query: " + ex.getMessage());
+				messagePrinter.println("* Exception executing a query: " + ex.getMessage(), TipoMensaje.ERROR);
 
 			} finally {
 				if (tx.isActive()) {
@@ -345,7 +344,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 		return tipo;
 	}
@@ -442,7 +441,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception e) {
-			JMainFrame.getLogger().error("* Exception: " + e.getMessage());
+			messagePrinter.println("* Exception: " + e.getMessage(), TipoMensaje.ERROR);
 		}
 		return arrayList.toArray(new Pelicula[arrayList.size()]);
 	}
@@ -499,7 +498,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception e) {
-			JMainFrame.getLogger().error("* Exception: " + e.getMessage());
+			messagePrinter.println("* Exception: " + e.getMessage(), TipoMensaje.ERROR);
 		}
 		return arrayList.toArray(new Serie[arrayList.size()]);
 	}
@@ -534,7 +533,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 
 	}
@@ -569,7 +568,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception ex) {
-			JMainFrame.getLogger().error("* Exception: " + ex.getMessage());
+			messagePrinter.println("* Exception: " + ex.getMessage(), TipoMensaje.ERROR);
 		}
 
 	}
@@ -612,7 +611,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception e) {
-			JMainFrame.getLogger().error("* Exception: " + e.getMessage());
+			messagePrinter.println("* Exception: " + e.getMessage(), TipoMensaje.ERROR);
 		}
 		return arrayList.toArray(new Cliente[arrayList.size()]);
 	}
@@ -651,7 +650,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 				pm.close();
 			}
 		} catch (Exception e) {
-			JMainFrame.getLogger().error("* Exception: " + e.getMessage());
+			messagePrinter.println("* Exception: " + e.getMessage(), TipoMensaje.ERROR);
 		}
 	}
 }
