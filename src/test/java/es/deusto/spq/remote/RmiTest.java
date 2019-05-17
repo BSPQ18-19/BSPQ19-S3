@@ -238,16 +238,31 @@ public class RmiTest {
 	}
 	
 	@Test
+    @Required(max = 4000, average = 2000)
 	public void testEditarUsuarios() {
 		try {
 			Cliente[] usuarios = rmi.buscarUsuarios(USER_TEST);
 			Cliente c = null;
 			for (Cliente u : usuarios) {
+				if (USER_TEST.equals(u.getNick())) {
 				c = u;
+				}
 			}
 			rmi.editarUsuarios(c.getNick(), false);
+			usuarios = rmi.buscarUsuarios(USER_TEST);
+			for (Cliente u : usuarios) {
+				if (USER_TEST.equals(u.getNick())) {
+				c = u;
+				}
+			}
 			assertFalse(c.isHabilitado());
 			rmi.editarUsuarios(c.getNick(), true);
+			usuarios = rmi.buscarUsuarios(USER_TEST);
+			for (Cliente u : usuarios) {
+				if (USER_TEST.equals(u.getNick())) {
+				c = u;
+				}
+			}
 			assertTrue(c.isHabilitado());
 		} catch (RemoteException e) {
 			fail(e.toString());

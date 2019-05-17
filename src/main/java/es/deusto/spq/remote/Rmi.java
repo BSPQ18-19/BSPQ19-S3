@@ -635,10 +635,8 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 					Cliente s = iter.next();
 					if (s.getNick().equals(n)) {
 						user = s;
-						System.out.println("Hola");
 						user.setHabilitado(habilitado);
 						pm.makePersistent(user);
-						System.out.println("adios");
 						break;
 					}
 				}
