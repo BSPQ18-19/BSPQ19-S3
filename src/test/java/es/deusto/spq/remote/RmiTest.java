@@ -171,26 +171,26 @@ public class RmiTest {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		Transaction tx=pm.currentTransaction();
-//		try
-//		{
-//		    tx.begin();
-//		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1);
-//		    Serie serie = new Serie("s", 1, "Drama", 1, "");
-//		    pm.makePersistent(p);
-//		    pm.makePersistent(serie);
-//		    tx.commit();
-//		}
-//		finally
-//		{
-//		    if (tx.isActive())
-//		    {
-//		        tx.rollback();
-//		    }
-//		    pm.close();
-//		}
-//	}
+	public static void main(String[] args) {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+		    tx.begin();
+		    Pelicula p = new Pelicula("p", 1, 1, "Drama", 1, "", 1, 1);
+		    Serie serie = new Serie("s", 1, "Drama", 1, 0, "", 1);
+		    pm.makePersistent(p);
+		    pm.makePersistent(serie);
+		    tx.commit();
+		}
+		finally
+		{
+		    if (tx.isActive())
+		    {
+		        tx.rollback();
+		    }
+		    pm.close();
+		}
+	}
 }
