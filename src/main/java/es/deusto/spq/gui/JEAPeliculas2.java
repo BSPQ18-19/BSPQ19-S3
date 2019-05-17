@@ -26,7 +26,7 @@ public class JEAPeliculas2 extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 5499785594445789660L;
-	private JTextField idP;
+//	private JTextField idP;
 	private JTextField titulo;
 	private JTextField anyo;
 	private JTextField duracion;
@@ -51,22 +51,22 @@ public class JEAPeliculas2 extends JPanel{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel lblIdPelicula = new JLabel("Id Pelicula");
-		GridBagConstraints gbc_lblIdPelicula = new GridBagConstraints();
-		gbc_lblIdPelicula.anchor = GridBagConstraints.EAST;
-		gbc_lblIdPelicula.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIdPelicula.gridx = 1;
-		gbc_lblIdPelicula.gridy = 1;
-		add(lblIdPelicula, gbc_lblIdPelicula);
-		
-		idP = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 1;
-		add(idP, gbc_textField);
-		idP.setColumns(10);
+//		JLabel lblIdPelicula = new JLabel("Id Pelicula");
+//		GridBagConstraints gbc_lblIdPelicula = new GridBagConstraints();
+//		gbc_lblIdPelicula.anchor = GridBagConstraints.EAST;
+//		gbc_lblIdPelicula.insets = new Insets(0, 0, 5, 5);
+//		gbc_lblIdPelicula.gridx = 1;
+//		gbc_lblIdPelicula.gridy = 1;
+//		add(lblIdPelicula, gbc_lblIdPelicula);
+//		
+//		idP = new JTextField();
+//		GridBagConstraints gbc_textField = new GridBagConstraints();
+//		gbc_textField.insets = new Insets(0, 0, 5, 0);
+//		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_textField.gridx = 2;
+//		gbc_textField.gridy = 1;
+//		add(idP, gbc_textField);
+//		idP.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Título");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -208,7 +208,7 @@ public class JEAPeliculas2 extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				editarPelicula2(idP.getText(), titulo.getText(), anyo.getText(), duracion.getText(), genero.getText(), edadRecom.getText(), sinopsis.getText());
+				editarPelicula2(titulo.getText(), anyo.getText(), duracion.getText(), genero.getText(), edadRecom.getText(), sinopsis.getText());
 				
 			}
 
@@ -216,7 +216,7 @@ public class JEAPeliculas2 extends JPanel{
 		JButton btnAñadir = new JButton("Añadir");
 		btnAñadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				añadirPelicula2(idP.getText(), titulo.getText(), anyo.getText(), duracion.getText(), genero.getText(), edadRecom.getText(), sinopsis.getText());
+				añadirPelicula2(titulo.getText(), anyo.getText(), duracion.getText(), genero.getText(), edadRecom.getText(), sinopsis.getText());
 				
 			}
 		});
@@ -235,19 +235,19 @@ public class JEAPeliculas2 extends JPanel{
 			return false;
 		}
 	}
-	public boolean editarPelicula2(String idP, String titulo, String anyo, String duracion, String genero, String edadRecom, String sinopsis){
+	public boolean editarPelicula2(String titulo, String anyo, String duracion, String genero, String edadRecom, String sinopsis){
 		try{
 			IRmi s = serviceLocator.getService();
-			Pelicula[] p = s.editarPelicula(idP, titulo,anyo,duracion,genero,edadRecom,sinopsis);
+			Pelicula[] p = s.editarPelicula(titulo,anyo,duracion,genero,edadRecom,sinopsis);
 			return false;
 		}catch(RemoteException e){	
 			return false;
 		}
 	}
-	public boolean añadirPelicula2(String idP, String titulo, String anyo, String duracion, String genero, String edadRecom, String sinopsis){
+	public boolean añadirPelicula2(String titulo, String anyo, String duracion, String genero, String edadRecom, String sinopsis){
 		try{
 			IRmi s = serviceLocator.getService();
-			Pelicula[] p = s.añadirPelicula(idP, titulo,anyo,duracion,genero,edadRecom,sinopsis);
+			Pelicula[] p = s.añadirPelicula(titulo,anyo,duracion,genero,edadRecom,sinopsis);
 			return false;
 		}catch(RemoteException e){	
 			return false;

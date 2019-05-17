@@ -656,7 +656,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 
 	
 	@Override
-	public Pelicula[] añadirPelicula(String idP, String campoDeBusqueda, String anyo, String duracion,
+	public Pelicula[] añadirPelicula(String campoDeBusqueda, String anyo, String duracion,
 			String genero, String edadRecom, String sinopsis) throws RemoteException {
 		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
 		String nombreTabla;
@@ -676,7 +676,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			    Pelicula peli = null;
 			    try
 			    {
-			    	peli = pm.getObjectById(Pelicula.class, campoDeBusqueda);
+			    	//peli = pm.getObjectById(Pelicula.class, campoDeBusqueda);
 			    }
 			    catch (javax.jdo.JDOObjectNotFoundException jdoObjectNotFoundException)
 			    {
@@ -699,30 +699,17 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 			    	try
 			    	{
 			    		peli.setAnho(Integer.parseInt(anyo));
-			    	}
-			    	catch(NumberFormatException e)
-			    	{
-			    		System.out.println("NumberFormatException: " + e.getMessage());
-			    	}
-			    	try
-			    	{
 			    		peli.setDuracion(Long.valueOf(duracion));
-			    	}
-			    	catch(NumberFormatException e)
-			    	{
-			    		System.out.println("NumberFormatException: " + e.getMessage());
-			    	}
-			    	peli.setGenero(genero);
-			    	try
-			    	{
 			    		peli.setEdad_rec(Integer.parseInt(edadRecom));
+			    		peli.setGenero(genero);
+				    	peli.setSinopsis(sinopsis);
+					    contenidos.add(peli);
 			    	}
-			    	catch(NumberFormatException e)
+			    	catch(Exception e) //NumberFormatException e)
 			    	{
 			    		System.out.println("NumberFormatException: " + e.getMessage());
 			    	}
-			    	peli.setSinopsis(sinopsis);
-				    contenidos.add(peli);
+			    	
 			    }else{
 			    	
 			    }
@@ -753,7 +740,7 @@ public class Rmi extends UnicastRemoteObject implements IRmi {
 	}
 	
 	@Override
-	public Pelicula[] editarPelicula(String idP, String campoDeBusqueda, String anyo, String duracion,
+	public Pelicula[] editarPelicula(String campoDeBusqueda, String anyo, String duracion,
 			String genero, String edadRecom, String sinopsis) throws RemoteException {
 		ArrayList<Pelicula> arrayList = new ArrayList<Pelicula>();
 		String nombreTabla;

@@ -215,7 +215,7 @@ public class RmiTest {
 			Pelicula[] peliculas = null;
 			peliculas[0].setTitulo("a");
 			peliculas[0].setDuracion(2000);
-			peliculas = rmi.editarPelicula("", "a", "2001","","","","");
+			peliculas = rmi.editarPelicula("a", "2001","","","","");
 			assertEquals(peliculas[0].getAnho(), 2001);
 		} catch (RemoteException e) {
 			fail(e.toString());
@@ -227,7 +227,8 @@ public class RmiTest {
 	public void testAñadirPelicula(){
 		try {
 			Pelicula[] peliculas = null;
-			peliculas = rmi.añadirPelicula("", "a", "2001","","","","");
+			peliculas = rmi.añadirPelicula("pelicula", "2001","200","18","Drama","aaa");
+			assertEquals(peliculas[0].getTitulo(), "pelicula");
 			assertEquals(peliculas[0].getAnho(), 2001);
 		} catch (RemoteException e) {
 			fail(e.toString());

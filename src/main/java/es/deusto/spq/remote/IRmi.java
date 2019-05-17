@@ -174,7 +174,6 @@ public interface IRmi extends Remote {
 	/**
 	 * Este metodo se utiliza para añadir una pelicula
 	 * 
-	 * @param idP el id de la peli
 	 * @param campoDeBusqueda se usa para el titulo
 	 * @paramanyo para saber q año se ha hecho
 	 * @param duracion la duracion de la peli
@@ -183,13 +182,12 @@ public interface IRmi extends Remote {
 	 * @param sinopsis la sinopsis de la peli
 	 * @throws RemoteException
 	 */
-	public Pelicula[] añadirPelicula(String idP, String campoDeBusqueda, String anyo, String duracion, String genero,
+	public Pelicula[] añadirPelicula(String campoDeBusqueda, String anyo, String duracion, String genero,
 			String edadRecom, String sinopsis) throws RemoteException;
 	
 	/**
 	 * Este metodo se utiliza para editar una pelicula
 	 * 
-	 * @param idP el id de la peli
 	 * @param campoDeBusqueda se usa para el titulo
 	 * @paramanyo para saber q año se ha hecho
 	 * @param duracion la duracion de la peli
@@ -198,7 +196,7 @@ public interface IRmi extends Remote {
 	 * @param sinopsis la sinopsis de la peli
 	 * @throws RemoteException
 	 */
-	public Pelicula[] editarPelicula(String idP, String campoDeBusqueda, String anyo, String duracion, String genero,
+	public Pelicula[] editarPelicula(String campoDeBusqueda, String anyo, String duracion, String genero,
 			String edadRecom, String sinopsis) throws RemoteException;
 	
 	/**
