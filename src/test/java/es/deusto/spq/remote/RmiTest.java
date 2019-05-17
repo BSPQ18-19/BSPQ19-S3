@@ -175,7 +175,7 @@ public class RmiTest {
 	
 	@Test
 	@PerfTest(invocations = 100, threads = 10)
-    @Required(max = 4000, average = 1750)
+    @Required(max = 10000, average = 5000)
 	public void testnoObtenerCliente() {
 		try {
 			boolean encontrado = false;
