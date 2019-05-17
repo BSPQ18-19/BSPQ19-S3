@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.deusto.data.Contenido;
+import es.deusto.data.Serie;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
@@ -47,6 +49,7 @@ public class JPortada extends JPanel {
 	
 	public JPortada(Contenido contenido) {
 		this();
+		
 		setContenido(contenido);
 	}
 	

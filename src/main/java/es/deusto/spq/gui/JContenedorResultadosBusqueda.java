@@ -64,7 +64,7 @@ public class JContenedorResultadosBusqueda extends JPanel {
 			jPortada.addMouseListener(adapter);
 			if(columnas < numColumnas) {
 				columnas++;
-			}else {
+			} else {
 				columnas = 0;
 				fila = new JPanel();
 				panel.add(fila);

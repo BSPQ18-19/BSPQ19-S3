@@ -47,7 +47,7 @@ public class JEditSerie extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JEditSerie(CardLayout card, ServiceLocator serviceLocator, Serie s) {
+	public JEditSerie(CardLayout card, ServiceLocator serviceLocator) {
 		this.serviceLocator = serviceLocator;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 388, 0 };
@@ -65,7 +65,7 @@ public class JEditSerie extends JPanel {
 		add(panelSuperior, gbc_panelSuperior);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
 
-		txtFieldTtulo = new JTextField(s.getTitulo());
+		txtFieldTtulo = new JTextField();
 		txtFieldTtulo.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFieldTtulo.setFont(new Font("Oxygen", Font.PLAIN, 25));
 		panelSuperior.add(txtFieldTtulo, BorderLayout.CENTER);
@@ -93,7 +93,6 @@ public class JEditSerie extends JPanel {
 		panelCentral.add(lblAnho, gbc_lblAnho);
 
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(s.getAnho(), 1895, 2019, 1));
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
 		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner.insets = new Insets(0, 0, 5, 0);
@@ -116,14 +115,6 @@ public class JEditSerie extends JPanel {
 		generos.add("Comedia");
 
 		comboBoxGenero = new JComboBox(generos.toArray());
-		for (int i = 0; i < generos.size(); i++) {
-			if (generos.get(i).equals(s.getGenero())) {
-				comboBoxGenero.setSelectedIndex(i);
-				break;
-			} else {
-				comboBoxGenero.setSelectedIndex(0);
-			}
-		}
 		comboBoxGenero.setSelectedItem(4);
 		GridBagConstraints gbc_comboBoxGenero = new GridBagConstraints();
 		gbc_comboBoxGenero.insets = new Insets(0, 0, 5, 0);
@@ -143,7 +134,6 @@ public class JEditSerie extends JPanel {
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
 		slider.setMajorTickSpacing(1);
-		slider.setValue(s.getEdad_rec());
 		GridBagConstraints gbc_slider = new GridBagConstraints();
 		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_slider.insets = new Insets(0, 0, 5, 0);
@@ -167,8 +157,8 @@ public class JEditSerie extends JPanel {
 		gbc_panel.gridy = 3;
 		panelCentral.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-
-		textFieldSinopsis = new JTextField(s.getSinopsis());
+		
+		textFieldSinopsis = new JTextField();
 		panel.add(textFieldSinopsis, BorderLayout.CENTER);
 		textFieldSinopsis.setColumns(10);
 
@@ -192,14 +182,10 @@ public class JEditSerie extends JPanel {
 		panelInferior.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 
-		if (s.getTemps().isEmpty()) {
-			btnCaps = new JButton("Añadir capítulos");
-		} else {
-			btnCaps = new JButton("Editar capítulos");
-		}
+		btnCaps = new JButton();
 		btnCaps.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (s.getTemps().isEmpty()) {
+				if (serie.getTemps().isEmpty()) {
 					if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
 							&& comboBoxGenero.getSelectedIndex() != 0) {
 						ArrayList<Temporada> tes = JCrearCaps.getTemps();
@@ -213,6 +199,7 @@ public class JEditSerie extends JPanel {
 					}
 				} else {
 					card.show(getParent(), JMainFrame.EDITEMPS);
+					JMainFrame.t.setSerie(serie);
 				}
 			}
 		});
@@ -221,12 +208,12 @@ public class JEditSerie extends JPanel {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
+				if (serie != null && !txtFieldTtulo.getText().isEmpty() && !textFieldSinopsis.getText().isEmpty()
 						&& comboBoxGenero.getSelectedIndex() != 0) {
-					if (!s.getTitulo().equals(txtFieldTtulo.getText()) || s.getAnho() != (Integer) spinner.getValue()
-							|| s.getEdad_rec() != slider.getValue()
-							|| !s.getGenero().equals((String) comboBoxGenero.getSelectedItem())
-							|| !s.getSinopsis().equals(textFieldSinopsis.getText())) {
+					if (!serie.getTitulo().equals(txtFieldTtulo.getText()) || serie.getAnho() != (Integer) spinner.getValue()
+							|| serie.getEdad_rec() != slider.getValue()
+							|| !serie.getGenero().equals((String) comboBoxGenero.getSelectedItem())
+							|| !serie.getSinopsis().equals(textFieldSinopsis.getText())) {
 						serie = new Serie(txtFieldTtulo.getText(), (Integer) spinner.getValue(),
 								(String) comboBoxGenero.getSelectedItem(), (Integer) slider.getValue(), 0,
 								textFieldSinopsis.getText(), 0);
@@ -253,5 +240,26 @@ public class JEditSerie extends JPanel {
 		});
 		panel_1.add(btnNewButton);
 		panel_1.add(btnGuardar);
+	}
+	
+	public void setDatos(Serie s) {
+		this.serie = s; 
+		txtFieldTtulo.setText(serie.getTitulo());
+		spinner.setModel(new SpinnerNumberModel(serie.getAnho(), 1895, 2019, 1));
+		for (int i = 0; i < generos.size(); i++) {
+			if (generos.get(i).equals(serie.getGenero())) {
+				comboBoxGenero.setSelectedIndex(i);
+				break;
+			} else {
+				comboBoxGenero.setSelectedIndex(0);
+			}
+		}
+		slider.setValue(serie.getEdad_rec());
+		if (serie.getTemps().isEmpty()) {
+			btnCaps.setText("Añadir capítulos");
+		} else {
+			btnCaps.setText("Editar capítulos");
+		}
+		textFieldSinopsis.setText(serie.getSinopsis());
 	}
 }

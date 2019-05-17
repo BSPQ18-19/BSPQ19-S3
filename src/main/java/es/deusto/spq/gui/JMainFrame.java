@@ -106,6 +106,9 @@ public class JMainFrame extends JFrame {
 	public static Perfil p =new Perfil("Standar","1-3-1990", ControlParental.FALSE);
 	//public static Pelicula peli= new Pelicula("Narnia", 2007, 90, "Fantasia", 7, "Las crónicas de Narnia: El león, la bruja y el armario es una espectacular película basada en el clásico literario del popular escritor C.S. Lewis.", 2,1);
 	
+	public static JEditSerie serie1;
+	public static JEditCaps t;
+	
 	/**Create the frame.*/
 	public JMainFrame() {
 		//DATOS DE PRUEBA
@@ -179,12 +182,11 @@ public class JMainFrame extends JFrame {
 			contentPane.add(serie, ADDSERIES);
 			
 			//Ventana edición de series
-			JEditSerie serie1 = new JEditSerie(cardLayout, serviceLocator, s);
+			serie1 = new JEditSerie(cardLayout, serviceLocator);
 			contentPane.add(serie1, EDITSERIES);
 			
 			//Ventana edición de temporadas y capítulos
-			JEditCaps t = new JEditCaps(cardLayout);
-			t.setSerie(s);
+			t = new JEditCaps(cardLayout);
 			contentPane.add(t, EDITEMPS);
 			
 			//Panel para gestionar los usuarios
