@@ -1,8 +1,12 @@
 var searchData=
 [
+  ['gestionar_5fusuarios',['GESTIONAR_USUARIOS',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_main_frame.html#a470af95e464d2faf8d6f854ef3b971e9',1,'es::deusto::spq::gui::JMainFrame']]],
+  ['gestionarusuariolistener',['GestionarUsuarioListener',['../interfacees_1_1deusto_1_1spq_1_1gui_1_1_gestionar_usuario_listener.html',1,'es::deusto::spq::gui']]],
+  ['gestionarusuariolistener_2ejava',['GestionarUsuarioListener.java',['../_gestionar_usuario_listener_8java.html',1,'']]],
   ['getanho',['getAnho',['../classes_1_1deusto_1_1data_1_1_pelicula.html#adf5793043b67730503cac69056c96d66',1,'es.deusto.data.Pelicula.getAnho()'],['../classes_1_1deusto_1_1data_1_1_serie.html#a1c6fa7a99ef8b3a997875e8c490026b8',1,'es.deusto.data.Serie.getAnho()'],['../classes_1_1deusto_1_1data_1_1_temporada.html#a1d0b65742c1eda2b2474e298addc543f',1,'es.deusto.data.Temporada.getAnho()']]],
   ['getcaps',['getCaps',['../classes_1_1deusto_1_1data_1_1_temporada.html#ae5e750ce698b25765c0b480af7ff5d37',1,'es::deusto::data::Temporada']]],
-  ['getcliente',['getCliente',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_login.html#a2ce0e9ab2d91248e37f4f8078cacba78',1,'es::deusto::spq::gui::JLogin']]],
+  ['getcliente',['getCliente',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_cliente.html#a775020d3a3717895c4b11454e6f16877',1,'es.deusto.spq.gui.JCliente.getCliente()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_editar_usuario.html#a3f367eddf7cd6a935e7367764429a4a6',1,'es.deusto.spq.gui.JEditarUsuario.getCliente()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_login.html#a2ce0e9ab2d91248e37f4f8078cacba78',1,'es.deusto.spq.gui.JLogin.getCliente()']]],
+  ['getcontenido',['getContenido',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_portada.html#a27c35aa5e999e4a078121a0d6f159437',1,'es::deusto::spq::gui::JPortada']]],
   ['getcontrolparental',['getControlParental',['../classes_1_1deusto_1_1data_1_1_perfil.html#a30597f9ab9119838ddce0ca509ca791a',1,'es::deusto::data::Perfil']]],
   ['getdescr',['getDescr',['../classes_1_1deusto_1_1data_1_1_capitulo.html#ab9727352adf0ab7e561aa09e05803805',1,'es::deusto::data::Capitulo']]],
   ['getduracion',['getDuracion',['../classes_1_1deusto_1_1data_1_1_capitulo.html#a8bb442067dcc9f5707813fff61f29226',1,'es.deusto.data.Capitulo.getDuracion()'],['../classes_1_1deusto_1_1data_1_1_pelicula.html#a83330c4c90ff6619974a20b68589f5f6',1,'es.deusto.data.Pelicula.getDuracion()']]],
@@ -17,7 +21,7 @@ var searchData=
   ['getnombre',['getNombre',['../classes_1_1deusto_1_1data_1_1_cliente.html#a5b1a03b42f441b45d4dcf3fc59ea10db',1,'es.deusto.data.Cliente.getNombre()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_perfil.html#a488c085c818bdcf06c5e9373f6ae738f',1,'es.deusto.spq.gui.JPerfil.getNombre()']]],
   ['getnombrep',['getNombreP',['../classes_1_1deusto_1_1data_1_1_perfil.html#aa4d6615c25b88dc5f87c0e0b5e9eca2e',1,'es::deusto::data::Perfil']]],
   ['getnum',['getNum',['../classes_1_1deusto_1_1data_1_1_temporada.html#a1b0da686f05e22677bf9f7563a179bb4',1,'es::deusto::data::Temporada']]],
-  ['getnumvotos',['getNumvotos',['../classes_1_1deusto_1_1data_1_1_pelicula.html#ad1f60baaa44d71d4a02b03e3bdca9c92',1,'es::deusto::data::Pelicula']]],
+  ['getnumvotos',['getNumvotos',['../classes_1_1deusto_1_1data_1_1_pelicula.html#ad1f60baaa44d71d4a02b03e3bdca9c92',1,'es.deusto.data.Pelicula.getNumvotos()'],['../classes_1_1deusto_1_1data_1_1_serie.html#ab1e086b55e09b248f040b29f14108881',1,'es.deusto.data.Serie.getNumVotos()']]],
   ['getpass',['getPass',['../classes_1_1deusto_1_1data_1_1_cliente.html#ab340477c34ed9d683b90895e56f87749',1,'es::deusto::data::Cliente']]],
   ['getperfil',['getPerfil',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_crear_perfil.html#ac5c965dd1a6450d93cd447d9929dece4',1,'es.deusto.spq.gui.JCrearPerfil.getPerfil()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_perfil.html#a33cc34cc0dea74385b11a34181880ecd',1,'es.deusto.spq.gui.JPerfil.getPerfil()']]],
   ['getperfiles',['getPerfiles',['../classes_1_1deusto_1_1data_1_1_cliente.html#acad9c7e8e79c6f7f10876dd17febd51e',1,'es.deusto.data.Cliente.getPerfiles()'],['../interfacees_1_1deusto_1_1spq_1_1remote_1_1_i_rmi.html#aa8d061cb3c635041cf6d9ee2e96789c3',1,'es.deusto.spq.remote.IRmi.getPerfiles()'],['../classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#af11ecbc75b61de5abd3608a4177960ba',1,'es.deusto.spq.remote.Rmi.getPerfiles()']]],

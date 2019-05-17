@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['serie',['Serie',['../classes_1_1deusto_1_1data_1_1_serie.html#a5ab68e954d6243e8af17dddb357acf5d',1,'es::deusto::data::Serie']]],
+  ['serie',['Serie',['../classes_1_1deusto_1_1data_1_1_serie.html#a46633ab06a5324fc0ac93cbff4b9566d',1,'es::deusto::data::Serie']]],
   ['setanho',['setAnho',['../classes_1_1deusto_1_1data_1_1_pelicula.html#a56d79d03da0e27545b77f8bd34dbc2f0',1,'es.deusto.data.Pelicula.setAnho()'],['../classes_1_1deusto_1_1data_1_1_serie.html#aae5c01a95ab79df4fba5778d8b672e24',1,'es.deusto.data.Serie.setAnho()'],['../classes_1_1deusto_1_1data_1_1_temporada.html#a1942c17acd3200b3e243bcaa7809155a',1,'es.deusto.data.Temporada.setAnho()']]],
   ['setbackground',['setBackground',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_perfil.html#a4893f06e98da03f0e2a45057366d6337',1,'es::deusto::spq::gui::JPerfil']]],
   ['setcaps',['setCaps',['../classes_1_1deusto_1_1data_1_1_temporada.html#a863eaf3b3579bbec400eb778956bb7d9',1,'es::deusto::data::Temporada']]],
+  ['setcliente',['setCliente',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_cliente.html#ab2868935fb0807b5f644e373211524af',1,'es.deusto.spq.gui.JCliente.setCliente()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_editar_usuario.html#ae8d9ea56c4d1c7eb5f8e13afbe1f0075',1,'es.deusto.spq.gui.JEditarUsuario.setCliente()']]],
+  ['setcontenido',['setContenido',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_portada.html#a4a5a0926cc66dad18b028688886b2a40',1,'es::deusto::spq::gui::JPortada']]],
   ['setcontrolparental',['setControlParental',['../classes_1_1deusto_1_1data_1_1_perfil.html#af869215a9a8e8ad3311b4923710587ad',1,'es::deusto::data::Perfil']]],
   ['setdescr',['setDescr',['../classes_1_1deusto_1_1data_1_1_capitulo.html#afe35ab5de920c5eeb05cb86005b2c858',1,'es::deusto::data::Capitulo']]],
   ['setduracion',['setDuracion',['../classes_1_1deusto_1_1data_1_1_capitulo.html#a8e7b391b2fa2c5656fea4b70f946afe2',1,'es.deusto.data.Capitulo.setDuracion()'],['../classes_1_1deusto_1_1data_1_1_pelicula.html#a599b44ba364c8488f0579ec10bd0b457',1,'es.deusto.data.Pelicula.setDuracion()']]],
@@ -17,8 +19,9 @@ var searchData=
   ['setnombre',['setNombre',['../classes_1_1deusto_1_1data_1_1_cliente.html#a34c2256fcfa05f9d0ed939b9bdf9e271',1,'es.deusto.data.Cliente.setNombre()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_perfil.html#a9cd197a3c54ccd1b2d4d3fd9474ab614',1,'es.deusto.spq.gui.JPerfil.setNombre()']]],
   ['setnombrep',['setNombreP',['../classes_1_1deusto_1_1data_1_1_perfil.html#a921280d8066bbc54535845cd6d9af7ec',1,'es::deusto::data::Perfil']]],
   ['setnum',['setNum',['../classes_1_1deusto_1_1data_1_1_temporada.html#aa11689f1851a47f4d412b4c6c861a27a',1,'es::deusto::data::Temporada']]],
-  ['setnumvotos',['setNumvotos',['../classes_1_1deusto_1_1data_1_1_pelicula.html#a72696ddef52f0f402fde850457987714',1,'es::deusto::data::Pelicula']]],
+  ['setnumvotos',['setNumvotos',['../classes_1_1deusto_1_1data_1_1_pelicula.html#a72696ddef52f0f402fde850457987714',1,'es.deusto.data.Pelicula.setNumvotos()'],['../classes_1_1deusto_1_1data_1_1_serie.html#a4ab92073c5463029bf0d46c5e96d0775',1,'es.deusto.data.Serie.setNumVotos()']]],
   ['setpass',['setPass',['../classes_1_1deusto_1_1data_1_1_cliente.html#ad4ededdc6ee339703326be75dbf5c13f',1,'es::deusto::data::Cliente']]],
+  ['setpelicula',['setPelicula',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_pelicula.html#a37d9b57d693a965267a249b790e58032',1,'es::deusto::spq::gui::JPelicula']]],
   ['setperfil',['setPerfil',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_perfil.html#abef90f8f481eb1c3489f371938aa396a',1,'es::deusto::spq::gui::JPerfil']]],
   ['setperfiles',['setPerfiles',['../classes_1_1deusto_1_1data_1_1_cliente.html#aaed427061f571221ad6053f374e847cd',1,'es::deusto::data::Cliente']]],
   ['setportada',['setPortada',['../interfacees_1_1deusto_1_1data_1_1_contenido.html#aa746c1b711ef9cff4180221e279dbefc',1,'es.deusto.data.Contenido.setPortada()'],['../classes_1_1deusto_1_1data_1_1_pelicula.html#aaf28a2f2166e8127a92f7c3b8468e1cb',1,'es.deusto.data.Pelicula.setPortada()'],['../classes_1_1deusto_1_1data_1_1_serie.html#afd6c8d6c0f17b1a092270400f5ce606e',1,'es.deusto.data.Serie.setPortada()']]],

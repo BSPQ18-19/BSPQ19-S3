@@ -6,5 +6,8 @@ var searchData=
   ['removebusquedalistener',['removeBusquedaListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_barra_busqueda.html#ae7db2bc96823d380f4b8097e853d0863',1,'es.deusto.spq.gui.JBarraBusqueda.removeBusquedaListener()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_barra_busqueda_admin.html#a9e7d2e77e8c5bc3b1e00cd6b45ea8945',1,'es.deusto.spq.gui.JBarraBusquedaAdmin.removeBusquedaListener()']]],
   ['removeeditarlistener',['removeEditarListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_peliculas.html#a90720485470db4b824d28d04476354e3',1,'es.deusto.spq.gui.JEAPeliculas.removeEditarListener()'],['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_series.html#a4d8dbbed13deb8edc492793a35b650f1',1,'es.deusto.spq.gui.JEASeries.removeEditarListener()']]],
   ['removeeliminarlistener',['removeEliminarListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_e_a_peliculas.html#ab82d113ece8c8868bb64cec040938e61',1,'es::deusto::spq::gui::JEAPeliculas']]],
+  ['removegestionarusuariolistener',['removeGestionarUsuarioListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_gestionar_usuarios.html#acbda26dc3d417bf39e2e535b06217072',1,'es::deusto::spq::gui::JGestionarUsuarios']]],
+  ['removemouselistener',['removeMouseListener',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_portada.html#ad68063a598854ba2aa0665fb72d8c3c9',1,'es::deusto::spq::gui::JPortada']]],
+  ['removeoncontenidoclicked',['removeOnContenidoClicked',['../classes_1_1deusto_1_1spq_1_1gui_1_1_j_contenedor_resultados_busqueda.html#a3667e03dff7ed5f80aa19e94777737ec',1,'es::deusto::spq::gui::JContenedorResultadosBusqueda']]],
   ['rmi',['Rmi',['../classes_1_1deusto_1_1spq_1_1remote_1_1_rmi.html#ad3f73ff631518d4b371064ca19fbfa46',1,'es::deusto::spq::remote::Rmi']]]
 ];
