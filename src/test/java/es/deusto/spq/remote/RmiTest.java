@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -235,6 +236,19 @@ public class RmiTest {
 			fail(e.toString());
 		}
 		
+	}
+	
+	@Test
+	@Required(max = 2000)
+	public void testGetTipo() {
+		try {
+			boolean a = rmi.getTipo(USER_TEST);
+			assertFalse(a);
+			a = rmi.getTipo(USER_TEST_ADMIN);
+			assertTrue(a);
+		} catch (RemoteException e) {
+			fail(e.toString());
+		}
 	}
 	
 	@Test
